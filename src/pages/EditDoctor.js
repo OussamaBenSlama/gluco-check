@@ -108,7 +108,7 @@ const EditDoctor = () => {
             <input type="text" value={speciality} onChange={(e) => setSpeciality(e.target.value)} />
           </div>
           <br />
-          <button onClick={handleUpdate}>Update</button>
+          <button id='addDoc' onClick={handleUpdate}>Update</button>
         </div>
       </div>
     </div>
