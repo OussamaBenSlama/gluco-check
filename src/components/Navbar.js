@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className='nav-element'>
         <ul>
           <li>
-            <Link to="/destination" className='nav-link'>
+            <Link to="/dashboard" className='nav-link'>
               <FontAwesomeIcon icon={faUserMd} color="white" cursor="pointer" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
               DOCTEURS
             </Link>

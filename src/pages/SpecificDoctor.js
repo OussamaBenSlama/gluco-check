@@ -1,49 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import '../style/Doctors.css';
+import Navbar from '../components/Navbar';
+import Header from '../components/Header';
+import DoctorItem from '../components/DoctorItem';
 
-
-const SpecificDoctor = ({name}) => {
-    const [doctor, setDoctor] = useState(null);
-
+const SpecificDoctor = () => {
+  const [doctors, setDoctors] = useState([]);
+  const { text } = useParams();
   useEffect(() => {
-    const getDoctorByName = async () => {
-      const doctorsRef = collection(db, 'doctors');
-      const q = query(doctorsRef, where('name', '==', name));
-      
-      try {
-        const response = await getDocs(q);
-        if (!response.empty) {
-          const fetchedDoctor = response.docs[0].data();
-          setDoctor(fetchedDoctor);
-        } else {
-          setDoctor(null);
+    const getDoctorsByName = async () => {
+      if (text) {
+        const doctorsRef = collection(db, 'doctors');
+        const q = query(doctorsRef, where('name', '==', text));
+
+        try {
+          const response = await getDocs(q);
+          if (!response.empty) {
+            const fetchedDoctors = response.docs.map((doc) => doc.data());
+            setDoctors(fetchedDoctors);
+          } else {
+            setDoctors([]);
+          }
+        } catch (error) {
+          console.error(error);
         }
-      } catch (error) {
-        console.error(error);
       }
     };
 
-    if (name) {
-      getDoctorByName();
-    }
-  }, [name]);
+    getDoctorsByName();
+  }, [text]);
 
   return (
-    <div>
-      {doctor ? (
-        <div>
-          <h2>Doctor Details</h2>
-          <p>Name: {doctor.name}</p>
-          <p>ID: {doctor.id}</p>
-          <p>Email: {doctor.email}</p>
-          {/* Add other doctor details here */}
+    <div className="DoctorList">
+      <div className="left">
+        <Navbar />
+      </div>
+      <div className="right">
+        <Header />
+        <div className="result" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem' }}>
+          {doctors.length > 0 ? (
+            doctors.map((doctor, index) => <DoctorItem key={index} doctor={doctor} />)
+          ) : (
+            <p>No doctor found with the name {text}</p>
+          )}
         </div>
-      ) : (
-        <p>No doctor found with the name {name}</p>
-      )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SpecificDoctor
+export default SpecificDoctor;

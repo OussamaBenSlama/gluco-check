@@ -1,0 +1,57 @@
+.doc-card {
+    min-width: 40%;
+    border-radius: 1rem;
+    border: 1px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    height: auto;
+    margin-bottom: 2rem;
+}
+.card-head {
+    width: 100%;
+    height: 1.4rem;
+    background-color: #9FDAE7;
+    border: 1px solid white;
+    border-radius: 1rem 1rem 0 0
+}
+.card-section {
+    display: flex;
+}
+.card-pic {
+    padding: 0.5rem;
+    display: block;
+}
+.card-pic img {
+    max-width: 10rem;
+    min-height: 5rem;
+}
+.del-mod {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+.del , .mod {
+    cursor: pointer;
+}
+.card-content {
+    padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+    font-size: 1rem;
+}
+ .card-content label {
+    color: #009197;
+    font-size: 1rem;
+}
+.card-content h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    color: #004054;
+}
+.card-content h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+}
+.card-content p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
+}

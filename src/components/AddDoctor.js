@@ -40,7 +40,6 @@ const AddDoctor = () => {
         nationality: formData.nationality,
         speciality: formData.speciality,
       });
-      console.log('Doctor added successfully!');
     } catch (err) {
       console.error(err);
     }

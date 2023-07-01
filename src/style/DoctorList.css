@@ -8,3 +8,21 @@
 .right {
     flex-basis: 77%;
 }
+
+.edit-doc {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    padding: 2rem;
+    position: relative;
+}
+.edit-doc > div  {
+   margin-bottom: 1rem;
+}
+.edit-doc input {
+    padding: 0.5rem;
+    width: 20rem;
+    margin-top: 0.5rem;
+}
+.edit-doc  span {
+    color: red;
+}
