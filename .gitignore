@@ -1,0 +1,26 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build files
+build/
+dist/
+*.env
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+
+# OS specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+.head {
+    width: 100%;
+    height: 4rem;
+    background-color: #9FDAE7;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.head-operation {
+    padding: 3rem 1rem 1rem 1rem;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid grey;
+}
+.head-operation button {
+    background-color:  #009197;
+    color: white;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+}
+.head-operation input {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.head-operation select {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.head-operation label {
+    margin-right: 0.5rem;
+}

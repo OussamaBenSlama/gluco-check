@@ -1,0 +1,28 @@
+.Form {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    padding: 2rem;
+    position: relative;
+}
+.Form > div  {
+   margin-bottom: 1rem;
+}
+.Form input {
+    padding: 0.5rem;
+    width: 20rem;
+    margin-top: 0.5rem;
+}
+.Form  span {
+    color: red;
+}
+#addDoc {
+    position: absolute;
+    left: 40%;
+    top: 96%;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    background-color:  #004054;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+

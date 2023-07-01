@@ -1,0 +1,10 @@
+.DoctorList {
+    display: flex;
+}
+.left {
+    flex-basis: 23%;
+    height: 200vh;
+}
+.right {
+    flex-basis: 77%;
+}
