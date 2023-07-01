@@ -15,7 +15,7 @@ const Doctors = () => {
     const getDoctorsList = async () => {
       try {
         const response = await getDocs(doctorsRef);
-        const fetchedData = response.docs.map((doc) => doc.data());
+        const fetchedData = response.docs.map((doc) => {return {id:doc.id , data : doc.data()}});
         setDoctors(fetchedData);
       } catch (error) {
         console.error(error);

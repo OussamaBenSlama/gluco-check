@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import '../style/DoctorList.css';
@@ -9,15 +9,16 @@ import '../style/DoctorList.css';
 const EditDoctor = () => {
   const { text } = useParams();
   const [doctor, setDoctor] = useState({});
-
+  const [loading , setloading] = useState(true)
   useEffect(() => {
     const getDoctorsByName = async () => {
       if (text) {
         const doctorsRef = collection(db, 'doctors');
-        const q = query(doctorsRef, where('id', '==', text));
+        const q = query(doctorsRef, where('uid', '==', text));
 
         try {
           const response = await getDocs(q);
+          
           if (!response.empty) {
             const fetchedDoctor = response.docs[0].data();
             setDoctor(fetchedDoctor);
@@ -32,7 +33,7 @@ const EditDoctor = () => {
 
     getDoctorsByName();
   }, [text]);
-
+  console.log(doctor)
   const [name, setName] = useState('');
   const [speciality, setSpeciality] = useState('');
   const [address, setAddress] = useState('');
@@ -44,15 +45,16 @@ const EditDoctor = () => {
   const [nationality, setNationality] = useState('');
 
   useEffect(() => {
-    setName(doctor.name || '');
-    setSpeciality(doctor.speciality || '');
-    setAddress(doctor.address || '');
-    setEmail(doctor.email || '');
-    setPhone(doctor.phone || '');
+    setName(doctor.data.name || '');
+    setSpeciality(doctor.data.speciality || '');
+    setAddress(doctor.data.address || '');
+    setEmail(doctor.data.email || '');
+    setPhone(doctor.data.phone || '');
     setId(doctor.id || '');
-    setGender(doctor.gender || '');
-    setBirth(doctor.birth || '');
-    setNationality(doctor.nationality || '');
+    setGender(doctor.data.gender || '');
+    setBirth(doctor.data.birth || '');
+    setNationality(doctor.data.nationality || '');
+    setloading(false)
   }, [doctor]);
 
   const handleUpdate = async () => {
@@ -63,6 +65,9 @@ const EditDoctor = () => {
                               address : address , phone : phone });
   };
 
+  if(loading) {
+    return <p>loading</p>
+  }
   return (
     <div className="DoctorList">
       <div className="left">

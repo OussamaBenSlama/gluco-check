@@ -16,7 +16,7 @@ const DoctorItem = ({ doctor }) => {
    };
    const navigate = useNavigate();
    const editDoctor = () => {
-      navigate(`/dashboard/editdoctor/${doctor.id}`);
+      navigate(`/dashboard/editdoctor/${doctor.id }`);
       
     };
 
@@ -39,26 +39,26 @@ const DoctorItem = ({ doctor }) => {
             </div>
           </div>
           <div className="card-content">
-            <h2>Dr. {doctor.name}</h2>
-            <h3>{doctor.speciality}</h3>
+            <h2>Dr. {doctor.data.name}</h2>
+            <h3>{doctor.data.speciality}</h3>
             <label>
               <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
               Address:
             </label>
             <br />
-            <p>{doctor.address}</p>
+            <p>{doctor.data.address}</p> 
             <label>
               <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '0.5rem' }} />
               Email:
             </label>
             <br />
-            <p>{doctor.email}</p>
+            <p>{doctor.data.email}</p>
             <label>
               <FontAwesomeIcon icon={faPhone} style={{ marginRight: '0.5rem' }} />
               Phone:
             </label>
             <br />
-            <p>{doctor.phone}</p>
+            <p>{doctor.data.phone}</p>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const SpecificDoctor = () => {
         try {
           const response = await getDocs(q);
           if (!response.empty) {
-            const fetchedDoctors = response.docs.map((doc) => doc.data());
+            const fetchedDoctors = response.docs.map((doc) => {return {id:doc.id , data: doc.data()}});
             setDoctors(fetchedDoctors);
           } else {
             setDoctors([]);
