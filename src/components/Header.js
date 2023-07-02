@@ -32,9 +32,9 @@ const Header = () => {
         </Link>
         <div style={{ display: 'flex' }}>
           <input type="text" placeholder="search by full name" onChange={handleInputChange} />
-          <div onClick={handleSearch} style={{ padding: '0.5rem', backgroundColor: 'grey', cursor: 'pointer' }}>
+          <button onClick={handleSearch} >
             <FontAwesomeIcon icon={faSearch} size="1x" cursor="pointer" color="rgba(0, 0, 0, 0.7)" />
-          </div>
+          </button>
         </div>
         <div>
           <label>filter :</label>

@@ -26,39 +26,48 @@ const DoctorItem = ({ doctor }) => {
         <div className="card-head"></div>
         <div className="card-section">
           <div className="card-pic">
-            <img src={docImg} alt="" />
+            <div className='personal-img'><img src={docImg} alt="" /></div>
+            <div className="personal-info">
+              <div>
+                  <label>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
+                  Address:
+                </label>
+                
+                <p>{doctor.data.address}</p> 
+              </div>
+              <div>
+                <label>
+                <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '0.5rem' }} />
+                  Email:
+                </label>
+                
+                <p>{doctor.data.email}</p>
+              </div>
+              <div>
+                <label>
+                <FontAwesomeIcon icon={faPhone} style={{ marginRight: '0.5rem' }} />
+                Phone:
+                </label>
+                
+                <p>{doctor.data.phone}</p>
+              </div>
+            </div>
+          </div>
+          <div className="card-content">
+            <h2>Dr. {doctor.data.name}</h2>
+            <h3>{doctor.data.speciality}</h3>
             <div className="del-mod">
               <FontAwesomeIcon
                 icon={faTrashAlt}
-                color="red"
+                color="#009197"
                 size="2x"
                 className="del"
                 onClick={() => deleteDoctor(doctor.id)}
               />
               <FontAwesomeIcon onClick={editDoctor} icon={faEdit} size="2x" className="mod" />
             </div>
-          </div>
-          <div className="card-content">
-            <h2>Dr. {doctor.data.name}</h2>
-            <h3>{doctor.data.speciality}</h3>
-            <label>
-              <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
-              Address:
-            </label>
-            <br />
-            <p>{doctor.data.address}</p> 
-            <label>
-              <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '0.5rem' }} />
-              Email:
-            </label>
-            <br />
-            <p>{doctor.data.email}</p>
-            <label>
-              <FontAwesomeIcon icon={faPhone} style={{ marginRight: '0.5rem' }} />
-              Phone:
-            </label>
-            <br />
-            <p>{doctor.data.phone}</p>
+            
           </div>
         </div>
       </div>

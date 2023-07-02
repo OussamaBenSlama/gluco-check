@@ -26,6 +26,9 @@
 .head-operation input {
     padding: 0.5rem 1rem 0.5rem 1rem;
 }
+.head-operation input:focus {
+    outline: none;
+}
 .head-operation select {
     padding: 0.5rem 1rem 0.5rem 1rem;
 }
