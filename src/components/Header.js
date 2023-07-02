@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import '../style/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { faPlus, faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [inputValue, setInputValue] = useState('');
@@ -21,7 +20,10 @@ const Header = () => {
 
   return (
     <div className="Header">
-      <div className="head-operation">
+      <div className="head" >
+        <FontAwesomeIcon icon={faBars} cursor="pointer" color="white" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
+      </div>
+      <div className="head-operation" >
         <Link to="/dashboard/addnewdoctor">
           <button>
             <FontAwesomeIcon icon={faPlus} cursor="pointer" color="white" style={{ marginRight: '1rem' }} />

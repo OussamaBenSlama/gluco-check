@@ -3,10 +3,11 @@
 }
 .left {
     flex-basis: 23%;
-    height: 200vh;
+    height: auto;
 }
 .right {
     flex-basis: 77%;
+    padding-bottom: 4rem;
 }
 
 .edit-doc {
@@ -25,4 +26,12 @@
 }
 .edit-doc  span {
     color: red;
+}
+@media (max-width: 750px){
+    .left {
+        flex-basis: 0;
+    }
+    .right {
+        flex-basis: 100%;
+    }
 }

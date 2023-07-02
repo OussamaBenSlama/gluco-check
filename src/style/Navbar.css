@@ -8,13 +8,15 @@
 .nav-head {
     padding: 1rem;
     text-align: right;
+   
     
 }
 
 .nav-element {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-top: 2.6rem;
+    width: 23%;
+    margin-top: 4rem;
+    position: fixed;
+    background-color: rgba(235,235,235,0.2);
 }
 .nav-element ul li {
     padding: 1rem;
@@ -25,4 +27,14 @@
 .nav-link {
     text-decoration: none;
     color: rgba(230,230,230,0.8);
+}
+
+@media (max-width: 750px){
+    .Navbar {
+        display: none;
+        background-color: #004054;
+    }
+    .right {
+        flex-basis: 100%;
+    }
 }

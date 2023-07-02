@@ -1,7 +1,6 @@
 import React from 'react';
 import '../style/Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faUserMd } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -9,9 +8,9 @@ const Navbar = () => {
   return (
     <div className='Navbar'>
       <div>
-        <div className='nav-head'>
+        {/* <div className='nav-head'>
         <FontAwesomeIcon icon={faTimes} size="2x" color="white" cursor="pointer" />
-      </div>
+      </div> */}
       
       <div className='nav-element'>
         <ul>

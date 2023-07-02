@@ -36,7 +36,7 @@
     padding: 0.5rem 0.2rem 0.5rem 0.2rem;
     font-size: 1rem;
 }
- .card-content label {
+.card-content label {
     color: #009197;
     font-size: 1rem;
 }
@@ -54,4 +54,18 @@
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
     margin-top: 0.3rem;
+}
+
+@media (max-width: 750px){
+    .doc-card {
+        width: 20rem;
+    }
+    .card-pic img {
+        max-width: 7rem;
+        min-height: 3rem;
+    }
+    .card-content label , .card-content h3 , .card-content h2{
+        color: #009197;
+        font-size: 0.7rem;
+    }
 }
