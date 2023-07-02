@@ -43,6 +43,18 @@ const AddDoctor = () => {
     } catch (err) {
       console.error(err);
     }
+    alert("doctor added successfully")
+    setFormData({
+      name: '',
+      id: '',
+      email: '',
+      phone: '',
+      address: '',
+      gender: '',
+      birth: '',
+      nationality: '',
+      speciality: '',
+    })
   };
 
   return (

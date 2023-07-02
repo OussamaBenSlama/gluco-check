@@ -1,5 +1,5 @@
 .doc-card {
-    min-width: 40%;
+    width: 25rem;
     border-radius: 1rem;
     border: 1px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);

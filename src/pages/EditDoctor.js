@@ -1,39 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { useLocation, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import '../style/DoctorList.css';
 
 const EditDoctor = () => {
   const { text } = useParams();
-  const [doctor, setDoctor] = useState({});
-  const [loading , setloading] = useState(true)
+  const [doctors, setDoctors] = useState([]);
+  const [doctor, setDoctor] = useState(null);
+  // fetch all data 
   useEffect(() => {
-    const getDoctorsByName = async () => {
-      if (text) {
-        const doctorsRef = collection(db, 'doctors');
-        const q = query(doctorsRef, where('uid', '==', text));
-
-        try {
-          const response = await getDocs(q);
-          
-          if (!response.empty) {
-            const fetchedDoctor = response.docs[0].data();
-            setDoctor(fetchedDoctor);
-          } else {
-            setDoctor({});
-          }
-        } catch (error) {
-          console.error(error);
-        }
+    const doctorsRef = collection(db, "doctors");
+    const getDoctorsList = async () => {
+      try {
+        const response = await getDocs(doctorsRef);
+        const fetchedData = response.docs.map((doc) => {
+          return { id: doc.id, data: doc.data() }
+        });
+        setDoctors(fetchedData);
+      } catch (error) {
+        console.error(error);
       }
     };
 
-    getDoctorsByName();
-  }, [text]);
-  console.log(doctor)
+    getDoctorsList();
+  }, []);
+  // select the specific doctor 
+  useEffect(() => {
+    const selectedDoctor = doctors.find(item => item.id === text);
+    setDoctor(selectedDoctor);
+  }, [doctors, text]);
+
   const [name, setName] = useState('');
   const [speciality, setSpeciality] = useState('');
   const [address, setAddress] = useState('');
@@ -45,29 +44,36 @@ const EditDoctor = () => {
   const [nationality, setNationality] = useState('');
 
   useEffect(() => {
-    setName(doctor.data.name || '');
-    setSpeciality(doctor.data.speciality || '');
-    setAddress(doctor.data.address || '');
-    setEmail(doctor.data.email || '');
-    setPhone(doctor.data.phone || '');
-    setId(doctor.id || '');
-    setGender(doctor.data.gender || '');
-    setBirth(doctor.data.birth || '');
-    setNationality(doctor.data.nationality || '');
-    setloading(false)
+    if (doctor && doctor.data) {
+      setName(doctor.data.name || '');
+      setSpeciality(doctor.data.speciality || '');
+      setAddress(doctor.data.address || '');
+      setEmail(doctor.data.email || '');
+      setPhone(doctor.data.phone || '');
+      setId(doctor.id || '');
+      setGender(doctor.data.gender || '');
+      setBirth(doctor.data.birth || '');
+      setNationality(doctor.data.nationality || '');
+    }
   }, [doctor]);
 
   const handleUpdate = async () => {
     const Doctor = doc(db, "doctors", text);
-    await updateDoc(Doctor, { name : name , email : email ,
-                              id:id , gender:gender , nationality : nationality,
-                              speciality  : speciality , birth : birth ,
-                              address : address , phone : phone });
+    await updateDoc(Doctor, {
+      name: name,
+      email: email,
+      id: id,
+      gender: gender,
+      nationality: nationality,
+      speciality: speciality,
+      birth: birth,
+      address: address,
+      phone: phone
+    });
+    alert("update successfully")
+    
   };
 
-  if(loading) {
-    return <p>loading</p>
-  }
   return (
     <div className="DoctorList">
       <div className="left">

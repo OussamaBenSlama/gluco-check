@@ -12,7 +12,7 @@ const DoctorItem = ({ doctor }) => {
    const deleteDoctor = async (id) => {
       const doctorRef = doc(db, 'doctors', id);
       await deleteDoc(doctorRef);
-      console.log('Doctor deleted');
+      alert("docotor deleted successfully ")
    };
    const navigate = useNavigate();
    const editDoctor = () => {
