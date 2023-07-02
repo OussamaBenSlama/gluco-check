@@ -23,15 +23,23 @@
     padding: 0.5rem;
     width: 20rem;
     margin-top: 0.5rem;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
-.edit-doc  span {
-    color: red;
+.edit-doc input:focus {
+    outline: none;
 }
+
 @media (max-width: 750px){
     .left {
         flex-basis: 0;
     }
     .right {
         flex-basis: 100%;
+    }
+    .edit-doc{
+        display: block;
+        text-align: center;
     }
 }

@@ -14,6 +14,7 @@ const AddDoctor = () => {
     birth: '',
     nationality: '',
     speciality: '',
+    patients : []
   });
   const doctorsRef = collection(db, 'doctors');
 
@@ -39,6 +40,7 @@ const AddDoctor = () => {
         birth: formData.birth,
         nationality: formData.nationality,
         speciality: formData.speciality,
+        patients : formData.patients,
       });
     } catch (err) {
       console.error(err);
@@ -54,6 +56,7 @@ const AddDoctor = () => {
       birth: '',
       nationality: '',
       speciality: '',
+      
     })
   };
 
