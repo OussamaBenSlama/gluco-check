@@ -3,7 +3,7 @@ import '../style/AddDoctor.css';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const AddDoctor = () => {
+const AddPatient = () => {
   const [formData, setFormData] = useState({
     name: '',
     id: '',
@@ -12,12 +12,17 @@ const AddDoctor = () => {
     address: '',
     gender: '',
     birth: '',
+    doctor : '' ,
     nationality: '',
-    speciality: '',
-    patients: [],
+    height : 0 ,
+    history : [] ,
+    messages : [] ,
+    device : {id:'', name : ''} ,
+    oldDevice : [],
+    service : '' ,
   });
 
-  const doctorsRef = collection(db, 'users'); // Assuming the collection name is "users"
+  const PatientRef = collection(db, 'users'); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,9 +34,9 @@ const AddDoctor = () => {
     console.log(formData);
   };
 
-  const addNewDoctor = async () => {
+  const addNewPatient = async () => {
     try {
-      await addDoc(doctorsRef, {
+      await addDoc(PatientRef, {
         name: formData.name,
         id: formData.id,
         email: formData.email,
@@ -39,11 +44,16 @@ const AddDoctor = () => {
         address: formData.address,
         gender: formData.gender,
         birth: formData.birth,
+        doctor : formData.doctor ,
         nationality: formData.nationality,
-        speciality: formData.speciality,
-        patients: formData.patients,
+        height : formData.height,
+        history : formData.history ,
+        messages : formData.messages,
+        device : formData.device ,
+        oldDevice : formData.oldDevice,
+        service : formData.service,
       });
-      alert('Doctor added successfully');
+      alert('Patient added successfully');
       setFormData({
         name: '',
         id: '',
@@ -52,9 +62,14 @@ const AddDoctor = () => {
         address: '',
         gender: '',
         birth: '',
+        doctor : '' ,
         nationality: '',
-        speciality: '',
-        patients: [],
+        height : 0 ,
+        history : [] ,
+        messages : [] ,
+        device : {} ,
+        oldDevice : {} ,
+        service : '' ,
       });
     } catch (err) {
       console.error(err);
@@ -62,7 +77,7 @@ const AddDoctor = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='Form'>
+    <form onSubmit={handleSubmit} className='Form' style={{padding:'0.5rem 0 0 3rem'}}>
       <div>
         <label htmlFor='name'>
           Name: <span>*</span>
@@ -127,23 +142,50 @@ const AddDoctor = () => {
       </div>
       <div>
         <label htmlFor='speciality'>
-          Speciality: <span>*</span>
+          Height: <span>*</span>
+        </label>
+        <br />
+        <input
+          type='number'
+          id='height'
+          name='height'
+          value={formData.height}
+          onChange={handleChange}
+        />
+      </div>
+      
+      <div>
+        <label htmlFor='speciality'>
+          doctor ID: <span>*</span>
         </label>
         <br />
         <input
           type='text'
-          id='speciality'
-          name='speciality'
-          value={formData.speciality}
+          id='doctor'
+          name='doctor'
+          value={formData.doctor}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor='speciality'>
+          Service: <span>*</span>
+        </label>
+        <br />
+        <input
+          type='text'
+          id='service'
+          name='service'
+          value={formData.service}
           onChange={handleChange}
         />
       </div>
       <br />
-      <button type='submit' id='addDoc' onClick={addNewDoctor}>
+      <button type='submit' id='addDoc' onClick={addNewPatient} style={{left:'41%' , top:'98%'}}>
         Submit
       </button>
     </form>
   );
 };
 
-export default AddDoctor;
+export default AddPatient;

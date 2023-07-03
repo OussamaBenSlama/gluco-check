@@ -63,12 +63,12 @@ const DoctorItem = ({ doctor }) => {
             <div className="del-mod">
               <FontAwesomeIcon
                 icon={faTrashAlt}
-                color="#009197"
-                size="2x"
+                color="white"
+                style={{fontSize: '1rem'}}
                 className="del"
                 onClick={() => deleteDoctor(doctor.id)}
               />
-              <FontAwesomeIcon onClick={editDoctor} icon={faEdit} size="2x" className="mod" />
+              <FontAwesomeIcon onClick={editDoctor} color='white' style={{fontSize: '1rem'}} icon={faEdit}  className="mod" />
             </div>
             
           </div>

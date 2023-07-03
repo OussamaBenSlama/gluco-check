@@ -16,6 +16,12 @@
     border-radius: 0.5rem 0.5rem 0 0;
     border: 1px solid white;
     color: white;
+    position: relative;
+}
+.Patient-card  .del-mod {
+    position: absolute;
+    top: -5rem;
+    right: -15rem;
 }
 .Patient-card .card-content {
     width: 100%;
@@ -35,9 +41,28 @@
 .Patient-card label {
     color: #004054;
     margin-right: 0.5rem;
+    font-weight: bold;
+    display: inline-block;
+    width: 3.5rem;
+    font-size: 0.9rem;
 }
 .Patient-card .second-content {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1rem 0 1rem 0.2rem;
+}
+.Patient-card .second-content .device-info{
+    flex-basis: 50%;
+}
+.Patient-card .second-content label {
+    width: 4.5rem;
+}
+.Patient-card .second-content label , .Patient-card .second-content p {
+    font-size: 0.7rem;
+}
+.Patient-card .second-content .phy-info label {
+    width: 2.7rem;
+}
+#doc-id {
+    font-size: 0.6rem;
 }

@@ -8,7 +8,7 @@
 }
 .right {
     flex-basis: 77%;
-    padding-bottom: 4rem;
+    padding-bottom: 4rem 2rem 4rem 2rem;
 }
 
 .edit-doc {

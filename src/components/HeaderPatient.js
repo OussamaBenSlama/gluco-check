@@ -57,7 +57,7 @@ const HeaderPatient = ({ navState, setNavState }) => {
         )}
       </div>
       <div className="head-operation">
-        <Link to="/dashboard/addnewpatient">
+        <Link to="/dashboard/patients/addnewpatient">
           <button>
             <FontAwesomeIcon
               icon={faPlus}
