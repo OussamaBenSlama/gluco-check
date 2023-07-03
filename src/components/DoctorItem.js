@@ -19,6 +19,9 @@ const DoctorItem = ({ doctor }) => {
       navigate(`/dashboard/editdoctor/${doctor.id }`);
       
     };
+    const gotoprofile = ()=>{
+      navigate(`/dashboard/${doctor.id}`) ;
+    }
 
   return (
     <div>
@@ -32,9 +35,9 @@ const DoctorItem = ({ doctor }) => {
                   <label>
                   <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
                   Address:
-                </label>
+                  </label>
                 
-                <p>{doctor.data.address}</p> 
+                 <p>{doctor.data.address}</p> 
               </div>
               <div>
                 <label>
@@ -55,7 +58,7 @@ const DoctorItem = ({ doctor }) => {
             </div>
           </div>
           <div className="card-content">
-            <h2>Dr. {doctor.data.name}</h2>
+            <h2 onClick={gotoprofile}>Dr. {doctor.data.name}</h2>
             <h3>{doctor.data.speciality}</h3>
             <div className="del-mod">
               <FontAwesomeIcon

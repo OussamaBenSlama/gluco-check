@@ -4,6 +4,7 @@
     width: 100%;
     height: 100%;
     background-color: #23232387;
+    display: none;
 }
 
 .NavbarSlider {
@@ -12,26 +13,31 @@
     background-color: #004054;
 }
 
-.nav-head {
+.NavbarSlider .nav-head {
     padding: 1rem;
     text-align: right;
 }
 
-.nav-element {
+.NavbarSlider .nav-element {
     width: 23%;
     margin-top: 4rem;
     position: fixed;
     background-color: rgba(235, 235, 235, 0.2);
 }
 
-.nav-element ul li {
+.NavbarSlider .nav-element ul li {
     padding: 1rem;
     border-bottom: 1px solid rgba(235, 235, 235, 0.5);
     cursor: pointer;
     list-style: none;
 }
 
-.nav-link {
+.NavbarSlider .nav-link {
     text-decoration: none;
     color: rgba(230, 230, 230, 0.8);
+}
+@media (min-width: 750px){
+    .NavbarSliderBackground {
+        z-index: -3;
+    }
 }

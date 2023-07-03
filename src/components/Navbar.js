@@ -17,7 +17,13 @@ const Navbar = () => {
           <li>
             <Link to="/dashboard" className='nav-link'>
               <FontAwesomeIcon icon={faUserMd} color="white" cursor="pointer" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
-              DOCTEURS
+              DOCTORS
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashboard/patients" className='nav-link'>
+              <FontAwesomeIcon icon={faUserMd} color="white" cursor="pointer" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
+              PATIENTS
             </Link>
           </li>
         </ul>

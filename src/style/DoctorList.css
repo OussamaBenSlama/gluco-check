@@ -4,6 +4,7 @@
 .left {
     flex-basis: 23%;
     height: auto;
+    background-color: brown;
 }
 .right {
     flex-basis: 77%;

@@ -5,24 +5,22 @@
     
 }
 
-.nav-head {
-    padding: 1rem;
-    text-align: right;
-   
-    
-}
+
 
 .nav-element {
     width: 23%;
     margin-top: 4rem;
     position: fixed;
-    background-color: rgba(235,235,235,0.2);
+    
+    
 }
 .nav-element ul li {
     padding: 1rem;
     border-bottom: 1px solid rgba(235,235,235,0.5);
     cursor: pointer;
     list-style: none;
+    margin-bottom: 0.5rem;
+    background-color: rgba(235,235,235,0.2);
 }
 .nav-link {
     text-decoration: none;

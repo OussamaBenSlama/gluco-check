@@ -1,10 +1,9 @@
 import React from 'react'
-import "../style/DoctorList.css"
 import Navbar from '../components/Navbar'
 import Header from '../components/Header'
-import Doctors from '../components/Doctors'
-
-const DoctorList = () => {
+import DoctorProfile from '../components/DoctorProfile'
+import '../style/DoctorList.css'
+const Profile = () => {
   return (
     <div className='DoctorList'>
         <div className='left'>
@@ -12,10 +11,10 @@ const DoctorList = () => {
         </div>
         <div className='right'>
             <Header/>
-            <Doctors/>
+            <DoctorProfile/>
         </div>
     </div>
   )
 }
 
-export default DoctorList
+export default Profile

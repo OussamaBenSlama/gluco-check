@@ -83,14 +83,7 @@ const Header = ({ navState, setNavState }) => {
             />
           </button>
         </div>
-        <div>
-          <label>filter :</label>
-          <select>
-            <option value="name">name</option>
-            <option value="adresse">adresse</option>
-            <option value="age">age</option>
-          </select>
-        </div>
+        
       </div>
     </div>
   );

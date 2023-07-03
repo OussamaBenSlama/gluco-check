@@ -79,6 +79,10 @@
     font-weight: bold;
     margin-bottom: 0.4rem;
     text-transform: capitalize;
+    cursor: pointer;
+}
+.card-content h2:hover {
+    color: #009197;
 }
 .personal-info p {
     font-size: 0.8rem;

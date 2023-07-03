@@ -5,6 +5,7 @@ import AdminLogin from './components/AdminLogin'
 import NewDoctor from './pages/NewDoctor'
 import SpecificDoctor from './pages/SpecificDoctor'
 import EditDoctor from './pages/EditDoctor'
+import Profile from './pages/Profile'
 function App() {
   return (
     <Router>
@@ -16,7 +17,7 @@ function App() {
           <Route path="/dashboard/addnewdoctor"  element={<NewDoctor />} />
           <Route path="/dashboard/searchdoctor/:text" element={<SpecificDoctor />} />
           <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
-          
+          <Route path="/dashboard/:text" element={<Profile />} />
         </Routes>
       </div>
     </Router>
