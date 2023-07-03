@@ -6,6 +6,7 @@ import NewDoctor from './pages/NewDoctor'
 import SpecificDoctor from './pages/SpecificDoctor'
 import EditDoctor from './pages/EditDoctor'
 import Profile from './pages/Profile'
+import PatientList from './pages/PatientList'
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/dashboard/searchdoctor/:text" element={<SpecificDoctor />} />
           <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
           <Route path="/dashboard/:text" element={<Profile />} />
+          <Route path="/dashboard/patients" element={<PatientList/>} />
         </Routes>
       </div>
     </Router>

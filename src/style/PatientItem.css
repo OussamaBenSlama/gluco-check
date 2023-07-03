@@ -1,0 +1,43 @@
+.Patient-card {
+    width: 25rem;
+    border-radius: 0.5rem;
+    border: 1px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    height: auto;
+    margin-bottom: 2rem;
+}
+.Patient-card .card-header {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #004054;
+    border-radius: 0.5rem 0.5rem 0 0;
+    border: 1px solid white;
+    color: white;
+}
+.Patient-card .card-content {
+    width: 100%;
+}
+.Patient-card .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.Patient-card p {
+    display: inline-block;
+}
+.Patient-card .main-content .card-info {
+    width: 80%;
+}
+.Patient-card label {
+    color: #004054;
+    margin-right: 0.5rem;
+}
+.Patient-card .second-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
