@@ -123,9 +123,11 @@ const EditPatient = () => {
     setFilteredDoctors(filtered);
   }, [doctors, doctorID]);
 
-  const handleSelectDoctor = (selectedDoctorID) => {
+  const handleSelectDoctor = (event, selectedDoctorID) => {
+    event.stopPropagation();
     setDoctorID(selectedDoctorID);
   };
+  
 
   return (
     <div className="DoctorList">
@@ -184,7 +186,7 @@ const EditPatient = () => {
                 {filteredDoctors.map((doctor) => (
                   <li
                     key={doctor.id}
-                    onClick={() => handleSelectDoctor(doctor.id)}
+                    onClick={(e) => handleSelectDoctor(e, doctor.id)}
                     className="doctor-suggestion"
                   >
                     {doctor.data.name}

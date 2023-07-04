@@ -4,10 +4,10 @@
     padding: 2rem;
     position: relative;
     height: auto;
-    height: 100vh;
+    height: 140vh;
 }
 .Form > div  {
-   margin-bottom: 1rem;
+   margin-bottom: 0rem;
 }
 .Form input {
     padding: 0.5rem;
@@ -26,7 +26,7 @@
 #addDoc {
     position: absolute;
     left: 36%;
-    top: 85%; 
+    bottom: 10%;
     width: 15%;
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color:  #004054;
@@ -61,3 +61,6 @@
     }
     
 }
+
+
+

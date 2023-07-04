@@ -104,7 +104,7 @@ const AddPatient = () => {
       doctor.data.name.toLowerCase().includes(doctorID.toLowerCase())
     );
     setFilteredDoctors(filtered);
-  }, [doctorID , filteredDoctors]);
+  }, [doctorID]);
 
   return (
     <form onSubmit={handleSubmit} className="Form" style={{ padding: '0.5rem 0 0 3rem' }}>
@@ -184,6 +184,20 @@ const AddPatient = () => {
         <br />
         <input type="number" id="height" name="height" value={formData.height} onChange={handleChange} />
       </div>
+      
+      <div>
+        <label htmlFor="service">
+          Service: <span>*</span>
+        </label>
+        <br />
+        <input
+          type="text"
+          id="service"
+          name="service"
+          value={formData.service}
+          onChange={handleChange}
+        />
+      </div>
       <div className="doctorID-container">
         <label>doctorID:</label> <br />
         <input
@@ -204,19 +218,6 @@ const AddPatient = () => {
             ))}
           </ul>
         )}
-      </div>
-      <div>
-        <label htmlFor="service">
-          Service: <span>*</span>
-        </label>
-        <br />
-        <input
-          type="text"
-          id="service"
-          name="service"
-          value={formData.service}
-          onChange={handleChange}
-        />
       </div>
       <br />
       <button type="submit" id="addPat" onClick={addNewPatient}>
