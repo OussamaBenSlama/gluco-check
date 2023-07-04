@@ -73,8 +73,8 @@ const EditPatient = () => {
       service: service,
       doctor: doctorID
     });
-    
-    const doctorRef = doc(db, "doctors", doctorID);
+    if(doctorID !== '') {
+        const doctorRef = doc(db, "doctors", doctorID);
     await updateDoc(doctorRef, {
       patients: arrayUnion({ // arryunion is used to add the element to an existant content
         name: name,
@@ -89,6 +89,8 @@ const EditPatient = () => {
         doctor: doctorID
       })
     });
+    }
+    
     alert("Update successful");
   };
 

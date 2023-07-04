@@ -3,6 +3,7 @@
     grid-template-columns: repeat(2,auto);
     padding: 2rem;
     position: relative;
+    
 }
 .Form > div  {
    margin-bottom: 1rem;
@@ -24,7 +25,7 @@
 #addDoc {
     position: absolute;
     left: 38%;
-    top: 96%;
+    top: 95%;
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color:  #004054;
     color: white;
