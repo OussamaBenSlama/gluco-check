@@ -6,7 +6,7 @@ import { db } from '../config/firebase';
 const AddDoctor = () => {
   const [formData, setFormData] = useState({
     name: '',
-    id: '',
+    // id: '',
     email: '',
     phone: '',
     address: '',
@@ -17,7 +17,7 @@ const AddDoctor = () => {
     patients: [],
   });
 
-  const doctorsRef = collection(db, 'users'); // Assuming the collection name is "users"
+  const doctorsRef = collection(db, 'doctors'); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,7 +33,7 @@ const AddDoctor = () => {
     try {
       await addDoc(doctorsRef, {
         name: formData.name,
-        id: formData.id,
+        // id: formData.id,
         email: formData.email,
         phone: formData.phone,
         address: formData.address,
@@ -46,7 +46,7 @@ const AddDoctor = () => {
       alert('Doctor added successfully');
       setFormData({
         name: '',
-        id: '',
+        // id: '',
         email: '',
         phone: '',
         address: '',
@@ -70,13 +70,13 @@ const AddDoctor = () => {
         <br />
         <input type='text' id='name' name='name' value={formData.name} onChange={handleChange} />
       </div>
-      <div>
+      {/* <div>
         <label htmlFor='id'>
           ID: <span>*</span>
         </label>
         <br />
         <input type='text' id='id' name='id' value={formData.id} onChange={handleChange} />
-      </div>
+      </div> */}
       <div>
         <label htmlFor='email'>
           Email: <span>*</span>

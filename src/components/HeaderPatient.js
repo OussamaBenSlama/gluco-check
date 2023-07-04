@@ -10,7 +10,7 @@ const HeaderPatient = ({ navState, setNavState }) => {
 
   const handleSearch = () => {
     if (inputValue !== "") {
-      navigate(`/dashboard/searchpatient/${inputValue}`);
+      navigate(`/dashboard/patient/searchpatient/${inputValue}`);
     }
   };
 

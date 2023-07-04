@@ -5,12 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { useNavigate } from 'react-router-dom';
+
 const PatientItem = ({ patient }) => {
     const deletePatient = async (id) => {
         const patientRef = doc(db, 'users', id);
         await deleteDoc(patientRef);
         alert("docotor deleted successfully ")
      };
+     const navigate = useNavigate();
+     const editPatient = () => {
+        navigate(`/dashboard//patient/editpatient/${patient.id }`);
+        
+      };
   return (
     <div className='Patient-card'>
       <div className='card-header'>
@@ -28,7 +35,7 @@ const PatientItem = ({ patient }) => {
                 className="del"
                 onClick={() => deletePatient(patient.id)}
               />
-              <FontAwesomeIcon  color='white' style={{fontSize: '1rem'}} icon={faEdit}  className="mod" />
+              <FontAwesomeIcon onClick={editPatient} color='white' style={{fontSize: '1rem'}} icon={faEdit}  className="mod" />
             </div>
           </div>
           <div className='card-info'>

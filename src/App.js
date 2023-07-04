@@ -8,6 +8,8 @@ import EditDoctor from './pages/EditDoctor'
 import Profile from './pages/Profile'
 import PatientList from './pages/PatientList'
 import NewPatient from './pages/NewPatient'
+import SpecificPatient from './pages/SpecificPatient'
+import EditPatient from './pages/EditPatient'
 function App() {
   return (
     <Router>
@@ -22,6 +24,8 @@ function App() {
           <Route path="/dashboard/:text" element={<Profile />} />
           <Route path="/dashboard/patients" element={<PatientList/>} />
           <Route path="/dashboard/patients/addnewpatient" element={<NewPatient/>} />
+          <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient/>} />
+          <Route path="/dashboard//patient/editpatient/:text" element={<EditPatient/>} />
         </Routes>
       </div>
     </Router>

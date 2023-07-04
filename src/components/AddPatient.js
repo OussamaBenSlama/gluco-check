@@ -6,7 +6,7 @@ import { db } from '../config/firebase';
 const AddPatient = () => {
   const [formData, setFormData] = useState({
     name: '',
-    id: '',
+    // id: '',
     email: '',
     phone: '',
     address: '',
@@ -38,7 +38,7 @@ const AddPatient = () => {
     try {
       await addDoc(PatientRef, {
         name: formData.name,
-        id: formData.id,
+        // id: formData.id,
         email: formData.email,
         phone: formData.phone,
         address: formData.address,
@@ -56,7 +56,7 @@ const AddPatient = () => {
       alert('Patient added successfully');
       setFormData({
         name: '',
-        id: '',
+        // id: '',
         email: '',
         phone: '',
         address: '',
@@ -85,13 +85,13 @@ const AddPatient = () => {
         <br />
         <input type='text' id='name' name='name' value={formData.name} onChange={handleChange} />
       </div>
-      <div>
+      {/* <div>
         <label htmlFor='id'>
           ID: <span>*</span>
         </label>
         <br />
         <input type='text' id='id' name='id' value={formData.id} onChange={handleChange} />
-      </div>
+      </div> */}
       <div>
         <label htmlFor='email'>
           Email: <span>*</span>
@@ -140,8 +140,9 @@ const AddPatient = () => {
           onChange={handleChange}
         />
       </div>
+      
       <div>
-        <label htmlFor='speciality'>
+        <label htmlFor='height'>
           Height: <span>*</span>
         </label>
         <br />
@@ -153,9 +154,8 @@ const AddPatient = () => {
           onChange={handleChange}
         />
       </div>
-      
       <div>
-        <label htmlFor='speciality'>
+        <label htmlFor='doctorId'>
           doctor ID: <span>*</span>
         </label>
         <br />
@@ -168,7 +168,7 @@ const AddPatient = () => {
         />
       </div>
       <div>
-        <label htmlFor='speciality'>
+        <label htmlFor='service'>
           Service: <span>*</span>
         </label>
         <br />
