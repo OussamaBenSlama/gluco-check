@@ -11,7 +11,7 @@ const PatientItem = ({ patient }) => {
     const deletePatient = async (id) => {
         const patientRef = doc(db, 'users', id);
         await deleteDoc(patientRef);
-        alert("docotor deleted successfully ")
+        alert("patient deleted successfully ")
      };
      const navigate = useNavigate();
      const editPatient = () => {

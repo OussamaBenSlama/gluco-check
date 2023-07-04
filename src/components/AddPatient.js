@@ -36,45 +36,7 @@ const AddPatient = () => {
     console.log(formData);
   };
 
-  const addNewPatient = async () => {
-    try {
-      await addDoc(PatientRef, {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        gender: formData.gender,
-        birth: formData.birth,
-        doctor: formData.doctor,
-        nationality: formData.nationality,
-        height: formData.height,
-        history: formData.history,
-        messages: formData.messages,
-        device: formData.device,
-        oldDevice: formData.oldDevice,
-        service: formData.service,
-      });
-      alert('Patient added successfully');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-        gender: '',
-        birth: '',
-        doctor: '',
-        nationality: '',
-        height: 0,
-        history: [],
-        messages: [],
-        device: {},
-        oldDevice: {},
-        service: '',
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  
 
   const suggestionsRef = useRef(null);
 
@@ -105,7 +67,45 @@ const AddPatient = () => {
     );
     setFilteredDoctors(filtered);
   }, [doctorID]);
-
+  const addNewPatient = async () => {
+    try {
+      await addDoc(PatientRef, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        gender: formData.gender,
+        birth: formData.birth,
+        doctor: doctorID,
+        nationality: formData.nationality,
+        height: formData.height,
+        history: formData.history,
+        messages: formData.messages,
+        device: formData.device,
+        oldDevice: formData.oldDevice,
+        service: formData.service,
+      });
+      alert('Patient added successfully');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        gender: '',
+        birth: '',
+        doctor: '',
+        nationality: '',
+        height: 0,
+        history: [],
+        messages: [],
+        device: {},
+        oldDevice: {},
+        service: '',
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <form onSubmit={handleSubmit} className="Form" style={{ padding: '0.5rem 0 0 3rem' }}>
       <div>

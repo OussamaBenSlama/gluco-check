@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { collection, getDocs, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, arrayUnion,getDoc,arrayRemove } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -60,7 +60,17 @@ const EditPatient = () => {
   }, [patient]);
 
   const handleUpdate = async () => {
-    const patientRef = doc(db, "users", text); // Updated from 'Patient'
+    const patientRef = doc(db, "users", text);
+    const patientSnapshot = await getDoc(patientRef);
+    const previousDoctorID = patientSnapshot.data().doctor;
+  
+    if (previousDoctorID && previousDoctorID !== doctorID) {
+      const previousDoctorRef = doc(db, "doctors", previousDoctorID);
+      await updateDoc(previousDoctorRef, {
+        patients: arrayRemove(patientSnapshot.data())
+      });
+    }
+  
     await updateDoc(patientRef, {
       name: name,
       email: email,
@@ -73,27 +83,28 @@ const EditPatient = () => {
       service: service,
       doctor: doctorID
     });
-    if(doctorID !== '') {
-        const doctorRef = doc(db, "doctors", doctorID);
-    await updateDoc(doctorRef, {
-      patients: arrayUnion({ // arryunion is used to add the element to an existant content
-        name: name,
-        email: email,
-        gender: gender,
-        nationality: nationality,
-        birth: birth,
-        address: address,
-        phone: phone,
-        height: height,
-        service: service,
-        doctor: doctorID
-      })
-    });
+  
+    if (doctorID !== '') {
+      const doctorRef = doc(db, "doctors", doctorID);
+      await updateDoc(doctorRef, {
+        patients: arrayUnion({
+          name: name,
+          email: email,
+          gender: gender,
+          nationality: nationality,
+          birth: birth,
+          address: address,
+          phone: phone,
+          height: height,
+          service: service,
+          doctor: doctorID
+        })
+      });
     }
-    
+  
     alert("Update successful");
   };
-
+  
   // Fetch doctors for autocomplete in doctor ID:
   const [doctors, setDoctors] = useState([]);
   const suggestionsRef = useRef(null);
@@ -182,7 +193,7 @@ const EditPatient = () => {
               onChange={(e) => setDoctorID(e.target.value)}
             />
             {filteredDoctors.length > 0 && (
-              <ul className="doctor-suggestions" ref={suggestionsRef}>
+              <ul className="doctor-suggestions" ref={suggestionsRef} style={{top:'100%'}}>
                 {filteredDoctors.map((doctor) => (
                   <li
                     key={doctor.id}
