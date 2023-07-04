@@ -79,7 +79,7 @@ const EditDoctor = () => {
       <div className="left">
         <Navbar />
       </div>
-      <div className="right">
+      <div className="right" style={{minHeight:'100vh'}}>
         <Header />
         <div className="edit-doc">
           <div>
@@ -116,7 +116,7 @@ const EditDoctor = () => {
             <input type="text" value={speciality} onChange={(e) => setSpeciality(e.target.value)} />
           </div>
           <br />
-          <button id='addDoc' onClick={handleUpdate}>Update</button>
+          <button id='updateDoc' onClick={handleUpdate}>Update</button>
         </div>
       </div>
     </div>
