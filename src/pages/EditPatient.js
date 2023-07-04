@@ -66,9 +66,15 @@ const EditPatient = () => {
   
     if (previousDoctorID && previousDoctorID !== doctorID) {
       const previousDoctorRef = doc(db, "doctors", previousDoctorID);
-      await updateDoc(previousDoctorRef, {
-        patients: arrayRemove(patientSnapshot.data())
-      });
+      const previousDoctorSnapshot = await getDoc(previousDoctorRef);
+  
+      if (previousDoctorSnapshot.exists()) {
+        await updateDoc(previousDoctorRef, {
+          patients: arrayRemove(patientSnapshot.data())
+        });
+      } else {
+        console.log("Previous doctor document not found.");
+      }
     }
   
     await updateDoc(patientRef, {
@@ -81,29 +87,36 @@ const EditPatient = () => {
       phone: phone,
       height: height,
       service: service,
-      doctor: doctorID
+      doctor: doctorID || null // Set the doctorID to null if it's empty
     });
   
     if (doctorID !== '') {
       const doctorRef = doc(db, "doctors", doctorID);
-      await updateDoc(doctorRef, {
-        patients: arrayUnion({
-          name: name,
-          email: email,
-          gender: gender,
-          nationality: nationality,
-          birth: birth,
-          address: address,
-          phone: phone,
-          height: height,
-          service: service,
-          doctor: doctorID
-        })
-      });
+      const doctorSnapshot = await getDoc(doctorRef);
+      
+      if (doctorSnapshot.exists()) {
+        await updateDoc(doctorRef, {
+          patients: arrayUnion({
+            name: name,
+            email: email,
+            gender: gender,
+            nationality: nationality,
+            birth: birth,
+            address: address,
+            phone: phone,
+            height: height,
+            service: service,
+            doctor: doctorID
+          })
+        });
+      } else {
+        console.log("Doctor document not found.");
+      }
     }
   
     alert("Update successful");
   };
+  
   
   // Fetch doctors for autocomplete in doctor ID:
   const [doctors, setDoctors] = useState([]);
