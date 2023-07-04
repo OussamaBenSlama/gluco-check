@@ -3,7 +3,8 @@
     grid-template-columns: repeat(2,auto);
     padding: 2rem;
     position: relative;
-    
+    height: auto;
+    height: 100vh;
 }
 .Form > div  {
    margin-bottom: 1rem;
@@ -24,8 +25,9 @@
 }
 #addDoc {
     position: absolute;
-    left: 38%;
-    top: 95%;
+    left: 36%;
+    top: 85%; 
+    width: 15%;
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color:  #004054;
     color: white;
@@ -33,6 +35,23 @@
     cursor: pointer;
     border: 1px solid #004054;
     border-radius: 0.4rem;
+   
+}
+#addPat {
+    
+    position: absolute;
+    left: 37.5%;
+    top: 92%;
+    right: 0;
+    width: 15%;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color:  #004054;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border: 1px solid #004054;
+    border-radius: 0.4rem;
+   
 }
 
 @media (max-width: 750px){

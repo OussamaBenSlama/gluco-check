@@ -194,7 +194,7 @@ const EditPatient = () => {
             )}
           </div>
           <br />
-          <button id="addDoc" onClick={handleUpdate}>
+          <button id="updatePat" onClick={handleUpdate} >
             Update
           </button>
         </div>

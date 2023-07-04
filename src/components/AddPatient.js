@@ -219,7 +219,7 @@ const AddPatient = () => {
         />
       </div>
       <br />
-      <button type="submit" id="addDoc" onClick={addNewPatient} style={{ left: '41%', top: '98%' }}>
+      <button type="submit" id="addPat" onClick={addNewPatient}>
         Submit
       </button>
     </form>
