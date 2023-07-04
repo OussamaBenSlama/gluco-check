@@ -38,7 +38,7 @@ const EditDoctor = () => {
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [id, setId] = useState('');
+  // const [id, setId] = useState('');
   const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
   const [nationality, setNationality] = useState('');
@@ -50,7 +50,7 @@ const EditDoctor = () => {
       setAddress(doctor.data.address || '');
       setEmail(doctor.data.email || '');
       setPhone(doctor.data.phone || '');
-      setId(doctor.id || '');
+      // setId(doctor.id || '');
       setGender(doctor.data.gender || '');
       setBirth(doctor.data.birth || '');
       setNationality(doctor.data.nationality || '');
@@ -62,7 +62,7 @@ const EditDoctor = () => {
     await updateDoc(Doctor, {
       name: name,
       email: email,
-      id: id,
+      // id: id,
       gender: gender,
       nationality: nationality,
       speciality: speciality,
@@ -86,10 +86,7 @@ const EditDoctor = () => {
             <label>Name:</label> <br />
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
-          <div>
-            <label>ID:</label> <br />
-            <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-          </div>
+          
           <div>
             <label>Email:</label> <br />
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
