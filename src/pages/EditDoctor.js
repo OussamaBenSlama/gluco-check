@@ -5,19 +5,20 @@ import {useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import '../style/DoctorList.css';
+import { format } from "date-fns";
 
 const EditDoctor = () => {
   const { text } = useParams();
   const [doctors, setDoctors] = useState([]);
   const [doctor, setDoctor] = useState(null);
-  // fetch all data 
+  // fetch all data
   useEffect(() => {
     const doctorsRef = collection(db, "doctors");
     const getDoctorsList = async () => {
       try {
         const response = await getDocs(doctorsRef);
         const fetchedData = response.docs.map((doc) => {
-          return { id: doc.id, data: doc.data() }
+          return { id: doc.id, data: doc.data() };
         });
         setDoctors(fetchedData);
       } catch (error) {
@@ -27,33 +28,45 @@ const EditDoctor = () => {
 
     getDoctorsList();
   }, []);
-  // select the specific doctor 
+  // select the specific doctor
   useEffect(() => {
-    const selectedDoctor = doctors.find(item => item.id === text);
+    const selectedDoctor = doctors.find((item) => item.id === text);
     setDoctor(selectedDoctor);
   }, [doctors, text]);
 
-  const [name, setName] = useState('');
-  const [speciality, setSpeciality] = useState('');
-  const [address, setAddress] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [speciality, setSpeciality] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   // const [id, setId] = useState('');
-  const [gender, setGender] = useState('');
-  const [birth, setBirth] = useState('');
-  const [nationality, setNationality] = useState('');
+  const [gender, setGender] = useState("");
+  const [birth, setBirth] = useState("");
+  const [nationality, setNationality] = useState("");
+  const FormatterDate = (dateTime) => {
+    // console.log('date 1223: ', dateTime);
+    const totalMilliseconds =
+      dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
+    const date2 = new Date(totalMilliseconds);
+    const month = String(date2.getMonth() + 1).padStart(2, "0");
+    const day = String(date2.getDate()).padStart(2, "0");
+    const year = String(date2.getFullYear());
 
+    return `${year}-${month}-${day}`;
+  };
   useEffect(() => {
     if (doctor && doctor.data) {
-      setName(doctor.data.name || '');
-      setSpeciality(doctor.data.speciality || '');
-      setAddress(doctor.data.address || '');
-      setEmail(doctor.data.email || '');
-      setPhone(doctor.data.phone || '');
+       
+
+      setName(doctor.data.name || "");
+      setSpeciality(doctor.data.speciality || "");
+      setAddress(doctor.data.address || "");
+      setEmail(doctor.data.email || "");
+      setPhone(doctor.data.phone || "");
       // setId(doctor.id || '');
-      setGender(doctor.data.gender || '');
-      setBirth(doctor.data.birth || '');
-      setNationality(doctor.data.nationality || '');
+      setGender(doctor.data.gender || "");
+      setBirth(FormatterDate(doctor.data.birth) || "");
+      setNationality(doctor.data.nationality || "");
     }
   }, [doctor]);
 
@@ -66,12 +79,11 @@ const EditDoctor = () => {
       gender: gender,
       nationality: nationality,
       speciality: speciality,
-      birth: birth,
+      birth: new Date(birth),
       address: address,
-      phone: phone
+      phone: phone,
     });
-    alert("update successfully")
-    
+    alert("update successfully");
   };
 
   return (
@@ -79,44 +91,80 @@ const EditDoctor = () => {
       <div className="left">
         <Navbar />
       </div>
-      <div className="right" style={{minHeight:'100vh'}}>
+      <div className="right" style={{ minHeight: "100vh" }}>
         <Header />
         <div className="edit-doc">
           <div>
             <label>Name:</label> <br />
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-          
+
           <div>
             <label>Email:</label> <br />
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div>
             <label>Phone:</label> <br />
-            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </div>
           <div>
             <label>Address:</label> <br />
-            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
           </div>
           <div>
             <label>Gender:</label> <br />
-            <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
+            <input
+              type="text"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            />
           </div>
           <div>
             <label>Birth:</label> <br />
-            <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
+            <input
+              type="date"
+              value={birth}
+              onChange={(e) => { 
+                setBirth(e.target.value);
+              }}
+            />
           </div>
           <div>
             <label>Nationality:</label> <br />
-            <input type="text" value={nationality} onChange={(e) => setNationality(e.target.value)} />
+            <input
+              type="text"
+              value={nationality}
+              onChange={(e) => setNationality(e.target.value)}
+            />
           </div>
           <div>
             <label>Speciality:</label> <br />
-            <input type="text" value={speciality} onChange={(e) => setSpeciality(e.target.value)} />
+            <input
+              type="text"
+              value={speciality}
+              onChange={(e) => setSpeciality(e.target.value)}
+            />
           </div>
           <br />
-          <button id='updateDoc' onClick={handleUpdate}>Update</button>
+          <button id="updateDoc" onClick={handleUpdate}>
+            Update
+          </button>
         </div>
       </div>
     </div>
