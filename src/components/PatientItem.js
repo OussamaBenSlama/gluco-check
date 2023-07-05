@@ -3,16 +3,30 @@ import '../style/PatientItem.css';
 import patientlogo from '../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc,getDoc,updateDoc,arrayRemove } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const PatientItem = ({ patient }) => {
-    const deletePatient = async (id) => {
-        const patientRef = doc(db, 'users', id);
-        await deleteDoc(patientRef);
-        alert("patient deleted successfully ")
-     };
+  const deletePatient = async (id) => {
+    const patientRef = doc(db, 'users', id);
+    const patientSnapshot = await getDoc(patientRef);
+    const doctorID = patientSnapshot.data().doctor;
+  
+    // Check if doctorID exists
+    if (doctorID) {
+      const doctorRef = doc(db, 'doctors', doctorID);
+      
+        // Remove patient from doctor's patients array
+        await updateDoc(doctorRef, {
+          patients: arrayRemove(patientSnapshot.data())
+        });
+      
+    }
+    await deleteDoc(patientRef); // it is working
+    alert("Patient deleted successfully");
+  };
+  
      const navigate = useNavigate();
      const editPatient = () => {
         navigate(`/dashboard//patient/editpatient/${patient.id }`);

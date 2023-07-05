@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../style/AddDoctor.css';
-import { addDoc, collection ,getDocs} from 'firebase/firestore';
+import { addDoc, collection ,getDocs,getDoc,updateDoc,doc,arrayUnion} from 'firebase/firestore';
 import { db } from '../config/firebase';
 
 const AddPatient = () => {
@@ -85,6 +85,33 @@ const AddPatient = () => {
         oldDevice: formData.oldDevice,
         service: formData.service,
       });
+      if (doctorID !== '') {
+        const doctorRef = doc(db, "doctors", doctorID);
+        const doctorSnapshot = await getDoc(doctorRef);
+        
+        if (doctorSnapshot.exists()) {
+          await updateDoc(doctorRef, {
+            patients: arrayUnion({
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              address: formData.address,
+              gender: formData.gender,
+              birth: formData.birth,
+              doctor: doctorID,
+              nationality: formData.nationality,
+              height: formData.height,
+              history: formData.history,
+              messages: formData.messages,
+              device: formData.device,
+              oldDevice: formData.oldDevice,
+              service: formData.service,
+            })
+          });
+        } else {
+          console.log("Doctor document not found.");
+        }
+      }
       alert('Patient added successfully');
       setFormData({
         name: '',
