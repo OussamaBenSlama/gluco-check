@@ -61,7 +61,7 @@ const PatientItem = ({ patient }) => {
         </div>
         <div className='second-content'>
           <div className='phy-info'>
-            <label>Height:</label> <p>{patient.data.height}</p> <br />
+            <label>Height:</label> <p>{patient.data.height} cm</p> <br />
             <label>Gender:</label> <p>{patient.data.gender}</p> <br />
             {patient.data.doctor ?(
               <>
@@ -76,7 +76,7 @@ const PatientItem = ({ patient }) => {
             )}
           </div>
           <div className='device-info'>
-            <label>Nationality:</label> <p>{patient.data.nationality}</p> <br />
+            <label>Weight:</label> <p>{patient.data.weight} KG</p> <br />
             {patient.data.device && patient.data.device.id && patient.data.device.name? (
               <>
                 <label>Device ID:</label> <p>{patient.data.device.id}</p> <br />

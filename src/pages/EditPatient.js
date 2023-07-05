@@ -39,7 +39,7 @@ const EditPatient = () => {
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
-  const [nationality, setNationality] = useState('');
+  const [weight, setweight] = useState(0);
   const [height, setHeight] = useState(0);
   const [service, setService] = useState('');
   const [doctorID, setDoctorID] = useState('');
@@ -52,7 +52,7 @@ const EditPatient = () => {
       setPhone(patient.data.phone || '');
       setGender(patient.data.gender || '');
       setBirth(patient.data.birth || '');
-      setNationality(patient.data.nationality || '');
+      setweight(patient.data.weight || 0);
       setHeight(patient.data.height || 0);
       setService(patient.data.service || '');
       setDoctorID(patient.data.doctor || ''); // Updated from 'doctor'
@@ -81,7 +81,7 @@ const EditPatient = () => {
       name: name,
       email: email,
       gender: gender,
-      nationality: nationality,
+      weight: weight,
       birth: birth,
       address: address,
       phone: phone,
@@ -100,7 +100,7 @@ const EditPatient = () => {
             name: name,
             email: email,
             gender: gender,
-            nationality: nationality,
+            weight: weight,
             birth: birth,
             address: address,
             phone: phone,
@@ -187,8 +187,8 @@ const EditPatient = () => {
             <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
           </div>
           <div>
-            <label>Nationality:</label> <br />
-            <input type="text" value={nationality} onChange={(e) => setNationality(e.target.value)} />
+            <label>Weight:</label> <br />
+            <input type="text" value={weight} onChange={(e) => setweight(e.target.value)} />
           </div>
           <div>
             <label>Height:</label> <br />

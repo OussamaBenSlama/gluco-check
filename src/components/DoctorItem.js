@@ -4,16 +4,29 @@ import docImg from '../images/doctor.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc ,getDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const DoctorItem = ({ doctor }) => {
-   const deleteDoctor = async (id) => {
-      const doctorRef = doc(db, 'doctors', id);
-      await deleteDoc(doctorRef);
-      alert("docotor deleted successfully ")
-   };
+  const deleteDoctor = async (id) => {
+    const doctorRef = doc(db, 'doctors', id);
+    const doctorSnapshot = await getDoc(doctorRef);
+    const doctorData = doctorSnapshot.data();
+  
+    // Check if the doctor has a "patients" attribute and it is an array
+    if (doctorData && Array.isArray(doctorData.patients)) {
+      // Iterate through each patient and print the ID
+      doctorData.patients.forEach((patient) => {
+        console.log(patient.doctor);
+      });
+    }
+  
+    // Delete the doctor
+    await deleteDoc(doctorRef);
+    alert("Doctor deleted successfully");
+  };
+  
    const navigate = useNavigate();
    const editDoctor = () => {
       navigate(`/dashboard/editdoctor/${doctor.id }`);

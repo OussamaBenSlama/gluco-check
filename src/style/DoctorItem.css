@@ -1,6 +1,6 @@
 .doc-card {
     width: 25rem;
-    border-radius: 0.5rem;
+    border-radius: 0.8rem;
     border: 1px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     height: auto;
@@ -12,7 +12,7 @@
     height: 3rem;
     background-color: #004054;
     border: 1px solid white;
-    
+    border-radius: 0.8rem 0.8rem 0 0;
 }
 .personal-img {
     border: 1px solid; 

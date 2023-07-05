@@ -14,6 +14,7 @@ const AddPatient = () => {
     doctor: '',
     nationality: '',
     height: 0,
+    weight : 0,
     history: [],
     messages: [],
     device: { id: '', name: '' },
@@ -79,6 +80,7 @@ const AddPatient = () => {
         doctor: doctorID,
         nationality: formData.nationality,
         height: formData.height,
+        weight : formData.weight,
         history: formData.history,
         messages: formData.messages,
         device: formData.device,
@@ -101,6 +103,7 @@ const AddPatient = () => {
               doctor: doctorID,
               nationality: formData.nationality,
               height: formData.height,
+              weight:formData.weight,
               history: formData.history,
               messages: formData.messages,
               device: formData.device,
@@ -123,6 +126,7 @@ const AddPatient = () => {
         doctor: '',
         nationality: '',
         height: 0,
+        weight : 0,
         history: [],
         messages: [],
         device: {},
@@ -191,15 +195,15 @@ const AddPatient = () => {
         <input type="date" id="birth" name="birth" value={formData.birth} onChange={handleChange} />
       </div>
       <div>
-        <label htmlFor="nationality">
-          Nationality: <span>*</span>
+        <label htmlFor="weight">
+        weight: <span>*</span>
         </label>
         <br />
         <input
-          type="text"
-          id="nationality"
-          name="nationality"
-          value={formData.nationality}
+          type="number"
+          id="weight"
+          name="weight"
+          value={formData.weight}
           onChange={handleChange}
         />
       </div>

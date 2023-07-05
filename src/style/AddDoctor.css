@@ -59,6 +59,13 @@
         display: block;
         text-align: center;
     }
+    #addDoc {
+        width: 25%;
+    }
+    #addPat {
+        width: 25%;
+        top: 100%;
+    }
     
 }
 
