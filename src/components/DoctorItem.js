@@ -2,9 +2,9 @@ import React from 'react';
 import '../style/DoctorItem.css';
 import docImg from '../images/doctor.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEnvelope, faPhone,faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
-import { doc, deleteDoc ,getDoc } from 'firebase/firestore';
+import { doc, deleteDoc ,getDoc ,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +16,17 @@ const DoctorItem = ({ doctor }) => {
   
     // Check if the doctor has a "patients" attribute and it is an array
     if (doctorData && Array.isArray(doctorData.patients)) {
-      // Iterate through each patient and print the ID
-      doctorData.patients.forEach((patient) => {
-        console.log(patient.doctor);
+      // Iterate through each patient and update the doctor field to null
+      doctorData.patients.forEach(async (patientId) => {
+        const patientRef = doc(db, 'users', patientId);
+        const patientSnapshot = await getDoc(patientRef);
+  
+        // Check if the patient exists and update the doctor field
+        if (patientSnapshot.exists()) {
+          await updateDoc(patientRef, {
+            doctor: null
+          });
+        }
       });
     }
   
@@ -26,6 +34,7 @@ const DoctorItem = ({ doctor }) => {
     await deleteDoc(doctorRef);
     alert("Doctor deleted successfully");
   };
+  
   
    const navigate = useNavigate();
    const editDoctor = () => {
@@ -44,6 +53,14 @@ const DoctorItem = ({ doctor }) => {
           <div className="card-pic">
             <div className='personal-img'><img src={docImg} alt="" /></div>
             <div className="personal-info">
+            <div>
+                  <label>
+                  <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
+                  ID :
+                  </label>
+                
+                 <p>{doctor.id}</p> 
+              </div>
               <div>
                   <label>
                   <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />

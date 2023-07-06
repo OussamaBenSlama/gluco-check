@@ -10,6 +10,7 @@ import PatientList from './pages/PatientList'
 import NewPatient from './pages/NewPatient'
 import SpecificPatient from './pages/SpecificPatient'
 import EditPatient from './pages/EditPatient'
+import PatientProfile from './pages/PatientProfile'
 function App() {
   return (
     <Router>
@@ -25,7 +26,8 @@ function App() {
           <Route path="/dashboard/patients" element={<PatientList/>} />
           <Route path="/dashboard/patients/addnewpatient" element={<NewPatient/>} />
           <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient/>} />
-          <Route path="/dashboard//patient/editpatient/:text" element={<EditPatient/>} />
+          <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient/>} />
+          <Route path="/dashboard/patient/profile/:text" element={<PatientProfile/>} />
         </Routes>
       </div>
     </Router>

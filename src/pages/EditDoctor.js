@@ -5,7 +5,7 @@ import {useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import '../style/DoctorList.css';
-import { format } from "date-fns";
+
 
 const EditDoctor = () => {
   const { text } = useParams();
@@ -43,10 +43,10 @@ const EditDoctor = () => {
   const [gender, setGender] = useState("");
   const [birth, setBirth] = useState("");
   const [nationality, setNationality] = useState("");
+  // to make date clear 
   const FormatterDate = (dateTime) => {
-    // console.log('date 1223: ', dateTime);
     const totalMilliseconds =
-      dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
+    dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
     const date2 = new Date(totalMilliseconds);
     const month = String(date2.getMonth() + 1).padStart(2, "0");
     const day = String(date2.getDate()).padStart(2, "0");
@@ -65,7 +65,7 @@ const EditDoctor = () => {
       setPhone(doctor.data.phone || "");
       // setId(doctor.id || '');
       setGender(doctor.data.gender || "");
-      setBirth(FormatterDate(doctor.data.birth) || "");
+      setBirth(FormatterDate(doctor.data.birth) || ""); // stringify date
       setNationality(doctor.data.nationality || "");
     }
   }, [doctor]);
@@ -79,7 +79,7 @@ const EditDoctor = () => {
       gender: gender,
       nationality: nationality,
       speciality: speciality,
-      birth: new Date(birth),
+      birth: new Date(birth), // to save date in firebase correctly
       address: address,
       phone: phone,
     });

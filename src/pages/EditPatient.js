@@ -43,6 +43,17 @@ const EditPatient = () => {
   const [height, setHeight] = useState(0);
   const [service, setService] = useState('');
   const [doctorID, setDoctorID] = useState('');
+  
+  const FormatterDate = (dateTime) => {
+    const totalMilliseconds =
+    dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
+    const date2 = new Date(totalMilliseconds);
+    const month = String(date2.getMonth() + 1).padStart(2, "0");
+    const day = String(date2.getDate()).padStart(2, "0");
+    const year = String(date2.getFullYear());
+
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     if (patient && patient.data) {
@@ -51,7 +62,7 @@ const EditPatient = () => {
       setEmail(patient.data.email || '');
       setPhone(patient.data.phone || '');
       setGender(patient.data.gender || '');
-      setBirth(patient.data.birth || '');
+      setBirth(FormatterDate(patient.data.birth) || '');
       setweight(patient.data.weight || 0);
       setHeight(patient.data.height || 0);
       setService(patient.data.service || '');
@@ -70,9 +81,12 @@ const EditPatient = () => {
   
       if (previousDoctorSnapshot.exists()) {
         await updateDoc(previousDoctorRef, {
-          patients: arrayRemove(patientSnapshot.data())
-        });
-      } else {
+          patients: arrayRemove(patientSnapshot.id),
+        }
+        );
+       
+      console.log("suppression terminé") }
+      else {
         console.log("Previous doctor document not found.");
       }
     }
@@ -82,7 +96,7 @@ const EditPatient = () => {
       email: email,
       gender: gender,
       weight: weight,
-      birth: birth,
+      birth: new Date(birth),
       address: address,
       phone: phone,
       height: height,
@@ -93,21 +107,10 @@ const EditPatient = () => {
     if (doctorID !== '') {
       const doctorRef = doc(db, "doctors", doctorID);
       const doctorSnapshot = await getDoc(doctorRef);
-      
+  
       if (doctorSnapshot.exists()) {
         await updateDoc(doctorRef, {
-          patients: arrayUnion({
-            name: name,
-            email: email,
-            gender: gender,
-            weight: weight,
-            birth: birth,
-            address: address,
-            phone: phone,
-            height: height,
-            service: service,
-            doctor: doctorID
-          })
+          patients: arrayUnion(patientSnapshot.id)
         });
       } else {
         console.log("Doctor document not found.");
@@ -116,6 +119,7 @@ const EditPatient = () => {
   
     alert("Update successful");
   };
+  
   
   
   // Fetch doctors for autocomplete in doctor ID:

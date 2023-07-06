@@ -19,7 +19,7 @@ const PatientItem = ({ patient }) => {
       
         // Remove patient from doctor's patients array
         await updateDoc(doctorRef, {
-          patients: arrayRemove(patientSnapshot.data())
+          patients: arrayRemove(patientSnapshot.id)
         });
       
     }
@@ -29,8 +29,14 @@ const PatientItem = ({ patient }) => {
   
      const navigate = useNavigate();
      const editPatient = () => {
-        navigate(`/dashboard//patient/editpatient/${patient.id }`);
+        navigate(`/dashboard/patient/editpatient/${patient.id }`);
         
+      };
+      const gotoprofile = () => {
+        navigate(`/dashboard/patient/profile/${patient.id }`); 
+      };
+      const godoctorprofile = () => {
+        navigate(`/dashboard/${patient.data.doctor }`); 
       };
   return (
     <div className='Patient-card'>
@@ -53,9 +59,10 @@ const PatientItem = ({ patient }) => {
             </div>
           </div>
           <div className='card-info'>
-            <label>Name:</label> <p>{patient.data.name}</p> <br />
+            <label>Name:</label> <p id='go-profile' onClick={gotoprofile}>{patient.data.name}</p> <br />
+            <label>ID:</label> <p>{patient.id}</p> <br />
             <label>Address:</label> <p>{patient.data.address}</p> <br />
-            <label>Phone:</label> <p>{patient.data.phone}</p> <br />
+            {/* <label>Phone:</label> <p>{patient.data.phone}</p> <br /> */}
             <label>Email:</label> <p>{patient.data.email}</p> <br />
           </div>
         </div>
@@ -65,7 +72,7 @@ const PatientItem = ({ patient }) => {
             <label>Gender:</label> <p>{patient.data.gender}</p> <br />
             {patient.data.doctor ?(
               <>
-                <label>Doctor :</label> <p id='doc-id'>{patient.data.doctor}</p> <br />
+                <label>Doctor :</label> <p id='doc-id' onClick={godoctorprofile}>{patient.data.doctor}</p> <br />
                 
               </>
             ) : (
@@ -77,15 +84,16 @@ const PatientItem = ({ patient }) => {
           </div>
           <div className='device-info'>
             <label>Weight:</label> <p>{patient.data.weight} KG</p> <br />
+            <label>Phone:</label> <p>{patient.data.phone}</p> <br />
             {patient.data.device && patient.data.device.id && patient.data.device.name? (
               <>
                 <label>Device ID:</label> <p>{patient.data.device.id}</p> <br />
-                <label>Device name:</label> <p>{patient.data.device.name}</p> <br />
+                {/* <label>Device name:</label> <p>{patient.data.device.name}</p> <br /> */}
               </>
             ) : (
               <>
                 <label>Device ID:</label> <p>not yet</p> <br />
-                <label>Device name:</label> <p>not yet</p> <br />
+                {/* <label>Device name:</label> <p>not yet</p> <br /> */}
               </>
             )}
           </div>

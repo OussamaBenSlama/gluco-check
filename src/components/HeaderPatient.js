@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../style/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import {  useNavigate } from "react-router-dom";
 
 const HeaderPatient = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
@@ -57,7 +57,7 @@ const HeaderPatient = ({ navState, setNavState }) => {
         )}
       </div>
       <div className="head-operation">
-        <Link to="/dashboard/patients/addnewpatient">
+        {/* <Link to="/dashboard/patients/addnewpatient">
           <button>
             <FontAwesomeIcon
               icon={faPlus}
@@ -67,7 +67,7 @@ const HeaderPatient = ({ navState, setNavState }) => {
             />
             Add New
           </button>
-        </Link>
+        </Link> */}
         <div style={{ display: "flex" }}>
           <input
             type="text"

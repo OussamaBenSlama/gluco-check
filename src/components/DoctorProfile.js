@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../style/DoctorProfile.css';
-import { collection, getDocs ,deleteDoc ,doc} from 'firebase/firestore';
+import { collection, getDocs ,deleteDoc ,doc ,getDoc , updateDoc}  from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useParams , useNavigate} from 'react-router-dom';
 import logo from '../images/doctor.jpg';
@@ -11,7 +11,16 @@ const DoctorProfile = () => {
   const { text } = useParams();
   const [doctors, setDoctors] = useState([]);
   const [doctor, setDoctor] = useState(null);
+  const FormatterDate = (dateTime) => {
+    const totalMilliseconds =
+    dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
+    const date2 = new Date(totalMilliseconds);
+    const month = String(date2.getMonth() + 1).padStart(2, "0");
+    const day = String(date2.getDate()).padStart(2, "0");
+    const year = String(date2.getFullYear());
 
+    return `${year}-${month}-${day}`;
+  };
   useEffect(() => {
     const doctorsRef = collection(db, 'doctors');
     const getDoctorsList = async () => {
@@ -35,9 +44,30 @@ const DoctorProfile = () => {
   }, [doctors, text]);
   const deleteDoctor = async (id) => {
     const doctorRef = doc(db, 'doctors', id);
+    const doctorSnapshot = await getDoc(doctorRef);
+    const doctorData = doctorSnapshot.data();
+  
+    // Check if the doctor has a "patients" attribute and it is an array
+    if (doctorData && Array.isArray(doctorData.patients)) {
+      // Iterate through each patient and update the doctor field to null
+      doctorData.patients.forEach(async (patientId) => {
+        const patientRef = doc(db, 'users', patientId);
+        const patientSnapshot = await getDoc(patientRef);
+  
+        // Check if the patient exists and update the doctor field
+        if (patientSnapshot.exists()) {
+          await updateDoc(patientRef, {
+            doctor: null
+          });
+        }
+      });
+    }
+  
+    // Delete the doctor
     await deleteDoc(doctorRef);
-    alert("docotor deleted successfully ")
- };
+    alert("Doctor deleted successfully");
+  };
+  
  const navigate = useNavigate();
  const editDoctor = () => {
     navigate(`/dashboard/editdoctor/${doctor.id }`);
@@ -96,7 +126,7 @@ const DoctorProfile = () => {
                 <FontAwesomeIcon icon={faCalendarAlt} style={{ marginRight: '0.5rem' }} />
                 Birth-date :
                 </label>
-                <p>{doctor.data.birth}</p> 
+                <p>{FormatterDate(doctor.data.birth)}</p> 
           </div>
           
         </div>

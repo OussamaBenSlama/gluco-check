@@ -1,5 +1,5 @@
 .Patient-card {
-    width: 25rem;
+    width: 28rem;
     border-radius: 0.5rem;
     border: 1px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -21,7 +21,7 @@
 .Patient-card  .del-mod {
     position: absolute;
     top: -5rem;
-    right: -15rem;
+    right: -18rem;
 }
 .Patient-card .card-content {
     width: 100%;
@@ -65,4 +65,14 @@
 }
 #doc-id {
     font-size: 0.6rem;
+    cursor: pointer;
+}
+#doc-id:hover {
+    color: #004054;   
+}
+#go-profile {
+    cursor: pointer;
+}
+#go-profile:hover {
+    color: #004054;    
 }
