@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-
 const Header = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ const Header = ({ navState, setNavState }) => {
         {showButton ? (
           <button
             onClick={() => {
-              auth.signOut();
+              setNavState(!navState);
             }}
           >
             <FontAwesomeIcon
@@ -58,7 +57,7 @@ const Header = ({ navState, setNavState }) => {
         )}
         <button
           onClick={() => {
-            setNavState(!navState);
+            auth.signOut();
           }}
         >
           <FontAwesomeIcon
