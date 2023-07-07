@@ -11,6 +11,7 @@ import NewPatient from './pages/NewPatient'
 import SpecificPatient from './pages/SpecificPatient'
 import EditPatient from './pages/EditPatient'
 import PatientProfile from './pages/PatientProfile'
+import MainPage from './components/DoctorInterface/MainPage'
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient/>} />
           <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient/>} />
           <Route path="/dashboard/patient/profile/:text" element={<PatientProfile/>} />
+          <Route path="/doctorspace" element={<MainPage/>} />
         </Routes>
       </div>
     </Router>
