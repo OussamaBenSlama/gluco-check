@@ -23,20 +23,20 @@ import { auth } from "./config/firebase";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setAuthenticated(true);
-        // navigate("/dashboard"); // Redirect to "/dashboard" when authenticated
+        navigate("/dashboard"); // Redirect to "/dashboard" when authenticated
       } else {
         setAuthenticated(false);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   return (
     <Router>
@@ -45,13 +45,7 @@ function App() {
           {!authenticated ? (
             <Route path="/" element={<WelcomeScreen />} />
           ) : (
-            <React.Fragment>
-              {localStorage.getItem("userType") === "admin" ? (
-                <Route path="/" element={<DoctorList />} />
-              ) : (
-                <Route path="/" element={<MainPage />} />
-              )}
-            </React.Fragment>
+            <Route path="/" element={<DoctorList />} />
           )}
 
           {!authenticated ? <Route path="/login" element={<Login />} /> : null}
@@ -89,7 +83,7 @@ function App() {
             </React.Fragment>
           )}
 
-          {authenticated && localStorage.getItem("userType") === "medecin" && (
+          {authenticated && localStorage.getItem("userType") === "admin" && (
             <Route path="/doctorspace" element={<MainPage />} />
           )}
         </Routes>

@@ -8,7 +8,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
+import { auth } from "../firebase";
 const Header = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -90,8 +90,7 @@ const Header = ({ navState, setNavState }) => {
           <button
             onClick={() => {
               auth.signOut();
-              navigate("/login")
-
+              navigate("/login");
             }}
           >
             <FontAwesomeIcon
