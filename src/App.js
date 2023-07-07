@@ -14,21 +14,24 @@ import EditPatient from "./pages/EditPatient";
 import PatientProfile from "./pages/PatientProfile";
 import MainPage from "./components/DoctorInterface/MainPage";
 import WelcomeScreen from "./components/WelcomeScreen";
+import { auth } from "./config/firebase";
+// import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  console.log(localStorage.getItem("userType") ,
-  localStorage.getItem("login")  )
+  const [authenticated, setAuthenticated] = useState(!!auth.currentUser);
   return (
     <Router>
       <div className="App">
         <Routes>
-        <Route path="/" element={<WelcomeScreen />} />
-        <Route path="/login" element={<Login />} />
+          <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/login" element={<Login />} />
 
-          {localStorage.getItem("userType") == "admin" &&
-          localStorage.getItem("login") == "true" ? (
+          {localStorage.getItem("userType") == "admin" ? (
             <React.Fragment>
-              <Route path="/dashboard" element={<DoctorList />} />
+              <Route
+                path={authenticated ? "/" : "/dashboard"}
+                element={<DoctorList />}
+              />
               <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
               <Route
                 path="/dashboard/searchdoctor/:text"
@@ -63,7 +66,10 @@ function App() {
 
           {localStorage.getItem("userType") == "admin" &&
           localStorage.getItem("login") == "true" ? (
-            <Route path="/doctorspace" element={<MainPage />} />
+            <Route
+              path={authenticated ? "/" : "/doctorspace"}
+              element={<MainPage />}
+            />
           ) : (
             ""
           )}
