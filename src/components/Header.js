@@ -3,6 +3,7 @@ import "../style/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 
 const Header = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
@@ -42,11 +43,11 @@ const Header = ({ navState, setNavState }) => {
         {showButton ? (
           <button
             onClick={() => {
-              setNavState(!navState);
+              auth.signOut();
             }}
           >
             <FontAwesomeIcon
-              icon={faBars}
+              icon={faSignOutAlt}
               cursor="pointer"
               color="white"
               style={{ marginRight: "1rem", fontSize: "1.5rem" }}
@@ -55,6 +56,18 @@ const Header = ({ navState, setNavState }) => {
         ) : (
           ""
         )}
+        <button
+          onClick={() => {
+            setNavState(!navState);
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faBars}
+            cursor="pointer"
+            color="white"
+            style={{ marginRight: "1rem", fontSize: "1.5rem" }}
+          />
+        </button>
       </div>
       <div className="head-operation">
         <Link to="/dashboard/addnewdoctor">
@@ -83,7 +96,6 @@ const Header = ({ navState, setNavState }) => {
             />
           </button>
         </div>
-        
       </div>
     </div>
   );
