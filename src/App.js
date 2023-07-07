@@ -23,15 +23,18 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<WelcomeScreen />} />
-          <Route path="/login" element={<Login />} />
-
-          {localStorage.getItem("userType") == "admin" ? (
+          {!authenticated ? (
             <React.Fragment>
-              <Route
-                path={authenticated ? "/" : "/dashboard"}
-                element={<DoctorList />}
-              />
+              <Route path="/" element={<WelcomeScreen />} />
+              <Route path="/login" element={<Login />} />
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+
+          {localStorage.getItem("userType") == "admin" && authenticated ? (
+            <React.Fragment>
+              <Route path="/dashboard" element={<DoctorList />} />
               <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
               <Route
                 path="/dashboard/searchdoctor/:text"
@@ -64,12 +67,8 @@ function App() {
             ""
           )}
 
-          {localStorage.getItem("userType") == "admin" &&
-          localStorage.getItem("login") == "true" ? (
-            <Route
-              path={authenticated ? "/" : "/doctorspace"}
-              element={<MainPage />}
-            />
+          {localStorage.getItem("userType") == "admin" && authenticated ? (
+            <Route path="/doctorspace" element={<MainPage />} />
           ) : (
             ""
           )}
