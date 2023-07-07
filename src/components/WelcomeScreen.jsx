@@ -16,7 +16,7 @@ const WelcomeScreen = () => {
         <img src={logo} alt="logo" />
 
         <div className="login-form">
-          <h2>Login</h2>
+          <h2>Gluco chek</h2>
           {/* <form>
             <label htmlFor="email">Email:</label>
             <input type="email" id="email" />
@@ -28,7 +28,7 @@ const WelcomeScreen = () => {
               <button type="submit">Sign In</button>
             </Link>
           </form> */}
-          pnpm
+          
           <button onClick={() => handleLoginPage("admin")}>Admin</button>
           <button onClick={() => handleLoginPage("medecin")}>Medecin</button>
         </div>

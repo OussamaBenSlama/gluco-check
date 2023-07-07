@@ -13,8 +13,9 @@ import {
   getDocFromServer,
   onSnapshot,
   getDocs,
+
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db , auth } from "../config/firebase";
 
 const Login = () => {
   const userType = localStorage.getItem("userType");

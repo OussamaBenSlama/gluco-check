@@ -1,7 +1,8 @@
 import './App.css';
+import React from 'react'
 import DoctorList from './pages/DoctorList'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from "./components/ Login";
+import Login from "./components/Login";
 import NewDoctor from "./pages/NewDoctor";
 import SpecificDoctor from "./pages/SpecificDoctor";
 import EditDoctor from "./pages/EditDoctor";
@@ -15,18 +16,14 @@ import MainPage from "./components/DoctorInterface/MainPage";
 import WelcomeScreen from "./components/WelcomeScreen";
 
 function App() {
+  console.log(localStorage.getItem("userType") ,
+  localStorage.getItem("login")  )
   return (
     <Router>
       <div className="App">
         <Routes>
-          {localStorage.getItem("login") == "false" ? (
-            <React.Fragment>
-              <Route path="/" element={<WelcomeScreen />} />
-              <Route path="/login" element={<Login />} />
-            </React.Fragment>
-          ) : (
-            ""
-          )}
+        <Route path="/" element={<WelcomeScreen />} />
+        <Route path="/login" element={<Login />} />
 
           {localStorage.getItem("userType") == "admin" &&
           localStorage.getItem("login") == "true" ? (
