@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../style/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faSearch,
+  faBars,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 const Header = ({ navState, setNavState }) => {
@@ -46,7 +51,7 @@ const Header = ({ navState, setNavState }) => {
             }}
           >
             <FontAwesomeIcon
-              icon={faSignOutAlt}
+              icon={faBars}
               cursor="pointer"
               color="white"
               style={{ marginRight: "1rem", fontSize: "1.5rem" }}
@@ -55,18 +60,6 @@ const Header = ({ navState, setNavState }) => {
         ) : (
           ""
         )}
-        <button
-          onClick={() => {
-            auth.signOut();
-          }}
-        >
-          <FontAwesomeIcon
-            icon={faBars}
-            cursor="pointer"
-            color="white"
-            style={{ marginRight: "1rem", fontSize: "1.5rem" }}
-          />
-        </button>
       </div>
       <div className="head-operation">
         <Link to="/dashboard/addnewdoctor">
@@ -92,6 +85,18 @@ const Header = ({ navState, setNavState }) => {
               size="1x"
               cursor="pointer"
               color="rgba(0, 0, 0, 0.7)"
+            />
+          </button>
+          <button
+            onClick={() => {
+              auth.signOut();
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faBars}
+              cursor="pointer"
+              color="black"
+              style={{ marginRight: "1rem", fontSize: "1.5rem" }}
             />
           </button>
         </div>
