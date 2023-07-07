@@ -28,20 +28,26 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setAuthenticated(true);
+        navigate("/dashboard"); // Redirect to "/dashboard" when authenticated
       } else {
         setAuthenticated(false);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   return (
     <Router>
       <div className="App">
         <Routes>
-          {!authenticated && <Route path="/" element={<WelcomeScreen />} />}
-          {!authenticated && <Route path="/login" element={<Login />} />}
+          {!authenticated ? (
+            <Route path="/" element={<WelcomeScreen />} />
+          ) : (
+            <Route path="/" element={<DoctorList />} />
+          )}
+
+          {!authenticated ? <Route path="/login" element={<Login />} /> : null}
 
           {authenticated && (
             <React.Fragment>
