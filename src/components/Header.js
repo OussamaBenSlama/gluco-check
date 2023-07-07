@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../style/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faSearch,
+  faBars,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-
+import { auth } from "../config/firebase";
 const Header = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -82,8 +87,21 @@ const Header = ({ navState, setNavState }) => {
               color="rgba(0, 0, 0, 0.7)"
             />
           </button>
+          <button
+            onClick={() => {
+              auth.signOut();
+              navigate("/login")
+
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faBars}
+              cursor="pointer"
+              color="black"
+              style={{ marginRight: "1rem", fontSize: "1.5rem" }}
+            />
+          </button>
         </div>
-        
       </div>
     </div>
   );
