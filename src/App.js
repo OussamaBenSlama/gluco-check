@@ -1,8 +1,12 @@
 import './App.css';
-import React from 'react'
-import DoctorList from './pages/DoctorList'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from "./components/Login";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import DoctorList from "./pages/DoctorList";
 import NewDoctor from "./pages/NewDoctor";
 import SpecificDoctor from "./pages/SpecificDoctor";
 import EditDoctor from "./pages/EditDoctor";
@@ -15,24 +19,31 @@ import PatientProfile from "./pages/PatientProfile";
 import MainPage from "./components/DoctorInterface/MainPage";
 import WelcomeScreen from "./components/WelcomeScreen";
 import { auth } from "./config/firebase";
-// import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(!!auth.currentUser);
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <Router>
       <div className="App">
         <Routes>
-          {!authenticated ? (
-            <React.Fragment>
-              <Route path="/" element={<WelcomeScreen />} />
-              <Route path="/login" element={<Login />} />
-            </React.Fragment>
-          ) : (
-            ""
-          )}
+          {!authenticated && <Route path="/" element={<WelcomeScreen />} />}
+          {!authenticated && <Route path="/login" element={<Login />} />}
 
-          {localStorage.getItem("userType") == "admin" && authenticated ? (
+          {authenticated && (
             <React.Fragment>
               <Route path="/dashboard" element={<DoctorList />} />
               <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
@@ -63,14 +74,10 @@ function App() {
                 element={<PatientProfile />}
               />
             </React.Fragment>
-          ) : (
-            ""
           )}
 
-          {localStorage.getItem("userType") == "admin" && authenticated ? (
+          {authenticated && localStorage.getItem("userType") === "admin" && (
             <Route path="/doctorspace" element={<MainPage />} />
-          ) : (
-            ""
           )}
         </Routes>
       </div>
