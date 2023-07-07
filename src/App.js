@@ -44,7 +44,13 @@ function App() {
           {!authenticated ? (
             <Route path="/" element={<WelcomeScreen />} />
           ) : (
-            <Route path="/" element={<DoctorList />} />
+            <React.Fragment>
+              {localStorage.getItem("userType") === "admin" ? (
+                <Route path="/" element={<DoctorList />} />
+              ) : (
+                <Route path="/" element={<MainPage />} />
+              )}
+            </React.Fragment>
           )}
 
           {!authenticated ? <Route path="/login" element={<Login />} /> : null}
@@ -82,7 +88,7 @@ function App() {
             </React.Fragment>
           )}
 
-          {authenticated && localStorage.getItem("userType") === "admin" && (
+          {authenticated && localStorage.getItem("userType") === "medecin" && (
             <Route path="/doctorspace" element={<MainPage />} />
           )}
         </Routes>

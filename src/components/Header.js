@@ -90,6 +90,7 @@ const Header = ({ navState, setNavState }) => {
           <button
             onClick={() => {
               auth.signOut();
+              navigate("/login");
             }}
           >
             <FontAwesomeIcon
