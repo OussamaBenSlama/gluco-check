@@ -79,118 +79,143 @@ const PatientProfile = () => {
   }
 
   return (
-    <div className='DoctorList'>
-        <div className='left'>
-            <Navbar/>
-        </div>
-        <div className='right'>
-            <HeaderPatient/>
-            <div className='Profile'>
-      <div className='profile-card'>
-        <div className='profile-header'>
-          <img src={logo} alt='' />
-        </div>
-        <div className='profile-title'>
-          <h2>{patient.data.name}</h2>
-          {/* <h3>{patient.data.speciality}</h3> */}
-        </div>
-        <div className='profile-info'>
-          <div className='main-info'>
-            <label>
-              <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
-              ID:
-            </label>
-            <p>{patient.id}</p> <br />
-            <label>
-              <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
-              Address:
-            </label>
-            <p>{patient.data.address}</p> <br />
+    <div className="DoctorList">
+      <div className="left">
+        <Navbar />
+      </div>
+      <div className="right">
+        <HeaderPatient />
+        <div className="Profile">
+          <div className="profile-card">
+            <div className="profile-header">
+              <img src={logo} alt="" />
+            </div>
+            <div className="profile-title">
+              <h2>{patient.data.name}</h2>
+              {/* <h3>{patient.data.speciality}</h3> */}
+            </div>
+            <div className="profile-info">
+              <div className="main-info">
+                <label>
+                  <FontAwesomeIcon
+                    icon={faIdCard}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  ID:
+                </label>
+                <p>{patient.id}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Address:
+                </label>
+                <p>{patient.data.address}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Email:
+                </label>
+                <p>{patient.data.email}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faPhone}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Phone:
+                </label>
+                <p>{patient.data.phone}</p> <br />
+                {patient.data.doctor ? (
+                  <React.Fragment>
+                    <FontAwesomeIcon
+                      icon={faIdCard}
+                      style={{ marginRight: "0.5rem" }}
+                    />
+                    <label>Doctor :</label>{" "}
+                    <p id="doc-id" onClick={godoctorprofile}>
+                      {patient.data.doctor}
+                    </p>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <FontAwesomeIcon
+                      icon={faIdCard}
+                      style={{ marginRight: "0.5rem" }}
+                    />
+                    <label>Doctor :</label> <p>not affected</p>
+                  </React.Fragment>
+                )}{" "}
+                <br />
+                <label>Device ID :</label>
+                <p>{patient.data.device.id}</p> <br />
+              </div>
 
-            <label>
-              <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '0.5rem' }} />
-              Email:
-            </label>
-            <p>{patient.data.email}</p> <br />
-
-            <label>
-              <FontAwesomeIcon icon={faPhone} style={{ marginRight: '0.5rem' }} />
-              Phone:
-            </label>
-            <p>{patient.data.phone}</p> <br />
-            
-            {patient.data.doctor ?(
-              <>
-                 <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
-                <label>Doctor :</label> <p id='doc-id' onClick={godoctorprofile}>{patient.data.doctor}</p> 
-                
-              </>
-            ) : (
-              <>
-                 <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
-                <label>Doctor :</label> <p>not affected</p> 
-
-              </>
-            )} <br/>
-            <label>
-              Device ID :
-            </label>
-            <p>{patient.data.device.id}</p> <br /> 
-          </div>
-          
-
-          <div className='second-info'>
-            {/* <label>
+              <div className="second-info">
+                {/* <label>
               <FontAwesomeIcon icon={faGlobe} style={{ marginRight: '0.5rem' }} />
               Nationality :
             </label>
             <p>{patient.data.nationality}</p> <br /> */}
-
-            <label>
-              <FontAwesomeIcon icon={faRulerVertical} style={{ marginRight: '0.5rem' }} />
-              Height :
-            </label>
-            <p>{patient.data.height}</p> <br />
-            <label>
-              <FontAwesomeIcon icon={faWeight} style={{ marginRight: '0.5rem' }} />
-              Weight :
-            </label>
-            <p>{patient.data.weight}</p> <br />
-            <label>
-              <FontAwesomeIcon icon={faVenusMars} style={{ marginRight: '0.5rem' }} />
-              Gender :
-            </label>
-            <p>{patient.data.gender}</p> <br />
-            <label>
-              <FontAwesomeIcon icon={faCalendarAlt} style={{ marginRight: '0.5rem' }} />
-              Birth-date :
-            </label>
-            <p>{FormatterDate(patient.data.birth)}</p> <br/>
-            <label>
-              Service :
-            </label>
-            <p>{patient.data.service}</p> <br/>
-            
-            <label>
-              Device name :
-            </label>
-            <p>{patient.data.device.name}</p> <br />
-            
+                <label>
+                  <FontAwesomeIcon
+                    icon={faRulerVertical}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Height :
+                </label>
+                <p>{patient.data.height}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faWeight}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Weight :
+                </label>
+                <p>{patient.data.weight}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faVenusMars}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Gender :
+                </label>
+                <p>{patient.data.gender}</p> <br />
+                <label>
+                  <FontAwesomeIcon
+                    icon={faCalendarAlt}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Birth-date :
+                </label>
+                <p>{FormatterDate(patient.data.birth)}</p> <br />
+                <label>Service :</label>
+                <p>{patient.data.service}</p> <br />
+                <label>Device name :</label>
+                <p>{patient.data.device.name}</p> <br />
+              </div>
+            </div>
+            <div className="del--mod">
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                color="white"
+                size="1x"
+                className="del"
+                onClick={() => deletePatient(patient.id)}
+              />
+              <FontAwesomeIcon
+                onClick={editPatient}
+                icon={faEdit}
+                size="1x"
+                className="mod"
+                color="white"
+              />
+            </div>
           </div>
         </div>
-        <div className="del--mod">
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            color="white"
-            size="1x"
-            className="del"
-            onClick={() => deletePatient(patient.id)}
-          />
-          <FontAwesomeIcon onClick={editPatient} icon={faEdit} size="1x" className="mod" color='white'/>
-        </div>
       </div>
-    </div>
-        </div>
     </div>
   );
 };
