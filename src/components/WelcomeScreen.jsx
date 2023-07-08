@@ -1,3 +1,4 @@
+// WelcomeScreen.js
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/care.png";
@@ -5,9 +6,9 @@ import "../style/AdminLogin.css";
 
 const WelcomeScreen = () => {
   const navigate = useNavigate();
-  const handleLoginPage = (type) => {
-    localStorage.setItem("userType", type);
-    navigate("/login");
+
+  const handleLoginPage = (userType) => {
+    navigate(`/login/${userType}`);
   };
 
   return (
@@ -17,20 +18,8 @@ const WelcomeScreen = () => {
 
         <div className="login-form">
           <h2>Gluco chek</h2>
-          {/* <form>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" />
-
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" />
-
-            <Link to="/dashboard">
-              <button type="submit">Sign In</button>
-            </Link>
-          </form> */}
-          
           <button onClick={() => handleLoginPage("admin")}>Admin</button>
-          <button onClick={() => handleLoginPage("medecin")}>Medecin</button>
+          <button onClick={() => handleLoginPage("doctor")}>Doctor</button>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth } from "../config/firebase";
 const Header = ({ navState, setNavState }) => {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();

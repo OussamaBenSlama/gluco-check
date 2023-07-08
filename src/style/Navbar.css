@@ -4,15 +4,10 @@
     background-color:  #004054;
     
 }
-
-
-
 .nav-element {
     width: 23%;
     margin-top: 4rem;
     position: fixed;
-    
-    
 }
 .nav-element ul li {
     padding: 1rem;
@@ -26,7 +21,16 @@
     text-decoration: none;
     color: rgba(230,230,230,0.8);
 }
-
+.logout {
+    color: white;
+    margin-top: 58vh;
+    font-size: 1rem;
+    text-align: right;
+    padding: 1rem;
+}
+.logout label {
+    cursor: pointer;
+}
 @media (max-width: 750px){
     .Navbar {
         display: none;
