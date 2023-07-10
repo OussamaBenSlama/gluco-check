@@ -1,0 +1,62 @@
+.Home {
+    width: 100%;
+    min-height: 95vh;
+    padding: 2rem;
+    background-color: rgb(235, 235, 235);
+}
+.Home .title {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.Home .title div {
+    display: flex;
+}
+.Home .title div div{
+    margin-left: 1rem;
+    color: black;
+    display: block;
+    padding-top: 1rem;
+}
+.Home .title div h2 {
+    text-transform: capitalize;
+}
+.Home .title div p {
+    text-transform: capitalize;
+    color: grey;
+    margin-left: 0.5rem;
+}
+.Home .title img {
+    max-width: 7rem;
+    max-height: 7rem;
+}
+.Home .title button {
+    width: 10rem;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1rem;
+}
+#addPatient {
+    background-color: #004054;
+}
+#editProfile {
+    background-color: rgb(49, 49, 49);
+}
+.doc-content {
+    display: flex;
+}
+.doc-content .basic-info {
+    padding: 2rem;
+}
+.doc-content  label {
+    font-weight: bold;
+    width: 20rem;
+}
+.doc-content .second-info {
+    padding: 2rem;
+    margin-left: 20%;
+}

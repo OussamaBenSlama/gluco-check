@@ -1,8 +1,8 @@
 import React from 'react';
-import '../style/PatientItem.css';
-import patientlogo from '../images/patient.png';
+import '../../style/PatientItem.css';
+import patientlogo from '../../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {
   doc,
   deleteDoc,
@@ -10,36 +10,34 @@ import {
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
-const PatientItem = ({ patient }) => {
-  const deletePatient = async (id) => {
-    const patientRef = doc(db, "users", id);
-    const patientSnapshot = await getDoc(patientRef);
-    const doctorID = patientSnapshot.data().doctor;
-
-    if (doctorID) {
-      const doctorRef = doc(db, "doctors", doctorID);
-
-      await updateDoc(doctorRef, {
-        patients: arrayRemove(patientSnapshot.id),
-      });
-    }
-    await deleteDoc(patientRef);
-    alert("Patient deleted successfully");
-  };
+const PatientCard= ({ patient }) => {
+    console.log(patient.id)
+    const deletePatient = async (id) => {
+        const patientRef = doc(db, "users", id);
+        const patientSnapshot = await getDoc(patientRef);
+        const doctorID = patientSnapshot.data().doctor;
+    
+        if (doctorID) {
+          const doctorRef = doc(db, "doctors", doctorID);
+    
+          await updateDoc(doctorRef, {
+            patients: arrayRemove(patientSnapshot.id),
+          });
+        }
+        await updateDoc(patientRef, {
+            doctor: null,
+          });
+        alert("Patient deleted successfully");
+      };
+      
+      
 
   const navigate = useNavigate();
-  const editPatient = () => {
-    navigate(`/dashboard/patient/editpatient/${patient.id}`);
-  };
-  const gotoprofile = () => {
-    navigate(`/dashboard/patient/profile/${patient.id}`);
-  };
-  const godoctorprofile = () => {
-    navigate(`/dashboard/${patient?.data?.doctor}`);
-  };
+  
+  
 
   if (!patient || !patient.data) {
     return null;
@@ -62,18 +60,18 @@ const PatientItem = ({ patient }) => {
                 className="del"
                 onClick={() => deletePatient(patient.id)}
               />
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 onClick={editPatient}
                 color="white"
                 style={{ fontSize: "1rem" }}
                 icon={faEdit}
                 className="mod"
-              />
+              /> */}
             </div>
           </div>
           <div className="card-info">
             <label>Name:</label>
-            <p id="go-profile" onClick={gotoprofile}>
+            <p>
               {patient.data.name}
             </p>
             <br />
@@ -99,7 +97,7 @@ const PatientItem = ({ patient }) => {
             {patient.data.doctor ? (
               <>
                 <label>Doctor:</label>
-                <p id="doc-id" onClick={godoctorprofile}>
+                <p>
                   {patient.data.doctor}
                 </p>
                 <br />
@@ -141,4 +139,4 @@ const PatientItem = ({ patient }) => {
   );
 };
 
-export default PatientItem;
+export default PatientCard;

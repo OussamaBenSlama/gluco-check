@@ -22,7 +22,7 @@
 .edit-doc > div  {
    margin-bottom: 1rem;
 }
-.edit-doc input {
+.edit-doc input , .Header input {
     padding: 0.5rem ;
     width: 20rem;
     margin-top: 0.5rem;
@@ -30,6 +30,20 @@
     border-radius: 0.5rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
+.Header button {
+    padding: 0.5rem;
+    border: 1px solid #004054;
+    border-radius: 0.5rem;
+    width: 9rem;
+    background-color: #004054;
+    color: white;
+    margin-left: 1rem;
+}
+/* .Header div {
+    position: absolute;
+    right: 0;
+    padding: 0.5rem;
+} */
 .edit-doc input:focus {
     outline: none;
 }

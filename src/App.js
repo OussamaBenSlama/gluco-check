@@ -13,6 +13,9 @@ import SpecificPatient from "./pages/SpecificPatient";
 import EditPatient from "./pages/EditPatient";
 import PatientProfile from "./pages/PatientProfile";
 import MainPage from "./components/DoctorInterface/MainPage";
+import ListPatient from './components/DoctorInterface/ListPatient'
+import EditProfile from './components/DoctorInterface/EditProfile'
+import SearchCurrentPatient from './components/DoctorInterface/SearchCurrentPatient'
 import WelcomeScreen from "./components/WelcomeScreen";
 import Login from './components/Login'
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
@@ -24,8 +27,6 @@ function App() {
 
   useEffect(() => {
     const checkUserType = async (user) => {
-      console.log("app")
-      console.log(user)
       if (user) {
         const adminsRef = collection(db, "admins");
         const adminsSnapshot = await getDocs(adminsRef);
@@ -107,6 +108,9 @@ function App() {
   ) : userType === "doctor" ? (
   <>
   <Route path="/doctorspace" element={<MainPage />} />
+  <Route path="/doctorspace/listpatients" element={<ListPatient />} />
+  <Route path="/doctorspace/editprofile" element={<EditProfile />} />
+  <Route path="/doctorspace/searchpatient/:text" element={<SearchCurrentPatient />} />
   </>
   ) : null}
   </>

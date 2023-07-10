@@ -5,7 +5,6 @@ import {
   faPlus,
   faSearch,
   faBars,
-  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
