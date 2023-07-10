@@ -27,7 +27,9 @@ const Navbar = ({ doctor }) => {
   const gohome = () => {
     navigate('/doctorspace')
   }
-
+  const goAdd = () => {
+    navigate('/doctorspace/addpatient', { state: { doctor } });
+  }
   return (
     <div className="Navbar">
       <div className="Doctor-nav">
@@ -37,7 +39,7 @@ const Navbar = ({ doctor }) => {
           <li onClick={gohome}>Home</li>
           <li onClick={goedit}>Edit profile</li>
           <li onClick={golistpatients}>List of Patients</li>
-          <li>Add patient</li>
+          <li onClick={goAdd}>Add patient</li>
         </ul>
         <label onClick={handleLogout}>Log out</label>
         <FontAwesomeIcon icon={faSignOutAlt} color="white" />

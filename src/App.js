@@ -16,6 +16,7 @@ import MainPage from "./components/DoctorInterface/MainPage";
 import ListPatient from './components/DoctorInterface/ListPatient'
 import EditProfile from './components/DoctorInterface/EditProfile'
 import SearchCurrentPatient from './components/DoctorInterface/SearchCurrentPatient'
+import AddPatient from './components/DoctorInterface/AddPatient'
 import WelcomeScreen from "./components/WelcomeScreen";
 import Login from './components/Login'
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
@@ -111,6 +112,7 @@ function App() {
   <Route path="/doctorspace/listpatients" element={<ListPatient />} />
   <Route path="/doctorspace/editprofile" element={<EditProfile />} />
   <Route path="/doctorspace/searchpatient/:text" element={<SearchCurrentPatient />} />
+  <Route path="/doctorspace/addpatient" element={<AddPatient />} />
   </>
   ) : null}
   </>
