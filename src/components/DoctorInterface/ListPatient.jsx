@@ -71,12 +71,13 @@ const ListPatient = () => {
            </div>
         </div>
         <div className='doc-list'>
-            {patients.map((patient) => {
-            if (!patient) {
-                return null;
-            }
-            return <PatientCard key={patient.id} patient={patient} />;
-            })}
+            {/* {inputValue == "" || inputValue == " "} */}
+              {patients.map((patient) => {
+              if (!patient) {
+                  return null;
+              }
+              return <PatientCard key={patient.id} patient={patient} />;
+              })}
         </div>
       </div>
     </div>

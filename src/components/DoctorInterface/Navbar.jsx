@@ -36,7 +36,7 @@ const Navbar = ({ doctor }) => {
         <img src={myLogo} alt="" />
         <h1>{doctor ? doctor.data.name : 'Guest'}</h1>
         <ul>
-          <li onClick={gohome}>Home</li>
+          <li onClick={gohome}>Profile</li>
           <li onClick={goedit}>Edit profile</li>
           <li onClick={golistpatients}>List of Patients</li>
           <li onClick={goAdd}>Add patient</li>
