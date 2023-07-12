@@ -30,6 +30,12 @@ const Navbar = ({ doctor }) => {
   const goAdd = () => {
     navigate('/doctorspace/addpatient', { state: { doctor } });
   }
+  const gomodify = () => {
+    navigate('/doctorspace/glycemie-range', { state: { doctor } });
+  }
+  const goStats = () => {
+    navigate('/doctorspace/statistics', { state: { doctor } });
+  }
   return (
     <div className="Navbar">
       <div className="Doctor-nav">
@@ -40,6 +46,8 @@ const Navbar = ({ doctor }) => {
           <li onClick={goedit}>Edit profile</li>
           <li onClick={golistpatients}>List of Patients</li>
           <li onClick={goAdd}>Add patient</li>
+          <li onClick={gomodify}>Glycemie Range</li>
+          <li onClick={goStats}>Statistics</li>
         </ul>
         <label onClick={handleLogout}>Log out</label>
         <FontAwesomeIcon icon={faSignOutAlt} color="white" />

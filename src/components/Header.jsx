@@ -33,7 +33,7 @@ const Header = ({ navState, setNavState }) => {
 
   window.addEventListener("resize", trackWindowWidth);
   useEffect(() => {
-    if (window.innerWidth <= 750) {
+    if (window.innerWidth <= 900) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -72,13 +72,14 @@ const Header = ({ navState, setNavState }) => {
             Add New
           </button>
         </Link>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" , alignItems:'center', justifyContent:'space-around'}}>
           <input
             type="text"
             placeholder="search by full name"
             onChange={handleInputChange}
+            
           />
-          <button onClick={handleSearch}>
+          <button onClick={handleSearch} style={{width: '5rem'}}>
             <FontAwesomeIcon
               icon={faSearch}
               size="1x"
@@ -86,7 +87,7 @@ const Header = ({ navState, setNavState }) => {
               color="rgba(0, 0, 0, 0.7)"
             />
           </button>
-          <button
+          {/* <button
             onClick={() => {
               auth.signOut();
               navigate("/login");
@@ -98,7 +99,7 @@ const Header = ({ navState, setNavState }) => {
               color="black"
               style={{ marginRight: "1rem", fontSize: "1.5rem" }}
             />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

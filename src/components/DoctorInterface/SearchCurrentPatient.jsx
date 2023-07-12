@@ -4,7 +4,7 @@ import '../../style/DoctorList.css';
 import Header from './Header';
 import Navbar from './Navbar';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../config/firebase';
+import { db } from '../../config/firebase';
 import PatientCard from './PatientCard'
 const SearchCurrentPatient = () => {
   const location = useLocation();
@@ -31,7 +31,7 @@ const SearchCurrentPatient = () => {
         // Search for patients based on the name parameter
         const searchedPatients = patientData.filter(
             (patient) =>
-              patient.data?.name &&
+              patient.data.name &&
               patient.data.name.toLowerCase() === text.toLowerCase()
           );
           

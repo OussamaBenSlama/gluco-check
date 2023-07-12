@@ -17,6 +17,8 @@ import ListPatient from './components/DoctorInterface/ListPatient'
 import EditProfile from './components/DoctorInterface/EditProfile'
 import SearchCurrentPatient from './components/DoctorInterface/SearchCurrentPatient'
 import AddPatient from './components/DoctorInterface/AddPatient'
+import GlycemieRange from './components/DoctorInterface/GlycemieRange'
+import Diagrammes from './components/DoctorInterface/Diagrammes'
 import WelcomeScreen from "./components/WelcomeScreen";
 import Login from './components/Login'
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
@@ -86,38 +88,41 @@ function App() {
   <div className="App">
   <Routes>
   {!authenticated ? (
-  <>
-  <Route path="/" element={<WelcomeScreen />} />
-  <Route path="/login/:userType" element={<Login />} />
-  </>
+    <React.Fragment>
+      <Route path="/" element={<WelcomeScreen />} />
+      <Route path="/login/:userType" element={<Login />} />
+    </React.Fragment>
   ) : (
-  <>
-  {userType === "admin" ? (
-  <>
-  <Route path="/" element={<DoctorList />} />
-  <Route path="/dashboard" element={<DoctorList />} />
-  <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
-  <Route path="/dashboard/searchdoctor/:text" element={<SpecificDoctor />} />
-  <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
-  <Route path="/dashboard/:text" element={<Profile />} />
-  <Route path="/dashboard/patients" element={<PatientList />} />
-  <Route path="/dashboard/patients/addnewpatient" element={<NewPatient />} />
-  <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
-  <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
-  <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />
-  </>
-  ) : userType === "doctor" ? (
-  <>
-  <Route path="/doctorspace" element={<MainPage />} />
-  <Route path="/doctorspace/listpatients" element={<ListPatient />} />
-  <Route path="/doctorspace/editprofile" element={<EditProfile />} />
-  <Route path="/doctorspace/searchpatient/:text" element={<SearchCurrentPatient />} />
-  <Route path="/doctorspace/addpatient" element={<AddPatient />} />
-  </>
-  ) : null}
-  </>
+    <React.Fragment>
+      {userType === "admin" ? (
+        <React.Fragment>
+          <Route path="/" element={<DoctorList />} />
+          <Route path="/dashboard" element={<DoctorList />} />
+          <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
+          <Route path="/dashboard/searchdoctor/:text" element={<SpecificDoctor />} />
+          <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
+          <Route path="/dashboard/:text" element={<Profile />} />
+          <Route path="/dashboard/patients" element={<PatientList />} />
+          <Route path="/dashboard/patients/addnewpatient" element={<NewPatient />} />
+          <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
+          <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
+          <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />
+        </React.Fragment>
+      ) : userType === "doctor" ? (
+        <React.Fragment>
+          <Route path="/doctorspace" element={<MainPage />} />
+          <Route path="/doctorspace/listpatients" element={<ListPatient />} />
+          <Route path="/doctorspace/editprofile" element={<EditProfile />} />
+          <Route path="/doctorspace/searchpatient/:text" element={<SearchCurrentPatient />} />
+          <Route path="/doctorspace/addpatient" element={<AddPatient />} />
+          <Route path="/doctorspace/glycemie-range" element={<GlycemieRange />} />
+          <Route path="/doctorspace/statistics" element={<Diagrammes />} />
+        </React.Fragment>
+      ) : null}
+    </React.Fragment>
   )}
-  </Routes>
+</Routes>
+
   </div>
   </Router>
   );

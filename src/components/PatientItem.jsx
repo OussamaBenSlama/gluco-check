@@ -38,7 +38,7 @@ const PatientItem = ({ patient }) => {
     navigate(`/dashboard/patient/profile/${patient.id}`);
   };
   const godoctorprofile = () => {
-    navigate(`/dashboard/${patient?.data?.doctor}`);
+    navigate(`/dashboard/${patient.data.doctor}`);
   };
 
   if (!patient || !patient.data) {
@@ -97,19 +97,19 @@ const PatientItem = ({ patient }) => {
             <p>{patient.data.gender}</p>
             <br />
             {patient.data.doctor ? (
-              <>
+              <React.Fragment>
                 <label>Doctor:</label>
                 <p id="doc-id" onClick={godoctorprofile}>
                   {patient.data.doctor}
                 </p>
                 <br />
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 <label>Doctor:</label>
                 <p>not affected</p>
                 <br />
-              </>
+              </React.Fragment>
             )}
           </div>
           <div className="device-info">
@@ -122,17 +122,17 @@ const PatientItem = ({ patient }) => {
             {patient.data.device &&
             patient.data.device.id &&
             patient.data.device.name ? (
-              <>
+              <React.Fragment>
                 <label>Device ID:</label>
                 <p>{patient.data.device.id}</p>
                 <br />
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment>
                 <label>Device ID:</label>
                 <p>not yet</p>
                 <br />
-              </>
+              </React.Fragment>
             )}
           </div>
         </div>

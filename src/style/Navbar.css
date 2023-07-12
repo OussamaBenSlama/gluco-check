@@ -31,7 +31,7 @@
 .logout label {
     cursor: pointer;
 }
-@media (max-width: 750px){
+@media (max-width: 900px){
     .Navbar {
         display: none;
         background-color: #004054;

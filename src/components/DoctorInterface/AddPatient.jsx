@@ -113,17 +113,17 @@ const AddPatient = () => {
                     <p>{patient.data.gender}</p>
                     <br />
                     {patient.data.doctor ? (
-                      <>
+                      <React.Fragment>
                         <label>Doctor:</label>
                         <p>{patient.data.doctor}</p>
                         <br />
-                      </>
+                      </React.Fragment>
                     ) : (
-                      <>
+                      <React.Fragment>
                         <label>Doctor:</label>
                         <p>not affected</p>
                         <br />
-                      </>
+                      </React.Fragment>
                     )}
                   </div>
                   <div className="device-info">
@@ -136,17 +136,17 @@ const AddPatient = () => {
                     {patient.data.device &&
                     patient.data.device.id &&
                     patient.data.device.name ? (
-                      <>
+                      <React.Fragment>
                         <label>Device ID:</label>
                         <p>{patient.data.device.id}</p>
                         <br />
-                      </>
+                      </React.Fragment>
                     ) : (
-                      <>
+                      <React.Fragment>
                         <label>Device ID:</label>
                         <p>not yet</p>
                         <br />
-                      </>
+                      </React.Fragment>
                     )}
                   </div>
                 </div>
