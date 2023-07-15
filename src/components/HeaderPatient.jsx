@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../style/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faBars , faBell , faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {  useNavigate } from "react-router-dom";
-
-const HeaderPatient = ({ navState, setNavState }) => {
+import NavbarSlider from './NavbarSlider'
+const HeaderPatient = () => {
   const [inputValue, setInputValue] = useState("");
+  const [navState , setNavState] = useState(false)
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -20,7 +21,7 @@ const HeaderPatient = ({ navState, setNavState }) => {
 
   const [showButton, setShowButton] = useState(false);
   const trackWindowWidth = () => {
-    if (window.innerWidth <= 750) {
+    if (window.innerWidth <= 800) {
       setShowButton(true);
     } else {
       setShowButton(false);
@@ -39,22 +40,38 @@ const HeaderPatient = ({ navState, setNavState }) => {
   return (
     <div className="Header">
       <div className="head">
-        {showButton ? (
-          <button
+      {showButton ? (
+          <button style={{zIndex : '16'}}
             onClick={() => {
               setNavState(!navState);
+              console.log("hey")
             }}
           >
             <FontAwesomeIcon
               icon={faBars}
               cursor="pointer"
               color="white"
-              style={{ marginRight: "1rem", fontSize: "1.5rem" }}
+              className="Bars"
             />
           </button>
         ) : (
-          ""
+          null
         )}
+        { navState && showButton ? (
+          <React.Fragment>
+            <div className="show-nav">
+              <NavbarSlider/>
+            </div>
+          </React.Fragment>
+        ) : 
+        (
+          null 
+        )}
+        <div>
+          <FontAwesomeIcon icon={faBell} style={{marginRight: '1rem'}}/>
+          <FontAwesomeIcon icon={faEnvelope} />
+        </div>
+        
       </div>
       <div className="head-operation">
         {/* <Link to="/dashboard/patients/addnewpatient">
@@ -74,12 +91,12 @@ const HeaderPatient = ({ navState, setNavState }) => {
             placeholder="search by full name"
             onChange={handleInputChange}
           />
-          <button onClick={handleSearch}>
+          <button onClick={handleSearch} style={{backgroundColor:'#009197', width:'4rem' , cursor:'pointer'}}>
             <FontAwesomeIcon
               icon={faSearch}
               size="1x"
               cursor="pointer"
-              color="rgba(0, 0, 0, 0.7)"
+              color="rgba(255,255,255,1)"
             />
           </button>
         </div>

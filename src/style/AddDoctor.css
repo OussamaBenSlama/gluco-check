@@ -54,17 +54,19 @@
    
 }
 
-@media (max-width: 750px){
+@media (max-width: 910px){
     .Form {
         display: block;
         text-align: center;
     }
     #addDoc {
         width: 25%;
+        
     }
     #addPat {
         width: 25%;
         top: 100%;
+        
     }
     
 }

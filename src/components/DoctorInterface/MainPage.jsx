@@ -32,12 +32,12 @@ const MainPage = () => {
   }, []);
 
   return (
-    <div className="DoctorList" style={{ display: 'flex' }}>
+    <div className="DoctorList">
       <div className="left">
         <Navbar doctor={doctor} />
       </div>
       <div className="right">
-        <Header/>
+        <Header doctor = {doctor}/>
         <Home doctor={doctor} />
       </div>
     </div>

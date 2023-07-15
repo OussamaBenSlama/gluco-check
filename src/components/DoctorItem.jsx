@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/DoctorItem.css';
-import docImg from '../images/doctor.jpg';
+import myLogo from '../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEnvelope, faPhone,faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -51,7 +51,7 @@ const DoctorItem = ({ doctor }) => {
         <div className="card-head"></div>
         <div className="card-section">
           <div className="card-pic">
-            <div className='personal-img'><img src={docImg} alt="" /></div>
+            <div className='personal-img'><img src={myLogo} alt="" /></div>
             <div className="personal-info">
             <div>
                   <label>

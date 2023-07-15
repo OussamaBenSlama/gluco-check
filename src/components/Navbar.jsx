@@ -1,8 +1,8 @@
 import React from 'react';
-import '../style/Navbar.css';
+import '../style/DoctorInterfaceStyle/Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserMd } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { faUserMd , faUsers} from '@fortawesome/free-solid-svg-icons';
+import myLogo from '../images/patient.png';
 import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,36 +23,29 @@ const Navbar = () => {
         // Display an error message or take appropriate action
       }
     };
+    const goDoctors = () => {
+      navigate('/dashboard')
+    }
+    const goPatients = () => {
+      navigate('/dashboard/patients')
+    }
   return (
-    <div className='Navbar'>
-      <div>
-        {/* <div className='nav-head'>
-        <FontAwesomeIcon icon={faTimes} size="2x" color="white" cursor="pointer" />
-      </div> */}
-      
-      <div className='nav-element'>
+    <div className="Navbar">
+      <div className="Doctor-nav">
+        <img src={myLogo} alt="" />
+        <h1>Administrator</h1> 
         <ul>
-          <li>
-            <Link to="/dashboard" className='nav-link'>
-              <FontAwesomeIcon icon={faUserMd} color="white" cursor="pointer" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
-              DOCTORS
-            </Link>
-          </li>
-          <li>
-            <Link to="/dashboard/patients" className='nav-link'>
-              <FontAwesomeIcon icon={faUserMd} color="white" cursor="pointer" style={{ marginRight: '1rem', fontSize: '1.5rem' }} />
-              PATIENTS
-            </Link>
-          </li>
+          <li onClick={goDoctors}>
+            <FontAwesomeIcon icon={faUserMd} style={{marginRight:'0.5rem' , fontSize:'1rem'}}/>
+            Doctors
+            </li>
+          <li onClick={goPatients}>
+          <FontAwesomeIcon icon={faUsers} style={{marginRight:'0.5rem' , fontSize:'1rem'}}/>
+          Patients</li>
         </ul>
-        <div className='logout'>
-            <label onClick={handleLogout}>Log out </label>
-            <FontAwesomeIcon icon={faSignOutAlt} />
-          </div>
+        <label onClick={handleLogout}>Log Out</label>
+        <FontAwesomeIcon icon={faSignOutAlt} color="white" />
       </div>
-          
-      </div>
-      
     </div>
   );
 }

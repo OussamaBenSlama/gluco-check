@@ -3,6 +3,8 @@ import '../../style/PatientItem.css';
 import patientlogo from '../../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 import {
   doc,
   getDoc,
@@ -11,8 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
-const PatientCard= ({ patient }) => {
-    console.log(patient.id)
+const PatientCard= ({ patient , doctor}) => {
     const deletePatient = async (id) => {
         const patientRef = doc(db, "users", id);
         const patientSnapshot = await getDoc(patientRef);
@@ -31,7 +32,11 @@ const PatientCard= ({ patient }) => {
         alert("Patient deleted successfully");
       };
       
-      
+    const navigate = useNavigate();
+    const goProfile = (id) => {
+      navigate(`/doctorspace/patient`, { state: { doctor , patient } });
+    };
+    
 
   
   
@@ -68,7 +73,7 @@ const PatientCard= ({ patient }) => {
           </div>
           <div className="card-info">
             <label>Name:</label>
-            <p>
+            <p id='go-profile' onClick={goProfile}>
               {patient.data.name}
             </p>
             <br />

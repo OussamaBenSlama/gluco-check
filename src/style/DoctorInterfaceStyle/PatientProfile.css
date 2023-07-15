@@ -1,0 +1,155 @@
+.patient-profile {
+    width: 100%;
+    min-height: 120vh;
+    background-color: rgb(235,235,235);
+    display: flex;
+    padding: 2rem;
+}
+.left-profile {
+    flex-basis: 40%;
+}
+.right-profile {
+    flex-basis: 60%;
+}
+.left-profile .header-profile {
+    background-color: white;
+    width: 95%;
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.left-profile .header-profile h4 , .left-profile .header-profile h5 {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    color: rgb(71, 71, 71);
+}
+.left-profile .header-profile button {
+    width: 8rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #057be9;
+    background-color: white;
+    border: 1px solid #057be9;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    border-radius: 0.5rem;
+}
+.left-profile .header-profile button:first-child {
+    color: white;
+    background-color: #057be9;
+    border: 1px solid #057be9;
+    
+}
+.left-profile .header-profile  img {
+    max-width: 7rem;
+    max-height: 7rem;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+.right-profile .info-profile {
+    width: 100%;
+    background-color: white;
+    min-height: 30vh;
+}
+.right-profile .info-profile div {
+    display: flex;
+    padding: 0.5rem 0 0.5rem 1rem;
+    border-bottom: 1px solid rgb(235,235,235);
+}
+.right-profile .info-profile label {
+    display: inline-block;
+    width: 30%;
+    font-weight: bold;
+}
+.right-profile .info-profile p {
+    color: gray;
+}
+.left-profile .History , .Messages {
+    overflow: auto;
+    max-height: 33vh;
+    width: 95%;
+    border: 1px solid black;
+    margin-top: 1rem;
+    background-color: white;
+    scroll-behavior: smooth;
+}
+.yellow-bg {
+    background-color: #F2BE22;
+}
+.green-bg {
+    background-color: #54B435;
+}
+.orange-bg {
+    background-color: #FF6D60;
+}
+.red-bg {
+    background-color: #DC0000;
+}
+.yellow-bg , .green-bg , .orange-bg , .red-bg {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding: 0.5rem;
+    justify-content: space-around;
+    align-items: center;
+}
+.History p {
+    font-size: 0.9rem;
+}
+.msg {
+    padding: 0.5rem;
+    background-color: #057be9;
+    margin: 0.4rem;
+    color: white;
+    width: 80%;
+    border-radius: 2rem;
+}
+.send-msg {
+    margin-top: 1rem;
+}
+.send-msg input {
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    width: 75%;
+    border: 1px solid gray;
+    border-radius: 1rem;
+    background-color: white;
+}
+.send-msg input:focus {
+    outline: none;
+}
+.send-msg button {
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    width: 20%;
+    color: white;
+    background-color: green;
+    border: 1px solid green;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+
+/* responsive */
+
+@media screen and (max-width: 1250px){
+    .patient-profile {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    .patient-profile > div {
+        margin-top: 2rem;
+        width: 100%;
+    }
+    .left-profile .header-profile {
+        width: 100%;
+    }
+    .left-profile .History , .Messages {
+        width: 100%;
+    }
+}

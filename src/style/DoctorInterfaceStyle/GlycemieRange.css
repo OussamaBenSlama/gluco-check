@@ -1,9 +1,9 @@
 .Inputs-range {
     width: 100%;
     height: auto;
-    min-height: 115vh;
+    min-height: 20vh;
     padding: 2rem;
-    background-color: #9FDAE7;
+    background-color: rgb(235, 235, 235);
 }
 .Inputs-range label {
     display: inline-block;
@@ -29,29 +29,39 @@
     align-items: center;
     min-height: 10vh;
 }
+.label-list {
+    width: 100%;
+    min-height: 50vh;
+    background-color: rgb(235, 235, 235);
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
 .list-range {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr;
+    display: flex;
     padding: 1rem;
     position: relative;
     margin-top: 5rem;
+    justify-content: center;
+    align-items: center;
 }
 .list-range div {
     height: 3rem;
-    width: 10rem;
+    width: 9rem;
     /* border: 1px solid rgb(196, 194, 194); */
 }
 .label-range {
     display: flex;
-    justify-content: space-between;
-    width: 66%;
-    position: absolute;
-    top: -20rem;
+    justify-content: start;
+    width: 60%;
+    /* position: absolute;
+    top: -100%; */
     
 }
-/* .label-range label:not(:first-child) {
-    margin-left: 20%;
-} */
+
+.label-range label:not(:first-child) {
+    margin-left: 7.7rem;
+} 
 
 .hypoglycemie {
     background-color: yellow;
@@ -65,18 +75,27 @@
 .hyperglycemie {
     background-color: red;
 }
-.flesh-left , .flesh-right {
-    background-color: gray;
-    max-width: 5rem;
-    border: 1px solid;
+.flesh-left  {
+    width: 0;
+    height: 0;
+    border-top: 1.5rem solid transparent;
+    border-bottom: 1.5rem solid transparent;
+    border-right: 3rem solid blue;
     
 }
-.flesh-left {
+.flesh-right {
+    width: 0;
+    height: 0;
+    border-top: 1.5rem solid transparent;
+    border-bottom: 1.5rem solid transparent;
+    border-left: 3rem solid blue;
+}
+/* .flesh-left {
     border-radius: 5rem 0 0 5rem;
 }
 .flesh-right {
     border-radius: 0 5rem 5rem 0;
-}
+} */
 @media (max-width: 1250px) {
     .list-range div {
         height: 3rem;
@@ -84,43 +103,23 @@
         
     }
     .label-range {
-        display: flex;
-        justify-content: space-between;
-        width: 34%;
-        position: absolute;
-        top: -20rem;
-        left: 33%;
+        justify-content: center;
+       
     }
+    .label-range label:not(:first-child) {
+        margin-left: 3.5rem;
+    } 
 }
-@media (max-width: 900px) {
-    .list-range div {
-        height: 3rem;
-        width: 4rem;
-        
-    }
-    .label-range {
-        display: flex;
-        justify-content: space-between;
-        width: 30%;
-        position: absolute;
-        top: -20rem;
-        left: 35%;
 
-        
-    }
-    /* .label-range label:not(:first-child) {
-        margin-left: 4rem;
-    } */
-}
 
 @media (max-width: 750px) {
     .label-range {
         display: flex;
         justify-content: space-between;
         width: 35%;
-        position: absolute;
+        /* position: absolute;
         top: -20rem;
-        left: 33%;
+        left: 33%; */
 
         
     }

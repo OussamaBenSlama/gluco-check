@@ -1,22 +1,46 @@
 .head {
     width: 100%;
     height: 3rem;
-    background-color: #9FDAE7;
+    background-color: rgb(245, 245, 245);
     padding: 0.5rem;
     display: flex;
     justify-content: space-between;
-    
+    position: relative;
+}
+.head > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.head button {
+    width: 5rem;
+    background-color: transparent;
+    border: none;
+    padding-bottom: 1rem;
+}
+.Bars {
+    padding-bottom: 1rem;
+    color: black;
+    font-size: 1rem;
+    z-index: 15;
+}
+.Bars-slider {
+    color: white;
 }
 .head-operation {
-    padding: 3rem 1rem 1rem 1rem;
+    padding: 2rem 1rem 1rem 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     border-bottom: 1px solid grey;
-    
+    align-items: center;
 }
-
-.head-operation button {
+.head-operation > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.head-operation button:first-child {
     background-color:  #009197;
     color: white;
     padding: 0.5rem 1rem 0.5rem 1rem;
@@ -25,6 +49,7 @@
 }
 .head-operation input {
     padding: 0.5rem 1rem 0.5rem 1rem;
+    margin-bottom: 0.6rem;
 }
 .head-operation input:focus {
     outline: none;
@@ -38,6 +63,16 @@
 .head-operation div div {
     border: 1px solid grey;
     border-radius: 0.3rem;
+}
+.show-nav {
+    width: 100%;
+    z-index: 2;
+    padding: 2rem;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    position: fixed;
+    top: -50%;
 }
 @media (max-width: 750px){
     .head-operation {

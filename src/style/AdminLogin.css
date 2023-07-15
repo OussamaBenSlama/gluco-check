@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
   
   .background {
@@ -81,4 +82,9 @@
   .login-form button:hover {
     background-color: #007e82;
   }
-  
+
+
+.welcome-btn {
+  display: flex;
+  justify-content: space-between;
+}

@@ -23,7 +23,7 @@ const GlycemieRange = () => {
             <Navbar doctor={doctor}/>
         </div>
         <div className='right' >
-            <Header/>
+            <Header doctor = {doctor}/>
             {/* inputs to specify the range */}
             <div className='Inputs-range'>
                 <div>
@@ -53,77 +53,81 @@ const GlycemieRange = () => {
                     }}
                     />
                 </div>
+            
                 {/* divs to show the range */}
                 <div className='show-range'>
-                <div className='list-range'>
-                            <div className='flesh-left'></div>
-                        {yellow ? (
-                            <React.Fragment>
-                                <div className='hypoglycemie'></div>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <div className=''></div>
-                            </React.Fragment>
-                        )}
-                        {green ? (
-                            <React.Fragment>
-                                <div className='normal'></div>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <div className=''></div>
-                            </React.Fragment>
-                        )}
-                        {orange ? (
-                            <React.Fragment>
-                                <div className='pre-diabete'></div>
-                                <div className='hyperglycemie'></div>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <div className=''></div>
-                                <div className=''></div>
-                            </React.Fragment>
-                        )}
-                            
-                            <div className='flesh-right'></div>
+                    <div className='list-range'>
+                                <div className='flesh-left'></div>
+                            {yellow ? (
+                                <React.Fragment>
+                                    <div className='hypoglycemie'></div>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <div className=''></div>
+                                </React.Fragment>
+                            )}
+                            {green ? (
+                                <React.Fragment>
+                                    <div className='normal'></div>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <div className=''></div>
+                                </React.Fragment>
+                            )}
+                            {orange ? (
+                                <React.Fragment>
+                                    <div className='pre-diabete'></div>
+                                    <div className='hyperglycemie'></div>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <div className=''></div>
+                                    <div className=''></div>
+                                </React.Fragment>
+                            )}
+                                
+                                <div className='flesh-right'></div>
+                                
+                    </div>
+                </div>
+            </div>
+                <div className='label-list'>
+                        <div className='label-range'>
+                        
+                            {yellow ? (
+                                <React.Fragment>
+                                    <label>0</label>
+                                    <label>{minNormal}</label>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <label></label>
+                                </React.Fragment>
+                            )}
+                            {green ? (
+                                <React.Fragment>
+                                    <label>{maxNormal}</label>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <label></label>
+                                </React.Fragment>
+                            )}
+                            {orange ? (
+                                <React.Fragment>
+                                    <label>{minHyper}</label>
+                                    <label>5</label>
+                                </React.Fragment>
+                                ) : (
+                                <React.Fragment>
+                                    <label></label>
+                                    
+                                </React.Fragment>
+                            )}
                             
                         </div>
-                </div>
-                </div>
-                <div style={{display:'flex', justifyContent:'center', alignItems:'center', position:'relative'}}>
-                    <div className='label-range'>
-                        <label>0</label>
-                        {yellow ? (
-                            <React.Fragment>
-                                <label>{minNormal}</label>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <label></label>
-                            </React.Fragment>
-                        )}
-                        {green ? (
-                            <React.Fragment>
-                                <label>{maxNormal}</label>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <label></label>
-                            </React.Fragment>
-                        )}
-                        {orange ? (
-                            <React.Fragment>
-                                <label>{minHyper}</label>
-                            </React.Fragment>
-                            ) : (
-                            <React.Fragment>
-                                <label></label>
-                            </React.Fragment>
-                        )}
-                        <label>5</label>
-                    </div>
                 </div>
                 {/* <div className='show-range'>
                     <div>
@@ -133,8 +137,8 @@ const GlycemieRange = () => {
                 </div> */}
         
 
+            
         </div>
-        
     </div>
   )
 }

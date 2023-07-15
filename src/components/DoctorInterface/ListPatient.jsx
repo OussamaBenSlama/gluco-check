@@ -59,15 +59,16 @@ const ListPatient = () => {
     }
   };
   return (
-    <div className="DoctorList" style={{ display: 'flex' }}>
+    <div className="DoctorList">
       <div className="left">
         <Navbar doctor={doctor} />
       </div>
       <div className="right">
+        <Header doctor = {doctor}/> 
         <div className='Header' style={{backgroundColor : 'white' , height:'4rem', position:'relative'}}>
            <div style={{position:'absolute', right:'0' , padding:'0.5rem'}}>
-           <input type="text" placeholder='search by name' onChange={handleInputChange}/>
-           <button onClick={handleSearch}>search</button>
+            <input type="text" placeholder='search by name' onChange={handleInputChange}/>
+            <button onClick={handleSearch}>search</button>
            </div>
         </div>
         <div className='doc-list'>
@@ -76,7 +77,7 @@ const ListPatient = () => {
               if (!patient) {
                   return null;
               }
-              return <PatientCard key={patient.id} patient={patient} />;
+              return <PatientCard key={patient.id} patient={patient} doctor={doctor} />;
               })}
         </div>
       </div>

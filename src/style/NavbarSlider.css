@@ -1,16 +1,20 @@
 .NavbarSliderBackground {
-    position: fixed;
     z-index: 2;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    
     background-color: #23232387;
-    display: none;
+    padding: 0rem;
+    position: relative;
 }
 
 .NavbarSlider {
-    width: 60%;
-    height: 100%;
+    width: 300px;
+    min-height: 100vh;
     background-color: #004054;
+    position: absolute;
+    top: 0rem;
+    left: -10%;
+    padding: 4rem 0 0 2rem;
 }
 
 .NavbarSlider .nav-head {
@@ -19,26 +23,38 @@
 }
 
 .NavbarSlider .nav-element {
-    width: 23%;
+    width: 100%;
+    height: 100%;
     margin-top: 4rem;
-    position: fixed;
-    background-color: rgba(235, 235, 235, 0.2);
-}
-
-.NavbarSlider .nav-element ul li {
+    /* background-color: rgba(235, 235, 235, 0.2); */
+    padding: 1rem;
+  }
+  
+  .NavbarSlider .nav-element ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .NavbarSlider .nav-element ul li {
     padding: 1rem;
     border-bottom: 1px solid rgba(235, 235, 235, 0.5);
     cursor: pointer;
-    list-style: none;
-}
-
+    color: white;
+    text-align: center;
+  }
+  .NavbarSlider .nav-element label {
+    color: white;
+    cursor: pointer; margin-right: 0.5rem;
+  }
 .NavbarSlider .nav-link {
     text-decoration: none;
     color: rgba(230, 230, 230, 0.8);
-}
+    
+  }
 
-@media (min-width: 750px){
+@media (min-width: 750px) {
     .NavbarSliderBackground {
-        z-index: -3;
+        z-index: 3;
     }
 }

@@ -4,13 +4,13 @@
 .left {
     flex-basis: 23%;
     height: auto;
-   
+    width: 100%;
 }
 .right {
     flex-basis: 77%;
+    width: 100%;
     padding-bottom: 4rem 4rem 4rem 2rem;
     min-height: 120vh;
-    
 }
 
 .edit-doc {
@@ -22,7 +22,7 @@
 .edit-doc > div  {
    margin-bottom: 1rem;
 }
-.edit-doc input , .Header input {
+.edit-doc input , .Header input , select{
     padding: 0.5rem ;
     width: 20rem;
     margin-top: 0.5rem;
@@ -74,16 +74,15 @@
     border-radius: 0.4rem;
 }
 
-@media (max-width: 900px){
+@media (max-width: 800px){
+    .DoctorList {
+        display: block;
+    }
     .left {
-        flex-basis: 0;
+        display: none;
     }
     .right {
-        flex-basis: 100%;
-    }
-    .edit-doc{
-        display: block;
-        text-align: center;
+        width: 100%;
     }
     #updateDoc {
         width: 25%;
@@ -96,7 +95,12 @@
     
 }
 
-
+@media (max-width: 930px) {
+    .edit-doc{
+        display: block;
+        text-align: center;
+    }
+}
 /* style for the auto search*/
 
 

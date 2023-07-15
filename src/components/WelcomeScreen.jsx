@@ -18,8 +18,10 @@ const WelcomeScreen = () => {
 
         <div className="login-form">
           <h2>Gluco chek</h2>
-          <button onClick={() => handleLoginPage("admin")}>Admin</button>
-          <button onClick={() => handleLoginPage("doctor")}>Doctor</button>
+          <div className="welcome-btn">
+            <button onClick={() => handleLoginPage("admin")}>Admin</button>
+            <button onClick={() => handleLoginPage("doctor")}>Doctor</button>
+          </div>
         </div>
       </div>
     </div>

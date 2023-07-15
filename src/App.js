@@ -19,6 +19,7 @@ import SearchCurrentPatient from './components/DoctorInterface/SearchCurrentPati
 import AddPatient from './components/DoctorInterface/AddPatient'
 import GlycemieRange from './components/DoctorInterface/GlycemieRange'
 import Diagrammes from './components/DoctorInterface/Diagrammes'
+import PatientPro from './components/DoctorInterface/PatientProfile'
 import WelcomeScreen from "./components/WelcomeScreen";
 import Login from './components/Login'
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
@@ -103,7 +104,7 @@ function App() {
           <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
           <Route path="/dashboard/:text" element={<Profile />} />
           <Route path="/dashboard/patients" element={<PatientList />} />
-          <Route path="/dashboard/patients/addnewpatient" element={<NewPatient />} />
+          {/* <Route path="/dashboard/patients/addnewpatient" element={<NewPatient />} /> */}
           <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
           <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
           <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />
@@ -117,6 +118,7 @@ function App() {
           <Route path="/doctorspace/addpatient" element={<AddPatient />} />
           <Route path="/doctorspace/glycemie-range" element={<GlycemieRange />} />
           <Route path="/doctorspace/statistics" element={<Diagrammes />} />
+          <Route path="/doctorspace/patient" element={<PatientPro/>} />
         </React.Fragment>
       ) : null}
     </React.Fragment>

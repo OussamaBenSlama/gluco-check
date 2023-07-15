@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import {doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import {useParams ,useLocation } from 'react-router-dom';
+import {useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Header from './Header';
 import '../../style/DoctorList.css';
@@ -63,14 +63,213 @@ const EditProfile = () => {
     });
     alert("update successfully");
   };
-
+  const nations = [
+    'Afghane',
+    'Sud-africaine',
+    'Albanaise',
+    'Algérienne',
+    'Allemande',
+    'Andorrane',
+    'Angolaise',
+    'Antiguaise-et-barbudienne',
+    'Saoudienne',
+    'Argentine',
+    'Arménienne',
+    'Australienne',
+    'Autrichienne',
+    'Azerbaïdjanaise',
+    'Bahamienne',
+    'Bahreinienne',
+    'Bangladaise',
+    'Barbadienne',
+    'Biélorusse',
+    'Belge',
+    'Bélizienne',
+    'Béninoise',
+    'Bhoutanaise',
+    'Bolivienne',
+    'Bosnienne',
+    'Botswanaise',
+    'Brésilienne',
+    'Bruneienne',
+    'Bulgare',
+    'Burkinabé',
+    'Burundaise',
+    'Caverdienne',
+    'Cambodgienne',
+    'Camerounaise',
+    'Canadienne',
+    'Chilienne',
+    'Chinoise',
+    'Chypriote',
+    'Colombienne',
+    'Comorienne',
+    'Congolaise',
+    'Congolaise, (Kinshasa)',
+    'Sud-coréenne',
+    'Nord-coréenne',
+    'Costaricaine',
+    'Ivoirienne',
+    'Croate',
+    'Cubaine',
+    'Danoise',
+    'Djiboutienne',
+    'Dominicaine',
+    'Dominiquaise',
+    'Egyptienne',
+    'Salvadorienne',
+    'Emirienne',
+    'Equatorienne',
+    'Erythréenne',
+    'Espagnole',
+    'Estonienne',
+    'Américaine',
+    'Ethiopienne',
+    'Fidjienne',
+    'Finlandaise',
+    'Française',
+    'Gabonaise',
+    'Gambienne',
+    'Georgienne',
+    'Ghanéenne',
+    'Hellénique',
+    'Grenadienne',
+    'Guatemaltèque',
+    'Guinéenne',
+    'Equato-guinéenne',
+    'Bissau-Guinéenne',
+    'Guyanaise, (Guyana)',
+    'Guyanienne',
+    'Haïtienne',
+    'Hondurienne',
+    'Hongroise',
+    'Indienne',
+    'Indonésienne',
+    'Iranienne',
+    'Irakienne',
+    'Irlandaise',
+    'Islandaise',
+    'Israélienne',
+    'Italienne',
+    'Jamaïcaine',
+    'Japonaise',
+    'Jordanienne',
+    'Kazakhstanaise',
+    'Kenyane',
+    'Kirghize',
+    'Kiribatienne',
+    'Koweitienne',
+    'Laotienne',
+    'Lesothane',
+    'Lettone',
+    'Libanaise',
+    'Libérienne',
+    'Libyenne',
+    'Liechtensteinoise',
+    'Lituanienne',
+    'Luxembourgeoise',
+    'Macédonienne',
+    'Malgache',
+    'Malaisienne',
+    'Malawienne',
+    'Maldivienne',
+    'Malienne',
+    'Maltaise',
+    'Marocaine',
+    'Marshallaise',
+    'Mauricienne',
+    'Mauritanienne',
+    'Mexicaine',
+    'Micronésienne',
+    'Moldave',
+    'Monégasque',
+    'Mongole',
+    'Monténégrine',
+    'Mozambicaine',
+    'Birmane',
+    'Namibienne',
+    'Nauruane',
+    'Népalaise',
+    'Nicaraguayenne',
+    'Nigérienne',
+    'Nigériane',
+    'Norvégienne',
+    'Neo-zélandaise',
+    'Omanaise',
+    'Ougandaise',
+    'Ouzbeke',
+    'Pakistanaise',
+    'Palau',
+    'Palestinienne',
+    'Panaméenne',
+    'Papouane-neoguinéenne',
+    'Paraguayenne',
+    'Néerlandaise',
+    'Péruvienne',
+    'Philippine',
+    'Polonaise',
+    'Portoricaine',
+    'Portugaise',
+    'Qatarienne',
+    'Syrienne',
+    'Centrafricaine',
+    'Roumaine',
+    'Britannique',
+    '(RU)',
+    'Russe',
+    'Rwandaise',
+    'Saint-Lucienne',
+    'Kittitienne-et-névicienne',
+    'Saint-Marinaise',
+    'Saint-Vincentaise-et-Grenadine',
+    'Salomonaise',
+    'Samoane',
+    'Santoméenne',
+    'Sénégalaise',
+    'Serbe',
+    'Seychelloise',
+    'Sierra-leonaise',
+    'Singapourienne',
+    'Slovaque',
+    'Slovène',
+    'Somalienne',
+    'Soudanaise',
+    'Sud',
+    'soudanaise',
+    'Sri-lankaise',
+    'Suédoise',
+    'Suisse',
+    'Surinamaise',
+    'Tadjike',
+    'Taiwanaise',
+    'Tanzanienne',
+    'Tchadienne',
+    'Tchèque',
+    'Thaïlandaise',
+    'Est-timoraise',
+    'Togolaise',
+    'Tongienne',
+    'Trinidadienne',
+    'Tunisienne',
+    'Turkmène',
+    'Turque',
+    'Tuvaluane',
+    'Ukrainienne',
+    'Uruguayenne',
+    'Vanuatuane',
+    'Vénézuélienne',
+    'Vietnamienne',
+    'Yéménite',
+    'Zambienne',
+    'Zimbabwéenne',
+  ];
   return (
     <div className="DoctorList">
       <div className="left">
         <Navbar doctor={doctor}/>
       </div>
       <div className="right" style={{ minHeight: "100vh" }}>
-        <Header />
+      <Header doctor = {doctor}/>
         <div className="edit-doc">
           <div>
             <label>Name:</label> <br />
@@ -125,11 +324,23 @@ const EditProfile = () => {
           </div>
           <div>
             <label>Nationality:</label> <br />
-            <input
-              type="text"
-              value={nationality}
-              onChange={(e) => setNationality(e.target.value)}
-            />
+            <select
+          id='nationality'
+          name='nationality'
+          value={nationality}
+          onChange={(e) => {setNationality(e.target.value)}}
+          
+        >
+          {/* <option value=''>Select Nationality</option> */}
+          <option value="Tunisienne" selected>
+            Tunisienne
+          </option>
+          {nations.map((nation, index) => (
+            <option key={index} value={nation}>
+              {nation}
+            </option>
+          ))}
+        </select>
           </div>
           <div>
             <label>Speciality:</label> <br />

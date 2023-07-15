@@ -13,9 +13,11 @@
     "firebase": "^9.23.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
+    "react-circular-progress": "^0.1.2",
     "react-dom": "^18.2.0",
+    "react-progressbar": "^15.4.1",
     "react-router-dom": "^6.14.0",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
     "webpack": "^5.88.1"
   },
