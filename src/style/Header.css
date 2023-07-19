@@ -75,6 +75,38 @@
     position: fixed;
     top: -50%;
 }
+
+.notification {
+    position: relative;
+}
+.notification span {
+    position: absolute;
+    right: 0.2rem;
+    top: -0.5rem;
+    color: white;
+    background-color: red;
+    padding: 0 0.3rem 0 0.3rem; 
+    border-radius: 1.2rem;
+    font-size: 0.9rem;
+}
+.notification-list {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.3rem;
+    min-width: 20rem;
+    height: auto;
+    color: rgb(245, 245, 245);
+    background-color: rgba(0, 145, 151, 0.9);
+    z-index: 10;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    border-radius: 1rem;
+}
+.notif-element {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
 @media (max-width: 750px){
     .head-operation {
         display: block;

@@ -357,6 +357,32 @@ const PatientPro = () => {
     setMsg('');
     alert('Message sent successfully');
   };
+  const updateHistory = async () => {
+    try {
+      // Create a copy of the patient's history list
+      const updatedHistory = patient.data.history.map((entry) => ({
+        ...entry,
+        new: false, // Set 'new' to false for all entries
+      }));
+
+      // Update the patient's history in the database
+      const patientRef = doc(db, 'users', patient.id);
+      await updateDoc(patientRef, { history: updatedHistory });
+
+      // Update the local state with the updated history
+      setHistory(updatedHistory);
+    } catch (error) {
+      console.error('Error updating history:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Call the updateHistory function when the component is rendered
+    const updatePatientHistory = async () => {
+      await updateHistory();
+    };
+    updatePatientHistory();
+  }, []);
 
   return (
     <div className='DoctorList'>

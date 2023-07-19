@@ -33,7 +33,7 @@ const PatientCard= ({ patient , doctor}) => {
       };
       
     const navigate = useNavigate();
-    const goProfile = (id) => {
+    const goProfile = () => {
       navigate(`/doctorspace/patient`, { state: { doctor , patient } });
     };
     

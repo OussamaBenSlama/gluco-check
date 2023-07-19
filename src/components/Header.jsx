@@ -46,7 +46,7 @@ const Header = () => {
     <div className="Header">
       <div className="head">
         {showButton ? (
-          <button style={{zIndex : '16'}}
+          <button 
             onClick={() => {
               setNavState(!navState);
               
@@ -65,7 +65,7 @@ const Header = () => {
         { navState && showButton ? (
           <React.Fragment>
             <div className="show-nav">
-              <NavbarSlider/>
+              <NavbarSlider setNavState = {setNavState}/>
             </div>
           </React.Fragment>
         ) : 

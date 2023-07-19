@@ -60,7 +60,7 @@ const AddPatient = () => {
         <Navbar doctor={doctor} />
       </div>
       <div className="right">
-        <Header />
+        <Header doctor={doctor}/>
         <div className="doc-list">
           {patients.map((patient) => (
             <div className="Patient-card" key={patient.id}>

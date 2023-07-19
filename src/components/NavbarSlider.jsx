@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "../style/NavbarSlider.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMd, faUsers ,faSignOutAlt , faSlidersH } from "@fortawesome/free-solid-svg-icons";
+import { faUserMd, faUsers ,faSignOutAlt , faSlidersH , faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import {auth} from '../config/firebase'
 
-const NavbarSlider = () => {
+const NavbarSlider = ({setNavState}) => {
   const navigate = useNavigate();
     const handleLogout = async () => {
       try {
@@ -19,10 +19,24 @@ const NavbarSlider = () => {
         // Display an error message or take appropriate action
       }
     };
-  const [navState, setNavState] = useState(false);
   return (
     <div className="NavbarSliderBackground">
       <div className="NavbarSlider">
+          <div style={{width:'100%' , textAlign:'right'}}>
+            <button 
+              onClick={() => {
+                setNavState(false);
+                
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faBars}
+                cursor="pointer"
+                color="white"
+                className="Bars-slider"
+              />
+            </button>
+          </div>
           <div className="nav-element">
             <ul>
               <li>
