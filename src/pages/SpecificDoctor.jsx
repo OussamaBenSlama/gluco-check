@@ -40,7 +40,7 @@ const SpecificDoctor = () => {
       </div>
       <div className="right">
         <Header />
-        <div className="result" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem' }}>
+        <div className='doc-list'>
           {doctors.length > 0 ? (
             doctors.map((doctor, index) => <DoctorItem key={index} doctor={doctor} />)
           ) : (

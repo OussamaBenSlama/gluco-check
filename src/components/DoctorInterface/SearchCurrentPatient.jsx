@@ -31,7 +31,7 @@ const SearchCurrentPatient = () => {
         // Search for patients based on the name parameter
         const searchedPatients = patientData.filter(
             (patient) =>
-              patient.data.name &&
+              patient.data && patient.data.name &&
               patient.data.name.toLowerCase() === text.toLowerCase()
           );
           

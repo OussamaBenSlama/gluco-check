@@ -39,7 +39,7 @@ const SpecificPatient = () => {
       </div>
       <div className="right">
         <HeaderPatient />
-        <div className="result" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem' }}>
+        <div className="doc-list" >
           {patient.length > 0 ? (
             patient.map((patient, index) => <PatientItem key={index} patient={patient} />)
           ) : (
