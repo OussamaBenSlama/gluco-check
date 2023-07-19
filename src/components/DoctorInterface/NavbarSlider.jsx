@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../../style/NavbarSlider.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt , faBars } from '@fortawesome/free-solid-svg-icons';
 import { signOut } from 'firebase/auth';
 import { useNavigate} from 'react-router-dom';
 import { auth } from '../../config/firebase';
 
-const NavbarSlider = ({doctor}) => {
+const NavbarSlider = ({doctor , setNavState}) => {
   
   const navigate = useNavigate();
 
@@ -46,6 +46,21 @@ const NavbarSlider = ({doctor}) => {
   return (
     <div className="NavbarSliderBackground">
       <div className="NavbarSlider">
+        <div style={{textAlign : 'right'}}>
+              <button style={{zIndex : '16'}}
+               onClick={() => {
+                setNavState(false);
+                          
+                }}
+                >
+                <FontAwesomeIcon
+                icon={faBars}
+                cursor="pointer"
+                color="white"
+                className="Bars-slider"
+                />
+              </button>
+        </div>
         <div className="nav-element">
           <ul>
             <li onClick={gohome}>Profile</li>

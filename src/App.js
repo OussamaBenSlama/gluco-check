@@ -8,7 +8,7 @@ import SpecificDoctor from "./pages/SpecificDoctor";
 import EditDoctor from "./pages/EditDoctor";
 import Profile from "./pages/Profile";
 import PatientList from "./pages/PatientList";
-import NewPatient from "./pages/NewPatient";
+import Glycemie from './components/Glycemie'
 import SpecificPatient from "./pages/SpecificPatient";
 import EditPatient from "./pages/EditPatient";
 import PatientProfile from "./pages/PatientProfile";
@@ -104,7 +104,7 @@ function App() {
           <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
           <Route path="/dashboard/:text" element={<Profile />} />
           <Route path="/dashboard/patients" element={<PatientList />} />
-          {/* <Route path="/dashboard/patients/addnewpatient" element={<NewPatient />} /> */}
+          <Route path="/dashboard/glycemie" element={<Glycemie />} /> 
           <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
           <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
           <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />

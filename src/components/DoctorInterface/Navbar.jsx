@@ -25,7 +25,7 @@ const Navbar = ({ doctor }) => {
     navigate('/doctorspace/editprofile', { state: { doctor } });
   }
   const gohome = () => {
-    navigate('/doctorspace')
+    navigate('/doctorspace' )
   }
   const goAdd = () => {
     navigate('/doctorspace/addpatient', { state: { doctor } });

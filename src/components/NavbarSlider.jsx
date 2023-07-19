@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style/NavbarSlider.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMd, faUsers ,faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUserMd, faUsers ,faSignOutAlt , faSlidersH } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -40,8 +40,18 @@ const NavbarSlider = () => {
                 <Link to="/dashboard/patients" className="nav-link">
                 <FontAwesomeIcon 
                 icon={faUsers} 
-                style={{marginRight:'0.5rem' , fontSize:'1rem'}}/>
+                color="white"
+                style={{marginRight:'1rem' , fontSize:'1.5rem'}}/>
                 PATIENTS
+                </Link>
+              </li>
+              <li>
+                <Link to= "/dashboard/glycemie" className="nav-link">
+                <FontAwesomeIcon 
+                icon={faSlidersH} 
+                color="white"
+                style={{marginRight:'1rem' , fontSize:'1.5rem'}}/>
+                  GLYCEMIE
                 </Link>
               </li>
               <li>

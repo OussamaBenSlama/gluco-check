@@ -1,4 +1,4 @@
-.patient-profile {
+.Profile {
     width: 100%;
     min-height: 120vh;
     background-color: rgb(235,235,235);
@@ -18,6 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .left-profile .header-profile h4 , .left-profile .header-profile h5 {
     text-transform: capitalize;
@@ -50,6 +51,13 @@
     border-radius: 50%;
     margin-bottom: 0.5rem;
 }
+.delete-icon {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color : #057be9;
+    cursor: pointer;
+}
 .right-profile .info-profile {
     width: 100%;
     background-color: white;
@@ -70,12 +78,15 @@
 }
 .left-profile .History , .Messages {
     overflow: auto;
-    max-height: 33vh;
+    max-height: 42vh;
     width: 95%;
     border: 1px solid black;
     margin-top: 1rem;
     background-color: white;
     scroll-behavior: smooth;
+}
+select:focus {
+    outline: none;
 }
 .yellow-bg {
     background-color: #F2BE22;
@@ -99,14 +110,29 @@
 }
 .History p {
     font-size: 0.9rem;
+    width: 40%;
+    text-align: center;
 }
 .msg {
     padding: 0.5rem;
-    background-color: #057be9;
+    background-color: rgb(230,230,230);
     margin: 0.4rem;
-    color: white;
-    width: 80%;
-    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    color: black;
+    width: 90%;
+    border-radius: 1rem;
+}
+.msg-date {
+    color: black;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex ;
+    justify-content: space-between;
+}
+.msg-content {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: start;
 }
 .send-msg {
     margin-top: 1rem;
@@ -137,12 +163,12 @@
 /* responsive */
 
 @media screen and (max-width: 1250px){
-    .patient-profile {
+    .Profile {
         display: block;
         text-align: center;
         width: 100%;
     }
-    .patient-profile > div {
+    .Profile > div {
         margin-top: 2rem;
         width: 100%;
     }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Header from './Header';
-import Home from './Home';
 import PatientCard from './PatientCard';
 import '../../style/DoctorList.css';
 import { auth, db } from '../../config/firebase';

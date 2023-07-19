@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../../style/DoctorInterfaceStyle/PatientProfile.css';
+import '../../style/Profile.css';
 import myLogo from '../../images/patient.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -34,7 +34,7 @@ const Home = ({ doctor }) => {
   }
 
   return (
-    <div className='patient-profile'>
+    <div className='Profile'>
       <div className='left-profile'>
         <div className='header-profile'>
           <div style={{ textAlign: 'center', padding: '1rem' }}>

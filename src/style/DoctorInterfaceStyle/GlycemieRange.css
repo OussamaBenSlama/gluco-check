@@ -22,6 +22,16 @@
 .Inputs-range div {
     margin-bottom: 1rem;
 }
+.Inputs-range button {
+    width: 8rem;
+    padding: 0.4rem;
+    margin-left: 30%;
+    color: white;
+    background-color: #004054;
+    border: 1px solid #004054;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
 .show-range {
     width: 100%;
     display: flex;

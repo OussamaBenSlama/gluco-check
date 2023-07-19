@@ -26,6 +26,16 @@ const Diagrammes = () => {
   const [pre_diabete, setPreDiabete] = useState(0);
   const [hyper, setHyper] = useState(0);
   const [emptyHistoryCount, setEmptyHistoryCount] = useState(0);
+  const [selectedOption, setSelectedOption] = useState('3');
+  
+  const formatDateSys = (dateTime) => {
+    const date = new Date(dateTime);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     const fetchUsersData = async () => {
@@ -37,10 +47,13 @@ const Diagrammes = () => {
       const withDeviceCount = usersData.filter((user) => user.data.device && user.data.device.id !== '').length;
       const withoutDeviceCount = usersData.filter((user) => user.data.device && user.data.device.id === '').length;
 
-      setnbpersonaff(doctor.data.patients.length);
-      setnbpersonUnaffected(unaffectedUsersCount);
-      setnbpersonWithDevice(withDeviceCount);
-      setnbpersonWithoutDevice(withoutDeviceCount);
+      if(doctor && doctor.data)
+      {
+        setnbpersonaff(doctor.data.patients.length);
+        setnbpersonUnaffected(unaffectedUsersCount);
+        setnbpersonWithDevice(withDeviceCount);
+        setnbpersonWithoutDevice(withoutDeviceCount);
+      }
 
       if (doctor) {
         const patientPromises = doctor.data.patients.map(async (patientId) => {
@@ -56,7 +69,9 @@ const Diagrammes = () => {
 
     fetchUsersData();
   }, []);
+
   const totalPatients = nbpersonWithDevice + nbpersonWithoutDevice;
+
   useEffect(() => {
     let hypoCount = 0;
     let normalCount = 0;
@@ -66,23 +81,50 @@ const Diagrammes = () => {
 
     patients.forEach((patient) => {
       let sum = 0;
+      let validHistory = 0;
+
       if (patient.data && patient.data.history && patient.data.history.length > 0) {
         patient.data.history.forEach((entry) => {
-          if (entry.value !== '' || entry.value !== '0') {
-            sum += parseInt(entry.value);
+          const entryDate = new Date(entry.date.seconds * 1000);
+
+          if (selectedOption === '3') {
+            const lastThreeMonths = new Date();
+            lastThreeMonths.setMonth(lastThreeMonths.getMonth() - 3);
+            
+            if (entryDate >= lastThreeMonths && (entry.value !== '' || entry.value !== '0')) {
+              sum += parseFloat(entry.value);
+              validHistory++;
+            }
+          } else if (selectedOption === '6') {
+            const lastSixMonths = new Date();
+            lastSixMonths.setMonth(lastSixMonths.getMonth() - 6);
+            
+            if (entryDate >= lastSixMonths && (entry.value !== '' || entry.value !== '0')) {
+              sum += parseFloat(entry.value);
+              validHistory++;
+            }
           }
         });
 
-        const average = sum / patient.data.history.length;
+        let average = 0;
+        
+        if (validHistory !== 0) {
+          average = sum / validHistory;
+        }
+        console.log(sum ,validHistory)
+        console.log(patient.id , average)
 
-        if (average < 0.7) {
+        if (average < 0.7 && average > 0) {
           hypoCount += 1;
         } else if (average >= 0.7 && average <= 1.10) {
           normalCount += 1;
         } else if (average > 1.10 && average <= 1.25) {
           preDiabeteCount += 1;
-        } else {
+        } else if (average > 1.25) {
           hyperCount += 1;
+        }
+        else {
+          emptyCount ++ ;
         }
       } else {
         emptyCount += 1;
@@ -94,28 +136,26 @@ const Diagrammes = () => {
     setPreDiabete(preDiabeteCount);
     setHyper(hyperCount);
     setEmptyHistoryCount(emptyCount);
-  }, [patients]);
+  }, [patients, selectedOption]);
 
-  
- 
   const pieData = {
-    labels: ['Hypo', 'Normal', 'Pre-diabete', 'Hyper', 'Empty History'],
+    labels: ['Hypo', 'Normal', 'Pre-diabete', 'Hyper'],
     datasets: [
       {
         label: 'Patient Distribution',
-        data: [hypo, normal, pre_diabete, hyper, emptyHistoryCount],
+        data: [hypo, normal, pre_diabete, hyper],
         backgroundColor: [
           '#F2BE22',
           '#54B435',
           '#FF6D60',
-          '#DC0000' ,
+          '#DC0000',
           'gray',
         ],
         borderColor: [
           '#F2BE22',
           '#54B435',
           '#FF6D60',
-          '#DC0000' ,
+          '#DC0000',
           'gray',
         ],
         borderWidth: 1,
@@ -125,7 +165,6 @@ const Diagrammes = () => {
 
   const pieOptions = {
     responsive: true,
-    
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -146,7 +185,6 @@ const Diagrammes = () => {
         top: 0,
         bottom: 0,
       },
-      
     },
     elements: {
       arc: {
@@ -155,7 +193,10 @@ const Diagrammes = () => {
     },
     width: 0, // Adjust the width of the pie chart
     height: 0, // Adjust the height of the pie chart
-  
+  };
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
   return (
@@ -164,72 +205,78 @@ const Diagrammes = () => {
         <Navbar doctor={doctor} />
       </div>
       <div className='right'>
-        <Header doctor = {doctor}/>
-         <div className='stats-content'>
-              <div className='doc-list'>
-                <div className='stats-card'>
-                  <div>
-                    <h5>Total number of patients</h5>
-                    <p>{totalPatients}</p>
-                  </div>
-                  <FontAwesomeIcon icon={faUsers} size='2x' color='#004054' />
-                </div>
-                <div className='stats-card'>
-                  <div>
-                    <h5>Number of patients affected</h5>
-                    <p>{nbpersonaff}</p>
-                  </div>
-                  <FontAwesomeIcon icon={faUsers} size='2x' color='green' />
-                </div>
-                <div className='stats-card'>
-                  <div>
-                    <h5>Number of unaffected patients</h5>
-                    <p>{nbpersonUnaffected}</p>
-                  </div>
-                  <FontAwesomeIcon icon={faUsers} size='2x' color='red' />
-                </div>
-                <div className='stats-card'>
-                  <div>
-                    <h5>Number of patients with device</h5>
-                    <p>{nbpersonWithDevice}</p>
-                  </div>
-                  <FontAwesomeIcon icon={faMobileAlt} size='2x' color='green' />
-                </div>
-                <div className='stats-card'>
-                  <div>
-                    <h5>Number of patients without a device</h5>
-                    <p>{nbpersonWithoutDevice}</p>
-                  </div>
-                  <FontAwesomeIcon icon={faMobileAlt} size='2x' color='red' />
-                </div>
+        <Header doctor={doctor} />
+        <div className='stats-content'>
+          <div className='doc-list'>
+            <div className='stats-card'>
+              <div>
+                <h5>Total number of patients</h5>
+                <p>{totalPatients}</p>
               </div>
-              
-              <div style={{width:'100%'}}>
-                  {doctor && doctor.data&& doctor.data.patients && doctor.data.patients.length > 0 ?
-                  (
-                    <React.Fragment>
-                      <div className='chart-container' style={{width:'90%', height:'50vh' , paddingTop:'1rem'}}>
-                        <Pie data={pieData} options={pieOptions} />
-                      </div>
-                      <div className='chart-legend' style={{display:'flex' , width:'100%', justifyContent:'center'}}>
-                          {pieData.labels.map((label, index) => (
-                            <div key={index} className='legend-item' style={{display:'flex'}}>
-                              <span className='legend-color' style={{ backgroundColor: pieData.datasets[0].backgroundColor[index]  , fontSize:'1rem'}} />
-                              <span className='legend-label' style={{marginRight:'3.5rem'}}>{` ${((pieData.datasets[0].data[index] / nbpersonaff) * 100).toFixed(2)}%`}</span>
-                            </div>
-                          ))}
-                        </div>
-                    </React.Fragment>
-
-                  ) :
-                  (
-                    <React.Fragment>
-                        <p>no statistics availaible now !!!</p>
-                    </React.Fragment>
-
-                  ) }
+              <FontAwesomeIcon icon={faUsers} size='2x' color='#004054' />
+            </div>
+            <div className='stats-card'>
+              <div>
+                <h5>Number of patients affected</h5>
+                <p>{nbpersonaff}</p>
               </div>
-         </div>
+              <FontAwesomeIcon icon={faUsers} size='2x' color='green' />
+            </div>
+            <div className='stats-card'>
+              <div>
+                <h5>Number of unaffected patients</h5>
+                <p>{nbpersonUnaffected}</p>
+              </div>
+              <FontAwesomeIcon icon={faUsers} size='2x' color='red' />
+            </div>
+            <div className='stats-card'>
+              <div>
+                <h5>Number of patients with device</h5>
+                <p>{nbpersonWithDevice}</p>
+              </div>
+              <FontAwesomeIcon icon={faMobileAlt} size='2x' color='green' />
+            </div>
+            <div className='stats-card'>
+              <div>
+                <h5>Number of patients without a device</h5>
+                <p>{nbpersonWithoutDevice}</p>
+              </div>
+              <FontAwesomeIcon icon={faMobileAlt} size='2x' color='red' />
+            </div>
+          </div>
+          <div style={{width:'100%', textAlign:'right', padding:'1rem'}}>
+            <select value={selectedOption} onChange={handleOptionChange}>
+              <option value='3'>Last 3 months</option>
+              <option value='6'>Last 6 months</option>
+            </select>
+          </div>
+          <div style={{ width: '100%' }}>
+            {doctor && doctor.data && doctor.data.patients && doctor.data.patients.length > 0 ? (
+              <React.Fragment>
+                <div className='chart-container' style={{ width: '90%', height: '50vh', paddingTop: '1rem' }}>
+                  <Pie data={pieData} options={pieOptions} />
+                </div>
+                <div className='chart-legend' style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+                  {pieData.labels.map((label, index) => (
+                    <div key={index} className='legend-item' style={{ display: 'flex' }}>
+                      <span
+                        className='legend-color'
+                        style={{ backgroundColor: pieData.datasets[0].backgroundColor[index], fontSize: '1rem' }}
+                      />
+                      <span className='legend-label' style={{ marginRight: '3.5rem' }}>
+                        {` ${((pieData.datasets[0].data[index] / (nbpersonaff- emptyHistoryCount)) * 100).toFixed(2)}%`}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <p>no statistics available now !!!</p>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

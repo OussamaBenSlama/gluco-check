@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import '../style/DoctorProfile.css';
+import '../style/Profile.css';
 import { collection, getDocs ,deleteDoc ,doc ,getDoc , updateDoc}  from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useParams , useNavigate} from 'react-router-dom';
-import logo from '../images/doctor.jpg';
+import myLogo from '../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit,faTrashAlt,faMapMarkerAlt, faEnvelope, faPhone, faGlobe, faVenusMars, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit , faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 const DoctorProfile = () => {
   const { text } = useParams();
@@ -80,68 +80,61 @@ const DoctorProfile = () => {
 
   return (
     <div className='Profile'>
-      <div className='profile-card'>
-            <div className='profile-header'>
-                <img src={logo} alt='' />
+      <div className='left-profile'>
+        <div className='header-profile'>
+          <div style={{ textAlign: 'center', padding: '1rem' }}>
+            <img src={myLogo} alt='' />
+            <h4>{doctor.data.name}</h4>
+            <h5>{doctor.data.speciality}</h5>
+            
+            <div>
+              <button onClick={editDoctor}>
+                <FontAwesomeIcon icon={faEdit} style={{ marginRight: '0.5rem' }} />
+                Edit Profile
+              </button>
             </div>
-            <div className='profile-title'>
-                <h2>Dr. {doctor.data.name}</h2>
-                <h3>{doctor.data.speciality}</h3>
+            <div className='delete-icon'>
+              <FontAwesomeIcon icon={faTrashAlt} onClick={deleteDoctor}/>
             </div>
-        <div className='profile-info'>
-            <div className='main-info'>
-                <label>
-                <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '0.5rem' }} />
-                Address:
-                </label>
-                <p>{doctor.data.address}</p> <br/>
-
-                <label>
-                <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '0.5rem' }} />
-                Email:
-                </label> 
-                <p>{doctor.data.email}</p> <br/>
-
-                <label>
-                <FontAwesomeIcon icon={faPhone} style={{ marginRight: '0.5rem' }} />
-                Phone:
-                </label>
-                <p>{doctor.data.phone}</p> <br/>
           </div>
-          
-          <div className='second-info'>
-            <label>
-                <FontAwesomeIcon icon={faGlobe} style={{ marginRight: '0.5rem' }} />
-                Nationality :
-                </label>
-                <p>{doctor.data.nationality}</p> <br/>
-
-                <label>
-                <FontAwesomeIcon icon={faVenusMars} style={{ marginRight: '0.5rem' }} />
-                Gender :
-                </label>
-                <p>{doctor.data.gender}</p> <br/>
-
-                <label>
-                <FontAwesomeIcon icon={faCalendarAlt} style={{ marginRight: '0.5rem' }} />
-                Birth-date :
-                </label>
-                <p>{FormatterDate(doctor.data.birth)}</p> 
-          </div>
-          
-        </div>
-        <div className="del--mod">
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                color="white"
-                size="1x"
-                className="del"
-                onClick={() => deleteDoctor(doctor.id)}
-              />
-              <FontAwesomeIcon onClick={editDoctor} icon={faEdit} size="1x" className="mod" color='white'/>
         </div>
       </div>
-      
+      <div className='right-profile'>
+        <div className='info-profile'>
+          <div>
+            <label>ID</label>
+            <p>{doctor.id}</p>
+          </div>
+          <div>
+            <label>Email</label>
+            <p>{doctor.data.email}</p>
+          </div>
+          <div>
+            <label>Address</label>
+            <p>{doctor.data.address}</p>
+          </div>
+          <div>
+            <label>Phone</label>
+            <p>{doctor.data.phone}</p>
+          </div>
+          <div>
+            <label>Birth</label>
+            <p>{FormatterDate(doctor.data.birth)}</p>
+          </div>
+          <div>
+            <label>Gender</label>
+            <p>{doctor.data.gender}</p>
+          </div>
+          <div>
+            <label>Nationality</label>
+            <p>{doctor.data.nationality}</p>
+          </div>
+          <div>
+            <label>Patients</label>
+            <p>{doctor.data.patients.length}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

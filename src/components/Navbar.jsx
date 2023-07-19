@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/DoctorInterfaceStyle/Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserMd , faUsers} from '@fortawesome/free-solid-svg-icons';
+import { faUserMd , faUsers , faSlidersH} from '@fortawesome/free-solid-svg-icons';
 import myLogo from '../images/patient.png';
 import {
   faSignOutAlt,
@@ -29,6 +29,9 @@ const Navbar = () => {
     const goPatients = () => {
       navigate('/dashboard/patients')
     }
+    const goGlycemie = () => {
+      navigate('/dashboard/glycemie')
+    }
   return (
     <div className="Navbar">
       <div className="Doctor-nav">
@@ -36,15 +39,21 @@ const Navbar = () => {
         <h1>Administrator</h1> 
         <ul>
           <li onClick={goDoctors}>
-            <FontAwesomeIcon icon={faUserMd} style={{marginRight:'0.5rem' , fontSize:'1rem'}}/>
+            <FontAwesomeIcon icon={faUserMd} style={{marginRight:'0.5rem' , fontSize:'1rem' , width:'2rem'}}/>
             Doctors
             </li>
           <li onClick={goPatients}>
-          <FontAwesomeIcon icon={faUsers} style={{marginRight:'0.5rem' , fontSize:'1rem'}}/>
+          <FontAwesomeIcon icon={faUsers} style={{marginRight:'0.5rem' , fontSize:'1rem' , width:'2rem'}}/>
           Patients</li>
+          <li onClick={goGlycemie}>
+          <FontAwesomeIcon icon={faSlidersH} style={{marginRight:'0.5rem' , fontSize:'1rem' , width:'2rem'}}/>
+          Glycemie</li>
+          <li>
+            <label onClick={handleLogout}>Log Out</label>
+          < FontAwesomeIcon icon={faSignOutAlt} color="white" />
+          </li>
         </ul>
-        <label onClick={handleLogout}>Log Out</label>
-        <FontAwesomeIcon icon={faSignOutAlt} color="white" />
+        
       </div>
     </div>
   );
