@@ -85,7 +85,7 @@ const EditPatient = () => {
         }
         );
        
-      console.log("suppression terminé") }
+       }
       else {
         console.log("Previous doctor document not found.");
       }
@@ -188,7 +188,7 @@ const EditPatient = () => {
           </div>
           <div>
             <label>Birth:</label> <br />
-            <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
+            <input type="date" value={birth} onChange={(e) => setBirth(e.target.value)} />
           </div>
           <div>
             <label>Weight:</label> <br />
@@ -224,10 +224,13 @@ const EditPatient = () => {
             )}
           </div>
           <br />
-          <button id="updatePat" onClick={handleUpdate} >
-            Update
-          </button>
+          
         </div>
+        <div className='btn-action'>
+            <button id="updatePat" onClick={handleUpdate} >
+              Update
+            </button>
+          </div>
       </div>
     </div>
   );

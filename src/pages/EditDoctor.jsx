@@ -373,10 +373,13 @@ const EditDoctor = () => {
             />
           </div>
           <br />
-          <button id="updateDoc" onClick={handleUpdate}>
-            Update
-          </button>
+          
         </div>
+        <div className='btn-action'>
+            <button id="updatePat" onClick={handleUpdate} >
+              Update
+            </button>
+          </div>
       </div>
     </div>
   );

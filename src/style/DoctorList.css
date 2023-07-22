@@ -48,9 +48,6 @@
     outline: none;
 }
 #updatePat {
-    position: absolute;
-    left: 36%;
-    top: 93%; 
     width: 15%;
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color:  #004054;
@@ -61,9 +58,6 @@
     border-radius: 0.4rem;
 }
 #updateDoc {
-    position: absolute;
-    left: 36%;
-    top: 93%; 
     width: 15%;
     padding: 0.5rem 2rem 0.5rem 2rem;
     background-color:  #004054;
@@ -73,7 +67,11 @@
     border: 1px solid #004054;
     border-radius: 0.4rem;
 }
-
+.btn-action {
+    width: 85% ;
+    text-align: center;
+    padding:'1rem' 
+}
 @media (max-width: 800px){
     .DoctorList {
         display: block;
@@ -84,20 +82,24 @@
     .right {
         width: 100%;
     }
-    #updateDoc {
-        width: 25%;
-    }
+    
     #updatePat {
-        width: 25%;
         z-index: -1;
-        top: 99%;
     }
     
 }
 
-@media (max-width: 930px) {
+@media (max-width: 970px) {
     .edit-doc{
         display: block;
+        text-align: center;
+    }
+    
+}
+@media (max-width: 1030px) {
+   
+    .btn-action {
+        width: 95%;
         text-align: center;
     }
 }

@@ -351,9 +351,12 @@ const EditProfile = () => {
             />
           </div>
           <br />
-          <button id="updateDoc" onClick={handleUpdate}>
-            Update
-          </button>
+          
+        </div>
+        <div className='btn-action'>
+            <button id="updateDoc" onClick={handleUpdate}>
+              Update
+            </button>
         </div>
       </div>
     </div>
