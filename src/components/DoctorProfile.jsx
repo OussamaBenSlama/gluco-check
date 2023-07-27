@@ -103,7 +103,7 @@ const DoctorProfile = () => {
         <div className='info-profile'>
           <div>
             <label>ID</label>
-            <p>{doctor.id}</p>
+            <p>{doctor.data.matricule}</p>
           </div>
           <div>
             <label>Email</label>

@@ -47,19 +47,19 @@ const DoctorItem = ({ doctor }) => {
 
   return (
     <div>
-      <div className="doc-card">
+      <div className="doc-card" >
         <div className="card-head"></div>
         <div className="card-section">
           <div className="card-pic">
             <div className='personal-img'><img src={myLogo} alt="" /></div>
-            <div className="personal-info">
+            <div className="personal-info" onClick={gotoprofile} style={{cursor:'pointer'}}>
             <div>
-                  <label>
+                  <label style={{fontWeight:'bold'}}>
                   <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
-                  ID :
+                  Matricule :
                   </label>
                 
-                 <p>{doctor.id}</p> 
+                 <p>{doctor.data.matricule}</p> 
               </div>
               <div>
                   <label>

@@ -41,10 +41,10 @@ const HeaderPatient = () => {
     <div className="Header">
       <div className="head">
       {showButton ? (
-          <button style={{zIndex : '16'}}
+          <button 
             onClick={() => {
               setNavState(!navState);
-              console.log("hey")
+              
             }}
           >
             <FontAwesomeIcon
@@ -60,7 +60,7 @@ const HeaderPatient = () => {
         { navState && showButton ? (
           <React.Fragment>
             <div className="show-nav">
-              <NavbarSlider/>
+              <NavbarSlider setNavState={setNavState}/>
             </div>
           </React.Fragment>
         ) : 

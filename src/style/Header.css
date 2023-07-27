@@ -48,9 +48,13 @@
     border: none;
     cursor: pointer;
 }
-.head-operation input {
+.head-operation input , .head-operation select {
     padding: 0.5rem 1rem 0.5rem 1rem;
     margin-bottom: 0.6rem;
+}
+.head-operation select {
+    width: 10rem;
+    margin-right: 1rem;
 }
 .head-operation input:focus {
     outline: none;
@@ -111,7 +115,7 @@
     .head-operation {
         display: block;
     }
-    .head-operation button ,  .head-operation input {
+    .head-operation button ,  .head-operation input , .head-operation select {
         margin-bottom: 2rem;
     }
     .head-operation div div {

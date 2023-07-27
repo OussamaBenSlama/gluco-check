@@ -39,7 +39,7 @@ const EditDoctor = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  // const [id, setId] = useState('');
+  const [matricule, setMatricule] = useState('');
   const [gender, setGender] = useState("");
   const [birth, setBirth] = useState("");
   const [nationality, setNationality] = useState("");
@@ -63,19 +63,34 @@ const EditDoctor = () => {
       setAddress(doctor.data.address || "");
       setEmail(doctor.data.email || "");
       setPhone(doctor.data.phone || "");
-      // setId(doctor.id || '');
+      setMatricule(doctor.data.matricule || '');
       setGender(doctor.data.gender || "");
       setBirth(FormatterDate(doctor.data.birth) || ""); // stringify date
       setNationality(doctor.data.nationality || "");
     }
   }, [doctor]);
+  const [specialities, setSpecialities] = useState([]);
 
+  useEffect(() => {
+    const specialityRef = collection(db, 'specialities');
+    const getSpecialities = async () => {
+      try {
+        const response = await getDocs(specialityRef);
+        const data = response.docs.map((doc) => doc.data().name);
+        setSpecialities(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getSpecialities();
+  }, []);
+  
   const handleUpdate = async () => {
     const Doctor = doc(db, "doctors", text);
     await updateDoc(Doctor, {
       name: name,
       email: email,
-      // id: id,
+      matricule: matricule,
       gender: gender,
       nationality: nationality,
       speciality: speciality,
@@ -84,6 +99,7 @@ const EditDoctor = () => {
       phone: phone,
     });
     alert("update successfully");
+    
   };
   const nations = [
     'Afghane',
@@ -301,6 +317,14 @@ const EditDoctor = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+          <div>
+            <label htmlFor='id'>
+              Matricule: <span>*</span>
+            </label>
+            <br />
+            <input type='text' id='id' name='id' value={matricule} 
+            onChange={(e) => setMatricule(e.target.value)} />
+          </div> 
 
           <div>
             <label>Email:</label> <br />
@@ -328,11 +352,12 @@ const EditDoctor = () => {
           </div>
           <div>
             <label>Gender:</label> <br />
-            <input
-              type="text"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            />
+            <select id='gender' name='gender' value={gender}
+              onChange={(e) => setGender(e.target.value)}>
+              <option value=''>Select Gender</option> 
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
           </div>
           <div>
             <label>Birth:</label> <br />
@@ -366,11 +391,21 @@ const EditDoctor = () => {
           </div>
           <div>
             <label>Speciality:</label> <br />
-            <input
-              type="text"
+            <select
+              id='speciality'
+              name='speciality'
               value={speciality}
-              onChange={(e) => setSpeciality(e.target.value)}
-            />
+              onChange={(e) => {setSpeciality(e.target.value)}}
+              style={{marginBottom:'2rem'}}
+            >
+              
+              
+              {specialities.map((speciality, index) => (
+                <option key={index} value={speciality}>
+                  {speciality}
+                </option>
+              ))}
+            </select>
           </div>
           <br />
           

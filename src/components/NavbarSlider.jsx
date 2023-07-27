@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../style/NavbarSlider.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMd, faUsers ,faSignOutAlt , faSlidersH , faBars } from "@fortawesome/free-solid-svg-icons";
+import { faUserMd, faUsers ,faSignOutAlt , faSlidersH , faBars,faBriefcaseMedical,faNotesMedical } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -66,6 +66,26 @@ const NavbarSlider = ({setNavState}) => {
                 color="white"
                 style={{marginRight:'1rem' , fontSize:'1.5rem'}}/>
                   GLYCEMIE
+                </Link>
+              </li>
+
+              <li>
+                <Link to= "/specialities" className="nav-link">
+                <FontAwesomeIcon 
+                icon={faBriefcaseMedical} 
+                color="white"
+                style={{marginRight:'1rem' , fontSize:'1.5rem'}}/>
+                  Specialities
+                </Link>
+              </li>
+
+              <li>
+                <Link to= "/services" className="nav-link">
+                <FontAwesomeIcon 
+                icon={faNotesMedical} 
+                color="white"
+                style={{marginRight:'1rem' , fontSize:'1.5rem'}}/>
+                  Services
                 </Link>
               </li>
               <li>

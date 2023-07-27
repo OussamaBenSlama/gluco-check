@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { collection, getDocs, doc, updateDoc, arrayUnion,getDoc,arrayRemove } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, arrayUnion, getDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -39,14 +39,18 @@ const EditPatient = () => {
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
   const [birth, setBirth] = useState('');
-  const [weight, setweight] = useState(0);
+  const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
-  const [service, setService] = useState('');
+  const [selectedService, setSelectedService] = useState(''); 
   const [doctorID, setDoctorID] = useState('');
-  
+
+  const [doctorName, setDoctorName] = useState('');
+  const [doctorMatricule, setDoctorMatricule] = useState(''); 
+  const [filteredDoctors, setFilteredDoctors] = useState([]); 
+
   const FormatterDate = (dateTime) => {
     const totalMilliseconds =
-    dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
+      dateTime.seconds * 1000 + dateTime.nanoseconds / 1000000;
     const date2 = new Date(totalMilliseconds);
     const month = String(date2.getMonth() + 1).padStart(2, "0");
     const day = String(date2.getDate()).padStart(2, "0");
@@ -63,34 +67,54 @@ const EditPatient = () => {
       setPhone(patient.data.phone || '');
       setGender(patient.data.gender || '');
       setBirth(FormatterDate(patient.data.birth) || '');
-      setweight(patient.data.weight || 0);
+      setWeight(patient.data.weight || 0);
       setHeight(patient.data.height || 0);
-      setService(patient.data.service || '');
-      setDoctorID(patient.data.doctor || ''); // Updated from 'doctor'
+      setSelectedService(patient.data.service || ''); 
+      setDoctorID(patient.data.doctor || '');
     }
   }, [patient]);
+
+  useEffect(() => {
+    const fetchDoctorName = async () => {
+      if (doctorID) {
+        const doctorRef = doc(db, "doctors", doctorID);
+        const doctorSnapshot = await getDoc(doctorRef);
+
+        if (doctorSnapshot.exists()) {
+          const doctorData = doctorSnapshot.data();
+          setDoctorName(doctorData.name || '');
+          setDoctorMatricule(doctorData.matricule || '') ;
+        } else {
+          setDoctorName(''); 
+          setDoctorMatricule('')
+        }
+      } else {
+        setDoctorName(''); 
+        setDoctorMatricule('')
+      }
+    };
+
+    fetchDoctorName();
+  }, [doctorID]);
 
   const handleUpdate = async () => {
     const patientRef = doc(db, "users", text);
     const patientSnapshot = await getDoc(patientRef);
     const previousDoctorID = patientSnapshot.data().doctor;
-  
+
     if (previousDoctorID && previousDoctorID !== doctorID) {
       const previousDoctorRef = doc(db, "doctors", previousDoctorID);
       const previousDoctorSnapshot = await getDoc(previousDoctorRef);
-  
+
       if (previousDoctorSnapshot.exists()) {
         await updateDoc(previousDoctorRef, {
           patients: arrayRemove(patientSnapshot.id),
-        }
-        );
-       
-       }
-      else {
+        });
+      } else {
         console.log("Previous doctor document not found.");
       }
     }
-  
+
     await updateDoc(patientRef, {
       name: name,
       email: email,
@@ -100,35 +124,53 @@ const EditPatient = () => {
       address: address,
       phone: phone,
       height: height,
-      service: service,
-      doctor: doctorID || null // Set the doctorID to null if it's empty
+      service: selectedService,
+      doctor: doctorID || null, // Set the doctorID to null if it's empty
     });
-  
+
     if (doctorID !== '') {
       const doctorRef = doc(db, "doctors", doctorID);
       const doctorSnapshot = await getDoc(doctorRef);
-  
+
       if (doctorSnapshot.exists()) {
         await updateDoc(doctorRef, {
-          patients: arrayUnion(patientSnapshot.id)
+          patients: arrayUnion(patientSnapshot.id),
         });
       } else {
         console.log("Doctor document not found.");
       }
     }
-  
+
     alert("Update successful");
   };
-  
-  
-  
-  // Fetch doctors for autocomplete in doctor ID:
-  const [doctors, setDoctors] = useState([]);
-  const suggestionsRef = useRef(null);
-  const [filteredDoctors, setFilteredDoctors] = useState([]);
+
+  // Fetch services for autocomplete in service input:
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
-    const doctorsRef = collection(db, "doctors");
+    const servicesRef = collection(db, 'services');
+    const getServicesList = async () => {
+      try {
+        const response = await getDocs(servicesRef);
+        const fetchedData = response.docs.map((doc) => {
+          return { id: doc.id, data: doc.data() };
+        });
+        setServices(fetchedData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getServicesList();
+  }, []);
+
+  
+
+  // Fetch doctors for autocomplete in doctor name input:
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const doctorsRef = collection(db, 'doctors');
     const getDoctorsList = async () => {
       try {
         const response = await getDocs(doctorsRef);
@@ -146,16 +188,10 @@ const EditPatient = () => {
 
   useEffect(() => {
     const filtered = doctors.filter((doctor) =>
-      doctor.data.name.toLowerCase().includes(doctorID.toLowerCase())
+      doctor.data.name.toLowerCase().includes(doctorName.toLowerCase())
     );
     setFilteredDoctors(filtered);
-  }, [doctors, doctorID]);
-
-  const handleSelectDoctor = (event, selectedDoctorID) => {
-    event.stopPropagation();
-    setDoctorID(selectedDoctorID);
-  };
-  
+  }, [doctors, doctorName]);
 
   return (
     <div className="DoctorList">
@@ -184,7 +220,16 @@ const EditPatient = () => {
           </div>
           <div>
             <label>Gender:</label> <br />
-            <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
+            <select
+              id='gender'
+              name='gender'
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value=''>Select Gender</option>
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
           </div>
           <div>
             <label>Birth:</label> <br />
@@ -192,7 +237,7 @@ const EditPatient = () => {
           </div>
           <div>
             <label>Weight:</label> <br />
-            <input type="text" value={weight} onChange={(e) => setweight(e.target.value)} />
+            <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
           </div>
           <div>
             <label>Height:</label> <br />
@@ -200,37 +245,61 @@ const EditPatient = () => {
           </div>
           <div>
             <label>Service:</label> <br />
-            <input type="text" value={service} onChange={(e) => setService(e.target.value)} />
+            <select
+              id='service'
+              name='service'
+              value={selectedService}
+              onChange={(e) => setSelectedService(e.target.value)}
+              style={{ marginBottom: '2rem' }}
+            >
+              <option value=''>Select a Service</option>
+              {services.map((service) => (
+                <option key={service.id} value={service.data.name}>
+                  {service.data.name}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="doctorID-container">
-            <label>doctorID:</label> <br />
+
+          <div className="doctorName-container">
+            <label>Doctor Name:</label> <br />
             <input
               type="text"
-              value={doctorID}
-              onChange={(e) => setDoctorID(e.target.value)}
+              value={doctorName }
+              onChange={(e) => {
+                setDoctorName(e.target.value);
+                setFilteredDoctors(
+                  doctors.filter((doctor) =>
+                    doctor.data.name.toLowerCase().includes(e.target.value.toLowerCase())
+                  )
+                );
+              }}
             />
-            {filteredDoctors.length > 0 && (
-              <ul className="doctor-suggestions" ref={suggestionsRef} style={{top:'100%'}}>
+            {filteredDoctors.length > 0 &&(
+              <ul className="doctor-suggestions">
                 {filteredDoctors.map((doctor) => (
-                  <li
+                  <li className='doctor-suggestion'
                     key={doctor.id}
-                    onClick={(e) => handleSelectDoctor(e, doctor.id)}
-                    className="doctor-suggestion"
+                    onClick={() => {
+                      setDoctorName(doctor.data.name);
+                      setDoctorID(doctor.id); 
+                      setFilteredDoctors([]); 
+                    }}
                   >
-                    {doctor.data.name}
+                    {doctor.data.name} -
+                    {doctor.data.matricule}
                   </li>
                 ))}
               </ul>
             )}
           </div>
           <br />
-          
         </div>
         <div className='btn-action'>
-            <button id="updatePat" onClick={handleUpdate} >
-              Update
-            </button>
-          </div>
+          <button id="updatePat" onClick={handleUpdate}>
+            Update
+          </button>
+        </div>
       </div>
     </div>
   );

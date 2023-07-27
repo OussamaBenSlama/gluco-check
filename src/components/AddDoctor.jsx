@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import '../style/AddDoctor.css';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection , getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
 const AddDoctor = () => {
   const [formData, setFormData] = useState({
     name: '',
-    // id: '',
+    matricule: '',
     email: '',
     phone: '',
     address: '',
@@ -23,30 +23,59 @@ const AddDoctor = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const isDateValid = (inputDate) => {
+    const systemDate = new Date();
+    const birthDate = new Date(inputDate);
+    return birthDate < systemDate;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform form submission or validation here
-    console.log(formData);
+    
+    
+    
   };
+  const [specialities, setSpecialities] = useState([]);
+
+  useEffect(() => {
+    const specialityRef = collection(db, 'specialities');
+    const getSpecialities = async () => {
+      try {
+        const response = await getDocs(specialityRef);
+        const data = response.docs.map((doc) => doc.data().name);
+        setSpecialities(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getSpecialities();
+  }, []);
 
   const addNewDoctor = async () => {
     try {
-      await addDoc(doctorsRef, {
-        name: formData.name,
-        // id: formData.id,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        gender: formData.gender,
-        birth: new Date(formData.birth), // to save date in firebase correctly
-        nationality: formData.nationality,
-        speciality: formData.speciality,
-        patients: formData.patients,
-      });
-      alert('Doctor added successfully');
+      if(isDateValid(formData.birth))
+      {
+        await addDoc(doctorsRef, {
+          name: formData.name,
+          matricule: formData.matricule,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          gender: formData.gender,
+          birth: new Date(formData.birth), // to save date in firebase correctly
+          nationality: formData.nationality,
+          speciality: formData.speciality,
+          patients: formData.patients,
+        });
+        alert('Doctor added successfully');
+
+      }
+      else {
+        alert('Birth date invalid.');
+      }
       setFormData({
         name: '',
-        // id: '',
+        matricule: '',
         email: '',
         phone: '',
         address: '',
@@ -269,13 +298,13 @@ const AddDoctor = () => {
         <br />
         <input type='text' id='name' name='name' value={formData.name} onChange={handleChange} />
       </div>
-      {/* <div>
+      <div>
         <label htmlFor='id'>
-          ID: <span>*</span>
+          Matricule: <span>*</span>
         </label>
         <br />
-        <input type='text' id='id' name='id' value={formData.id} onChange={handleChange} />
-      </div> */}
+        <input type='text' id='id' name='id' value={formData.matricule} onChange={handleChange} />
+      </div> 
       <div>
         <label htmlFor='email'>
           Email: <span>*</span>
@@ -295,14 +324,18 @@ const AddDoctor = () => {
           Address: <span>*</span>
         </label>
         <br />
-        <input type='text' id='address' name='address' value={formData.address} onChange={handleChange} />
+        <textarea id='address' name='address' rows="1" value={formData.address} onChange={handleChange} />
       </div>
       <div>
         <label htmlFor='gender'>
           Gender: <span>*</span>
         </label>
         <br />
-        <input type='text' id='gender' name='gender' value={formData.gender} onChange={handleChange} />
+        <select id='gender' name='gender' value={formData.gender} onChange={handleChange}>
+          <option value=''>Select Gender</option> 
+          <option value='Male' selected >Male</option>
+          <option value='Female'>Female</option>
+        </select>
       </div>
       <div>
         <label htmlFor='birth'>
@@ -339,16 +372,24 @@ const AddDoctor = () => {
           Speciality: <span>*</span>
         </label>
         <br />
-        <input
-          type='text'
+        <select
           id='speciality'
           name='speciality'
           value={formData.speciality}
           onChange={handleChange}
-        />
+          style={{marginBottom:'2rem'}}
+        >
+          
+          
+          {specialities.map((speciality, index) => (
+            <option key={index} value={speciality}>
+              {speciality}
+            </option>
+          ))}
+        </select>
       </div>
       <br />
-      <button type='submit' id='addDoc' onClick={addNewDoctor}>
+      <button  type='submit' id='addDoc' onClick={addNewDoctor}>
         Submit
       </button>
     </form>

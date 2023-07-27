@@ -12,6 +12,8 @@ import Glycemie from './components/Glycemie'
 import SpecificPatient from "./pages/SpecificPatient";
 import EditPatient from "./pages/EditPatient";
 import PatientProfile from "./pages/PatientProfile";
+import Specialities from './pages/Specialities';
+import Service from './pages/Services'
 import MainPage from "./components/DoctorInterface/MainPage";
 import ListPatient from './components/DoctorInterface/ListPatient'
 import EditProfile from './components/DoctorInterface/EditProfile'
@@ -73,8 +75,7 @@ function App() {
         setAuthenticated(false);
         setUserType("");
       }
-      console.log(authenticated);
-      console.log(userType);
+      
     };
     
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -100,7 +101,7 @@ function App() {
           <Route path="/" element={<DoctorList />} />
           <Route path="/dashboard" element={<DoctorList />} />
           <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
-          <Route path="/dashboard/searchdoctor/:text" element={<SpecificDoctor />} />
+          <Route path="/dashboard/searchdoctor" element={<SpecificDoctor />} />
           <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
           <Route path="/dashboard/:text" element={<Profile />} />
           <Route path="/dashboard/patients" element={<PatientList />} />
@@ -108,6 +109,8 @@ function App() {
           <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
           <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
           <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />
+          <Route path="/specialities" element={<Specialities />} />
+          <Route path="/services" element={<Service/>} />
         </React.Fragment>
       ) : userType === "doctor" ? (
         <React.Fragment>

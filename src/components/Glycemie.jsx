@@ -72,7 +72,7 @@ const Glycemie  = () => {
             <div className='Inputs-range'>
                 <div style={{width:'75%', textAlign:'center'}}>
                         <div>
-                            <label>Min-normal :</label>
+                            <label>Min :</label>
                             <input type="number" 
                             onChange={(e)=> {
                                 setMinNormal(e.target.value) ;
@@ -81,7 +81,7 @@ const Glycemie  = () => {
                             />
                         </div>
                         <div>
-                            <label>Max-normal :</label>
+                            <label>Moyenne :</label>
                             <input type="number" 
                             onChange={(e)=> {
                                 setMaxNormal(e.target.value) ;
@@ -90,7 +90,7 @@ const Glycemie  = () => {
                             />
                         </div>
                         <div>
-                            <label>Max pre_diabetes :</label>
+                            <label>Max :</label>
                             <input type="number" 
                             onChange={(e)=> {
                                 setMinHyper(e.target.value) ;

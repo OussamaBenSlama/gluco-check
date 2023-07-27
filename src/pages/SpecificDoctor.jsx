@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import '../style/Doctors.css';
@@ -9,17 +9,28 @@ import DoctorItem from '../components/DoctorItem';
 
 const SpecificDoctor = () => {
   const [doctors, setDoctors] = useState([]);
-  const { text } = useParams();
+  const location = useLocation();
+  const searchOption = location.state?.searchOption;
+  const text = location.state?.inputValue;
+
   useEffect(() => {
-    const getDoctorsByName = async () => {
+    const getDoctors = async () => {
       if (text) {
         const doctorsRef = collection(db, 'doctors');
-        const q = query(doctorsRef, where('name', '==', text));
+        let q;
+        if (searchOption === 'name') {
+          q = query(doctorsRef, where('name', '==', text));
+        } else if (searchOption === 'speciality') {
+          q = query(doctorsRef, where('speciality', '==', text));
+        } else {
+          setDoctors([]);
+          return;
+        }
 
         try {
           const response = await getDocs(q);
           if (!response.empty) {
-            const fetchedDoctors = response.docs.map((doc) => {return {id:doc.id , data: doc.data()}});
+            const fetchedDoctors = response.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
             setDoctors(fetchedDoctors);
           } else {
             setDoctors([]);
@@ -30,8 +41,8 @@ const SpecificDoctor = () => {
       }
     };
 
-    getDoctorsByName();
-  }, [text]);
+    getDoctors();
+  }, [searchOption, text]);
 
   return (
     <div className="DoctorList">
@@ -44,7 +55,7 @@ const SpecificDoctor = () => {
           {doctors.length > 0 ? (
             doctors.map((doctor, index) => <DoctorItem key={index} doctor={doctor} />)
           ) : (
-            <p>No doctor found with the name {text}</p>
+            <p>No doctor found with the {searchOption === 'name' ? 'name' : 'speciality'}: {text}</p>
           )}
         </div>
       </div>

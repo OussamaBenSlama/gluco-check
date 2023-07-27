@@ -20,8 +20,8 @@
 }
 .Patient-card  .del-mod {
     position: absolute;
-    top: -5rem;
-    right: -18rem;
+    top: -0.5rem;
+    right: 0rem;
 }
 .Patient-card .card-content {
     width: 100%;
@@ -58,13 +58,12 @@
     width: 4.5rem;
 }
 .Patient-card .second-content label , .Patient-card .second-content p {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
 }
 .Patient-card .second-content .phy-info label {
-    width: 2.7rem;
+    width: 3.5rem;
 }
 #doc-id {
-    font-size: 0.6rem;
     cursor: pointer;
 }
 #doc-id:hover {
