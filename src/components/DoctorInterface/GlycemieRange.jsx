@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import '../../style/DoctorInterfaceStyle/GlycemieRange.css'
 import '../../style/DoctorList.css'
 import {useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Header from './Header';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfinity } from '@fortawesome/free-solid-svg-icons';
+import { doc, getDocs , collection, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+
 const GlycemieRange = () => {
     const location = useLocation();
     const { doctor } = location.state;
@@ -14,9 +19,50 @@ const GlycemieRange = () => {
     const [yellow, setyellow]  = useState(false)
     const [green, setgreen]  = useState(false)
     const [orange, setorange]  = useState(false)
+    const [range, setRange]  = useState({})
 
-    console.log(minNormal,maxNormal,minHyper)
-    console.log(yellow,green,orange)
+    // Function to fetch the diabeteRange document
+    const fetchDiabeteRange = async () => {
+    const querySnapshot = await getDocs(collection(db, 'diabeteRange'));
+    
+    if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0].ref;
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+        setRange({id : docSnap.id , data : docSnap.data()})
+        // Use the diabeteRangeData object as needed
+        } else {
+         console.log("range doesn't exist")
+        }
+    } else {
+        console.log("collection doesn't exist")
+    }
+    };
+
+    
+    useEffect(() => {
+    fetchDiabeteRange();
+    }, []);
+
+    const handleUpdate = async () => {
+        const glycemieRef = doc(db, "diabeteRange", range.id);
+        await updateDoc(glycemieRef, {
+          diabete: {
+            min: parseFloat(parseFloat(minHyper) + 0.01),
+          },
+          normal: {
+            max: parseFloat(maxNormal),
+            min: parseFloat(minNormal),
+          },
+          prediabete: {
+            max: parseFloat(minHyper),
+            min: parseFloat(parseFloat(maxNormal) + 0.01),
+          },
+        });
+        alert("Update successful");
+      };
+      
   return (
     <div className='DoctorList'>
         <div className='left'>
@@ -24,34 +70,36 @@ const GlycemieRange = () => {
         </div>
         <div className='right' >
             <Header doctor = {doctor}/>
-            {/* inputs to specify the range */}
             <div className='Inputs-range'>
-                <div>
-                    <label>Min-normal :</label>
-                    <input type="number" 
-                    onChange={(e)=> {
-                        setMinNormal(e.target.value) ;
-                        setyellow(true)
-                    }}
-                    />
-                </div>
-                <div>
-                    <label>Max-normal :</label>
-                    <input type="number" 
-                    onChange={(e)=> {
-                        setMaxNormal(e.target.value) ;
-                        setgreen(true) ;
-                    }}
-                    />
-                </div>
-                <div>
-                    <label>Min-hyperGlycemie :</label>
-                    <input type="number" 
-                    onChange={(e)=> {
-                        setMinHyper(e.target.value) ;
-                        setorange(true)
-                    }}
-                    />
+                <div style={{width:'75%', textAlign:'center'}}>
+                        <div>
+                            <label>Min :</label>
+                            <input type="number" 
+                            onChange={(e)=> {
+                                setMinNormal(e.target.value) ;
+                                setyellow(true)
+                            }}
+                            />
+                        </div>
+                        <div>
+                            <label>Moyenne :</label>
+                            <input type="number" 
+                            onChange={(e)=> {
+                                setMaxNormal(e.target.value) ;
+                                setgreen(true) ;
+                            }}
+                            />
+                        </div>
+                        <div>
+                            <label>Max :</label>
+                            <input type="number" 
+                            onChange={(e)=> {
+                                setMinHyper(e.target.value) ;
+                                setorange(true)
+                            }}
+                            />
+                        </div>
+                    <button onClick={handleUpdate}>modify</button>
                 </div>
             
                 {/* divs to show the range */}
@@ -118,7 +166,7 @@ const GlycemieRange = () => {
                             {orange ? (
                                 <React.Fragment>
                                     <label>{minHyper}</label>
-                                    <label>5</label>
+                                    <label><FontAwesomeIcon icon={faInfinity} /></label>
                                 </React.Fragment>
                                 ) : (
                                 <React.Fragment>

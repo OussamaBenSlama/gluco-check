@@ -58,6 +58,10 @@ const Home = ({ doctor }) => {
       <div className='right-profile'>
         <div className='info-profile'>
           <div>
+            <label>Matricule</label>
+            <p>{doctor.data.matricule}</p>
+          </div>
+          <div>
             <label>Email</label>
             <p>{doctor.data.email}</p>
           </div>

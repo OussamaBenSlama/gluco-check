@@ -66,12 +66,7 @@ const AddPatient = () => {
             <div className="Patient-card" key={patient.id}>
               <div className="card-header">
                 <h3>Medical ID</h3>
-              </div>
-              <div className="card-content">
-                <div className="main-content">
-                  <div className="card-pic">
-                    <img src={patientlogo} alt="" />
-                    <div className="del-mod">
+                <div className="del-mod">
                       <button
                         style={{
                           backgroundColor: '#004054',
@@ -88,9 +83,15 @@ const AddPatient = () => {
                           color="white"
                           style={{ marginRight: '1rem' }}
                         />
-                        Add New
+                        Add 
                       </button>
                     </div>
+              </div>
+              <div className="card-content">
+                <div className="main-content">
+                  <div className="card-pic">
+                    <img src={patientlogo} alt="" />
+                    
                   </div>
                   <div className="card-info">
                     <label>Name:</label>

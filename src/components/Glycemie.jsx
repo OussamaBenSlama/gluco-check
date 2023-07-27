@@ -3,6 +3,8 @@ import '../style/DoctorInterfaceStyle/GlycemieRange.css'
 import '../style/DoctorList.css'
 import Navbar from './Navbar';
 import Header from './Header';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfinity } from '@fortawesome/free-solid-svg-icons';
 import { doc, getDocs , collection, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
@@ -60,7 +62,7 @@ const Glycemie  = () => {
         alert("Update successful");
       };
       
-    console.log(range)
+    
   return (
     <div className='DoctorList'>
         <div className='left'>
@@ -165,7 +167,7 @@ const Glycemie  = () => {
                             {orange ? (
                                 <React.Fragment>
                                     <label>{minHyper}</label>
-                                    <label>5</label>
+                                    <label><FontAwesomeIcon icon={faInfinity} /></label>
                                 </React.Fragment>
                                 ) : (
                                 <React.Fragment>

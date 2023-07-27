@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState ,useEffect} from 'react';
 import '../../style/PatientItem.css';
 import patientlogo from '../../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,7 +38,25 @@ const PatientCard= ({ patient , doctor}) => {
     };
     
 
-  
+    const [doctorMatricule, setDoctorMatricule] = useState(null);
+
+    useEffect(() => {
+      const fetchDoctorMatricule = async () => {
+        if (patient?.data?.doctor) {
+          try {
+            const doctorRef = doc(db, 'doctors', patient.data.doctor);
+            const doctorSnapshot = await getDoc(doctorRef);
+            if (doctorSnapshot.exists()) {
+              const matricule = doctorSnapshot.data().matricule;
+              setDoctorMatricule(matricule);
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      };
+      fetchDoctorMatricule();
+    }, [patient]);
   
 
   if (!patient || !patient.data) {
@@ -49,12 +67,7 @@ const PatientCard= ({ patient , doctor}) => {
     <div className="Patient-card">
       <div className="card-header">
         <h3>Medical ID</h3>
-      </div>
-      <div className="card-content">
-        <div className="main-content">
-          <div className="card-pic">
-            <img src={patientlogo} alt="" />
-            <div className="del-mod">
+        <div className="del-mod">
               <FontAwesomeIcon
                 icon={faTrashAlt}
                 color="white"
@@ -70,6 +83,12 @@ const PatientCard= ({ patient , doctor}) => {
                 className="mod"
               /> */}
             </div>
+      </div>
+      <div className="card-content">
+        <div className="main-content">
+          <div className="card-pic">
+            <img src={patientlogo} alt="" />
+            
           </div>
           <div className="card-info">
             <label>Name:</label>
@@ -77,14 +96,14 @@ const PatientCard= ({ patient , doctor}) => {
               {patient.data.name}
             </p>
             <br />
-            <label>ID:</label>
-            <p>{patient.id}</p>
-            <br />
             <label>Address:</label>
             <p>{patient.data.address}</p>
             <br />
             <label>Email:</label>
             <p>{patient.data.email}</p>
+            <br />
+            <label>ID:</label>
+            <p>{patient.data.service}</p>
             <br />
           </div>
         </div>
@@ -99,9 +118,13 @@ const PatientCard= ({ patient , doctor}) => {
             {patient.data.doctor ? (
               <React.Fragment>
                 <label>Doctor:</label>
-                <p>
-                  {patient.data.doctor}
-                </p>
+                {doctorMatricule ? (
+                  <p id="doc-id" >
+                    {doctorMatricule}
+                  </p>
+                ) : (
+                  <p>Loading...</p>
+                )}
                 <br />
               </React.Fragment>
             ) : (
