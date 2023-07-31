@@ -30,7 +30,11 @@ const GlycemieRange = () => {
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
-        setRange({id : docSnap.id , data : docSnap.data()})
+            const rangeData = docSnap.data();
+            setRange({ id: docSnap.id, data: rangeData });
+            setMinNormal(rangeData.normal.min);
+            setMaxNormal(rangeData.normal.max);
+            setMinHyper(rangeData.prediabete.max);
         // Use the diabeteRangeData object as needed
         } else {
          console.log("range doesn't exist")
@@ -71,10 +75,10 @@ const GlycemieRange = () => {
         <div className='right' >
             <Header doctor = {doctor}/>
             <div className='Inputs-range'>
-                <div style={{width:'75%', textAlign:'center'}}>
+                <div style={{width:'100%', textAlign:'center'}}>
                         <div>
-                            <label>Min :</label>
-                            <input type="number" 
+                            <label>Min :</label><br />
+                            <input type="number" value={minNormal}
                             onChange={(e)=> {
                                 setMinNormal(e.target.value) ;
                                 setyellow(true)
@@ -82,8 +86,8 @@ const GlycemieRange = () => {
                             />
                         </div>
                         <div>
-                            <label>Moyenne :</label>
-                            <input type="number" 
+                            <label>Moyenne :</label> <br />
+                            <input type="number" value={maxNormal}
                             onChange={(e)=> {
                                 setMaxNormal(e.target.value) ;
                                 setgreen(true) ;
@@ -91,8 +95,8 @@ const GlycemieRange = () => {
                             />
                         </div>
                         <div>
-                            <label>Max :</label>
-                            <input type="number" 
+                            <label>Max :</label><br />
+                            <input type="number" value={minHyper}
                             onChange={(e)=> {
                                 setMinHyper(e.target.value) ;
                                 setorange(true)

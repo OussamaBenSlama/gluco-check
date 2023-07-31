@@ -43,8 +43,8 @@ const Home = ({ doctor }) => {
             <h5>{doctor.data.speciality}</h5>
             
             <div>
-              <button onClick={goAdd}>
-                <FontAwesomeIcon icon={faPlus} style={{ marginRight: '0.5rem' }} />
+              <button onClick={goAdd} style={{ backgroundColor:'#057be9', color:'white' }}>
+                <FontAwesomeIcon icon={faPlus} style={{ marginRight: '0.5rem'}} />
                 Add Patient
               </button>
               <button onClick={goEdit}>
@@ -68,6 +68,14 @@ const Home = ({ doctor }) => {
           <div>
             <label>Address</label>
             <p>{doctor.data.address}</p>
+          </div>
+          <div>
+            <label>Speciality</label>
+            <p>{doctor.data.speciality}</p>
+          </div>
+          <div>
+            <label>Service</label>
+            <p>{doctor.data.service}</p>
           </div>
           <div>
             <label>Phone</label>

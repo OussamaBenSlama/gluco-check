@@ -30,6 +30,7 @@ const PatientCard= ({ patient , doctor}) => {
             doctor: null,
           });
         alert("Patient deleted successfully");
+        window.location.reload();
       };
       
     const navigate = useNavigate();
@@ -66,7 +67,19 @@ const PatientCard= ({ patient , doctor}) => {
   return (
     <div className="Patient-card">
       <div className="card-header">
-        <h3>Medical ID</h3>
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <h3 style={{marginRight:'1rem'}}>Medical ID : </h3>
+          <div>
+            
+            {patient.data.matricule ? 
+            (
+              <h3>{patient.data.matricule}</h3>
+            ) :
+            (
+              <p></p>
+            )}
+          </div>
+        </div>
         <div className="del-mod">
               <FontAwesomeIcon
                 icon={faTrashAlt}
@@ -84,7 +97,7 @@ const PatientCard= ({ patient , doctor}) => {
               /> */}
             </div>
       </div>
-      <div className="card-content">
+      <div className="card-content" onClick={goProfile} style={{cursor:'pointer'}}>
         <div className="main-content">
           <div className="card-pic">
             <img src={patientlogo} alt="" />
@@ -102,7 +115,7 @@ const PatientCard= ({ patient , doctor}) => {
             <label>Email:</label>
             <p>{patient.data.email}</p>
             <br />
-            <label>ID:</label>
+            <label>Service:</label>
             <p>{patient.data.service}</p>
             <br />
           </div>

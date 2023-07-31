@@ -52,6 +52,7 @@ const AddPatient = () => {
     });
 
     alert('Patient added successfully');
+    window.location.reload();
   };
 
   return (
@@ -65,7 +66,19 @@ const AddPatient = () => {
           {patients.map((patient) => (
             <div className="Patient-card" key={patient.id}>
               <div className="card-header">
-                <h3>Medical ID</h3>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                  <h3 style={{marginRight:'1rem'}}>Medical ID : </h3>
+                  <div>
+                    
+                    {patient.data.matricule ? 
+                    (
+                      <h3>{patient.data.matricule}</h3>
+                    ) :
+                    (
+                      <p></p>
+                    )}
+                </div>
+              </div>
                 <div className="del-mod">
                       <button
                         style={{
@@ -87,7 +100,7 @@ const AddPatient = () => {
                       </button>
                     </div>
               </div>
-              <div className="card-content">
+              <div className="card-content" style={{cursor:'pointer'}}>
                 <div className="main-content">
                   <div className="card-pic">
                     <img src={patientlogo} alt="" />

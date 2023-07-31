@@ -14,6 +14,7 @@ const AddDoctor = () => {
     birth: '',
     nationality: '',
     speciality: '',
+    service : '',
     patients: [],
   });
 
@@ -50,6 +51,22 @@ const AddDoctor = () => {
     };
     getSpecialities();
   }, []);
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    const serviceRef = collection(db, 'services'); 
+    const getServices = async () => {
+      try {
+        const response = await getDocs(serviceRef);
+        const data = response.docs.map((doc) => doc.data().name);
+        setServices(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getServices();
+  }, []);
+
 
   const addNewDoctor = async () => {
     try {
@@ -65,6 +82,8 @@ const AddDoctor = () => {
           birth: new Date(formData.birth), // to save date in firebase correctly
           nationality: formData.nationality,
           speciality: formData.speciality,
+          service : formData.service,
+          chief :false ,
           patients: formData.patients,
         });
         alert('Doctor added successfully');
@@ -83,6 +102,7 @@ const AddDoctor = () => {
         birth: '',
         nationality: '',
         speciality: '',
+        service:'',
         patients: [],
       });
     } catch (err) {
@@ -380,10 +400,31 @@ const AddDoctor = () => {
           style={{marginBottom:'2rem'}}
         >
           
-          
+          <option value="">select speciality</option>
           {specialities.map((speciality, index) => (
             <option key={index} value={speciality}>
               {speciality}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor='service'>
+          Service: <span>*</span>
+        </label>
+        <br />
+        <select
+          id='service'
+          name='service'
+          value={formData.service}
+          onChange={handleChange}
+          style={{marginBottom:'2rem'}}
+        >
+          
+          <option value="">select service</option>
+          {services.map((service, index) => (
+            <option key={index} value={service}>
+              {service}
             </option>
           ))}
         </select>

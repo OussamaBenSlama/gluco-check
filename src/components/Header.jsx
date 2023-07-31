@@ -7,7 +7,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBell, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,useLocation } from "react-router-dom";
 import NavbarSlider from "./NavbarSlider";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
@@ -17,7 +17,15 @@ const Header = () => {
   const [searchOption, setSearchOption] = useState("name");
   const [specialities, setSpecialities] = useState([]);
   const navigate = useNavigate();
-
+  const location = useLocation() ;
+  const [display , setDisplay] = useState(true)
+  useEffect(() => {
+    if (location.pathname !== "/dashboard") {
+      setDisplay(false);
+    } else {
+      setDisplay(true);
+    }
+  }, [location.pathname]);
   // Fetch specialities from the 'specialities' collection
   useEffect(() => {
     const specialitiesRef = collection(db, "specialities");
@@ -100,7 +108,9 @@ const Header = () => {
           <FontAwesomeIcon icon={faEnvelope} />
         </div>
       </div>
-      <div className="head-operation">
+      {display ? 
+      (
+        <div className="head-operation">
         <Link to="/dashboard/addnewdoctor">
           <button>
             <FontAwesomeIcon
@@ -158,6 +168,10 @@ const Header = () => {
           </button>
         </div>
       </div>
+      ) :
+      (
+        null 
+      )}
     </div>
   );
 };

@@ -57,6 +57,7 @@ const ListPatient = () => {
       navigate(`/doctorspace/searchpatient/${inputValue}`, { state: { doctor } });
     }
   };
+  console.log(patients)
   return (
     <div className="DoctorList">
       <div className="left">

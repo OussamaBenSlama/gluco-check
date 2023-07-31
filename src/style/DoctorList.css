@@ -22,7 +22,7 @@
 .edit-doc > div  {
    margin-bottom: 1rem;
 }
-.edit-doc input , .Header input , select{
+.edit-doc input , .Header input , select , .edit-doc textarea{
     padding: 0.5rem ;
     width: 20rem;
     margin-top: 0.5rem;
@@ -85,7 +85,7 @@
   .doctor-suggestions {
     /* visibility: hidden; */
     position: absolute;
-    top: 83%;
+    top: 73%;
     left: 52%;
     width: 30%;
     max-height: 80px;

@@ -2,7 +2,7 @@ import React from 'react';
 import '../style/DoctorItem.css';
 import myLogo from '../images/patient.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEnvelope, faPhone,faIdCard } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEnvelope, faPhone,faIdCard,faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { doc, deleteDoc ,getDoc ,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -48,18 +48,37 @@ const DoctorItem = ({ doctor }) => {
   return (
     <div>
       <div className="doc-card" >
-        <div className="card-head"></div>
-        <div className="card-section">
+        <div className="card-head">
+        <div className="del-mod">
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                color="white"
+                style={{fontSize: '1rem'}}
+                className="del"
+                onClick={() => deleteDoctor(doctor.id)}
+              />
+              <FontAwesomeIcon onClick={editDoctor} color='white' style={{fontSize: '1rem'}} icon={faEdit}  className="mod" />
+            </div>
+        </div>
+        <div className="card-section" onClick={gotoprofile} style={{cursor:'pointer'}}>
           <div className="card-pic">
             <div className='personal-img'><img src={myLogo} alt="" /></div>
-            <div className="personal-info" onClick={gotoprofile} style={{cursor:'pointer'}}>
-            <div>
-                  <label style={{fontWeight:'bold'}}>
-                  <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
+            <div className="personal-info" >
+              <div>
+                <label style={{fontWeight:'bold'}}>
+                <FontAwesomeIcon icon={faIdCard} style={{ marginRight: '0.5rem' }} />
                   Matricule :
-                  </label>
+                </label>
                 
-                 <p>{doctor.data.matricule}</p> 
+                <p>{doctor.data.matricule}</p> 
+              </div>
+              <div>
+                <label style={{fontWeight:'bold'}}>
+                <FontAwesomeIcon icon={faBriefcaseMedical} style={{ marginRight: '0.5rem' }} />
+                  Service :
+                </label>
+                
+                <p>{doctor.data.service}</p> 
               </div>
               <div>
                   <label>
@@ -90,16 +109,7 @@ const DoctorItem = ({ doctor }) => {
           <div className="card-content">
             <h2 onClick={gotoprofile}>Dr. {doctor.data.name}</h2>
             <h3>{doctor.data.speciality}</h3>
-            <div className="del-mod">
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                color="white"
-                style={{fontSize: '1rem'}}
-                className="del"
-                onClick={() => deleteDoctor(doctor.id)}
-              />
-              <FontAwesomeIcon onClick={editDoctor} color='white' style={{fontSize: '1rem'}} icon={faEdit}  className="mod" />
-            </div>
+            
             
           </div>
         </div>

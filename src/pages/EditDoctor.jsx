@@ -43,6 +43,7 @@ const EditDoctor = () => {
   const [gender, setGender] = useState("");
   const [birth, setBirth] = useState("");
   const [nationality, setNationality] = useState("");
+  const [service, setService] = useState("");
   // to make date clear 
   const FormatterDate = (dateTime) => {
     const totalMilliseconds =
@@ -67,6 +68,7 @@ const EditDoctor = () => {
       setGender(doctor.data.gender || "");
       setBirth(FormatterDate(doctor.data.birth) || ""); // stringify date
       setNationality(doctor.data.nationality || "");
+      setService(doctor.data.service || "");
     }
   }, [doctor]);
   const [specialities, setSpecialities] = useState([]);
@@ -84,6 +86,21 @@ const EditDoctor = () => {
     };
     getSpecialities();
   }, []);
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    const serviceRef = collection(db, 'services'); 
+    const getServices = async () => {
+      try {
+        const response = await getDocs(serviceRef);
+        const data = response.docs.map((doc) => doc.data().name);
+        setServices(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getServices();
+  }, []);
   
   const handleUpdate = async () => {
     const Doctor = doc(db, "doctors", text);
@@ -97,6 +114,7 @@ const EditDoctor = () => {
       birth: new Date(birth), // to save date in firebase correctly
       address: address,
       phone: phone,
+      service:service,
     });
     alert("update successfully");
     
@@ -344,7 +362,7 @@ const EditDoctor = () => {
           </div>
           <div>
             <label>Address:</label> <br />
-            <input
+            <textarea
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
@@ -399,10 +417,31 @@ const EditDoctor = () => {
               style={{marginBottom:'2rem'}}
             >
               
-              
+              <option value= ''>select speciality</option>
               {specialities.map((speciality, index) => (
                 <option key={index} value={speciality}>
                   {speciality}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor='service'>
+              Service: <span>*</span>
+            </label>
+            <br />
+            <select
+              id='service'
+              name='service'
+              value={service}
+              onChange={(e) => {setService(e.target.value)}}
+              style={{marginBottom:'2rem'}}
+            >
+              
+              <option value= ''>select service</option>
+              {services.map((service, index) => (
+                <option key={index} value={service}>
+                  {service}
                 </option>
               ))}
             </select>

@@ -13,6 +13,7 @@
     background-color: #004054;
     border: 1px solid white;
     border-radius: 0.8rem 0.8rem 0 0;
+    position: relative;
 }
 .personal-img {
     border: 1px solid; 
@@ -49,8 +50,9 @@
     margin-top: 1rem;
     position: absolute;
     right: 0;
-    top: -3.8rem;
+    top: -1rem;
     padding: 0.3rem;
+    
 }
 .del , .mod {
     cursor: pointer;
@@ -99,7 +101,7 @@
 
 @media (max-width: 750px){
     .doc-card {
-        width: 20rem;
+        width: 25rem;
     }
     .card-pic img {
         max-width: 7rem;
@@ -107,7 +109,7 @@
     }
     .card-content label , .card-content h3 , .card-content h2{
         color: #009197;
-        font-size: 0.7rem;
+        font-size: 1rem;
     }
 }
 

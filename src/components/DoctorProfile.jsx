@@ -114,6 +114,14 @@ const DoctorProfile = () => {
             <p>{doctor.data.address}</p>
           </div>
           <div>
+            <label>Speciality</label>
+            <p>{doctor.data.speciality}</p>
+          </div>
+          <div>
+            <label>Service</label>
+            <p>{doctor.data.service}</p>
+          </div>
+          <div>
             <label>Phone</label>
             <p>{doctor.data.phone}</p>
           </div>

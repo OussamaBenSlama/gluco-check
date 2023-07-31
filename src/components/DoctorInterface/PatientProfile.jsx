@@ -3,24 +3,23 @@ import "../../style/DoctorList.css";
 import '../../style/Profile.css';
 import Navbar from './Navbar';
 import Header from './Header';
-import { useLocation } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 import myLogo from '../../images/pat.png';
-import { Chart, ScatterController, LinearScale, PointElement } from 'chart.js';
-import { Scatter } from 'react-chartjs-2';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion , collection,getDocs,getDoc} from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash ,faShare } from '@fortawesome/free-solid-svg-icons';
 
 const PatientPro = () => {
   const location = useLocation();
   const { doctor, patient } = location.state;
+  const navigate = useNavigate()
   const [history, setHistory] = useState(true);
   const [msg, setMsg] = useState('');
   const [filterOption, setFilterOption] = useState('all');
   
 
-  Chart.register(ScatterController, LinearScale, PointElement);
+
   const [selectedOption, setSelectedOption] = useState('specificDay');
 
   const formatDate = (dateTime) => {
@@ -66,126 +65,50 @@ const PatientPro = () => {
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
   };
 
-  const [selectedDate, setSelectedDate] = useState(formatDateSys(new Date()));
-
-  const generateData = () => {
-    
-      if (selectedOption === 'specificDay') {
-        // Generate data for the specific selected date
-        const filteredHistory = patient.data.history.filter(
-          (entry) => formatDate(entry.date) === selectedDate
-        );
-        if (filteredHistory.length > 0) {
-          let index = 1;
-          const data = filteredHistory.map((entry) => {
-            const yValue = parseFloat(entry.value);
-            return {
-              x: index++,
-              y: yValue || 0,
-            };
-          });
-          return data;
-        } else {
-          return [];
-        }
-      } else if (selectedOption === 'lastWeek') {
-        // Generate data for the last week
-        const lastWeek = new Date();
-        lastWeek.setDate(lastWeek.getDate() - 7);
-        const formattedLastWeek = formatDateSys(lastWeek);
-        const filteredHistory = patient.data.history.filter(
-          (entry) => new Date(entry.date.seconds * 1000) >= new Date(formattedLastWeek)
-        );
-        if (filteredHistory.length > 0) {
-          // Calculate the average value for the last week
-          const sum = filteredHistory.reduce((total, entry) => {
-            const value = parseFloat(entry.value);
-            return total + (isNaN(value) ? 0 : value);
-          }, 0);
-          const average = sum / filteredHistory.length;
-  
-          return [
-            {
-              x: 3,
-              y: average || 0,
-            },
-          ];
-        } else {
-          return [];
-        }
-      } else if (selectedOption === 'lastMonth') {
-        // Generate data for the last month
-        const lastMonth = new Date();
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
-        const formattedLastMonth = formatDateSys(lastMonth);
-        const filteredHistory = patient.data.history.filter(
-          (entry) => new Date(entry.date.seconds * 1000) >= new Date(formattedLastMonth)
-        );
-        if (filteredHistory.length > 0) {
-          // Calculate the average value for the last month
-          const sum = filteredHistory.reduce((total, entry) => {
-            const value = parseFloat(entry.value);
-            return total + (isNaN(value) ? 0 : value);
-          }, 0);
-          const average = sum / filteredHistory.length;
-          return [
-            {
-              x: 3,
-              y: average || 0,
-            },
-          ];
-        } else {
-          return [];
-        }
-      } else if (selectedOption === 'lastThreeMonths') {
-        // Generate data for the last three months
-        const lastThreeMonths = new Date();
-        lastThreeMonths.setMonth(lastThreeMonths.getMonth() - 3);
-        const formattedLastThreeMonths = formatDateSys(lastThreeMonths);
-        const filteredHistory = patient.data.history.filter(
-          (entry) => new Date(entry.date.seconds * 1000) >= new Date(formattedLastThreeMonths)
-        );
-        if (filteredHistory.length > 0) {
-          // Calculate the average value for the last three months
-          const sum = filteredHistory.reduce((total, entry) => {
-            const value = parseFloat(entry.value);
-            return total + (isNaN(value) ? 0 : value);
-          }, 0);
-          const average = sum / filteredHistory.length;
-  
-          return [
-            {
-              x: 3,
-              y: average || 0,
-            },
-          ];
-        } else {
-          return [];
-        }
-      }
-    
-    return [];
-  };
-  
-
   const formattedHistory = patient.data.history.map((entry) => {
     return {
       ...entry,
       formattedDate: formatDate(entry.date),
     };
   });
+  // diabete range configuration 
+  const [diabetesRanges, setDiabetesRanges] = useState(null);
+  const [normalMin, setNormalMin] = useState(0);
+  const [normalMax, setNormalMax] = useState(0);
+  const [preDiabeteMax, setPreDiabeteMax] = useState(0)
+
+  useEffect(() => {
+    const fetchDiabetesRanges = async () => {
+      try {
+        const diabetesRangesRef = collection(db, 'diabeteRange');
+        const diabetesRangesSnapshot = await getDocs(diabetesRangesRef);
+        const diabetesRangesData = diabetesRangesSnapshot.docs[0].data();
+        setDiabetesRanges(diabetesRangesData);
+        
+        if (diabetesRangesData && diabetesRangesData.normal && diabetesRangesData.prediabete) {
+          setNormalMin(diabetesRangesData.normal.min);
+          setNormalMax(diabetesRangesData.normal.max);
+          setPreDiabeteMax(diabetesRangesData.prediabete.max);
+        }
+      } catch (error) {
+        console.error('Error fetching diabetes ranges:', error);
+      }
+    };
+  
+    fetchDiabetesRanges();
+  }, []);
 
   const filteredHistory = formattedHistory.filter((entry) => {
     if (filterOption === 'all') {
       return true;
     } else if (filterOption === 'hypoglycemie') {
-      return parseFloat(entry.value) < 0.7;
+      return parseFloat(entry.value) < normalMin;
     } else if (filterOption === 'normal') {
-      return parseFloat(entry.value) >= 0.7 && parseFloat(entry.value) <= 1.10;
+      return parseFloat(entry.value) >= normalMin && parseFloat(entry.value) <= normalMax;
     } else if (filterOption === 'pre_diabete') {
-      return parseFloat(entry.value) > 1.10 && parseFloat(entry.value) <= 1.25;
+      return parseFloat(entry.value) > normalMax && parseFloat(entry.value) <= preDiabeteMax;
     } else if (filterOption === 'hyperglycemie') {
-      return parseFloat(entry.value) > 1.25;
+      return parseFloat(entry.value) > preDiabeteMax;
     } else if (filterOption === 'today') {
       return formatDate(entry.date) === formatDateSys(new Date());
     } else if (filterOption === 'last_day') {
@@ -229,118 +152,34 @@ const PatientPro = () => {
   );
   const reversedHistory = [...sortedHistory].reverse();
 
-  const data = {
-    datasets: [
-      {
-        label: 'Scatter Plot',
-        data: generateData(),
-        backgroundColor: (context) => {
-          if (
-            context.dataset.data &&
-            context.dataset.data[context.dataIndex]
-          ) {
-            const value = context.dataset.data[context.dataIndex].y;
-            if (value < 0.7) {
-              return 'yellow';
-            } else if (value >= 0.7 && value <= 1.10) {
-              return 'green';
-            } else if (value > 1.10 && value <= 1.25) {
-              return '#FF6D60';
-            } else if (value > 1.25) {
-              return 'red';
-            }
-          }
-          return 'rgba(75, 192, 192, 0.8)';
-        },
-        borderColor: (context) => {
-          if (
-            context.dataset.data &&
-            context.dataset.data[context.dataIndex]
-          ) {
-            const value = context.dataset.data[context.dataIndex].y;
-            if (value < 0.7) {
-              return 'yellow';
-            } else if (value >= 0.7 && value <= 1.10) {
-              return 'green';
-            } else if (value > 1.10 && value <= 1.25) {
-              return '#FF6D60';
-            } else if (value > 1.25) {
-              return 'red';
-            }
-          }
-          return 'rgba(75, 192, 192, 1)';
-        },
-        pointRadius: 6,
-        pointHoverRadius : 3,
-      },
-    ],
-  };
   
-  const options = {
-    responsive: true,
-    scales: {
-      x: {
-        type: 'linear',
-        title: {
-          display: true,
-          text: 'X-axis',
-        },
-        min: 0,
-        max: 7, // Adjust the max value based on the filter option
-        ticks: {
-          stepSize: 1,
-        },
-      },
-      y: {
-        type: 'linear',
-        title: {
-          display: true,
-          text: 'Y-axis',
-        },
-        min: 0,
-        max: 2, // Adjust the max value based on the filter option
-        ticks: {
-          stepSize: 0.1,
-        },
-      },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const dataset = context.dataset;
-            const index = context.dataIndex;
-            const point = dataset.data[index];
-            return `x: ${point.x}, y: ${point.y}`;
-          },
-        },
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true,
-        enable :true
-      },
-    },
-  
-    
-  };
-  
-  
-  
-
-
-
-  
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-  };
 
   const handleFilterChange = (e) => {
     setFilterOption(e.target.value);
   };
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  // Step 1: Create a state to keep track of the messages
+  const [messages, setMessages] = useState([]);
+
+  // Step 2: Fetch and set the messages from the database when the component mounts
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const patientRef = doc(db, 'users', patient.id);
+        const patientSnapshot = await getDoc(patientRef);
+        const patientData = patientSnapshot.data();
+        
+        if (patientData && patientData.messages) {
+          setMessages(patientData.messages);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
+  }, [patient.id]);
+  
+  
   const sendMsg = async () => {
     const patientRef = doc(db, 'users', patient.id);
     if (msg !== '') {
@@ -353,10 +192,26 @@ const PatientPro = () => {
           read: false,
         }),
       });
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          date: {
+            nanoseconds: new Date().getMilliseconds() * 1000000,
+            seconds: Math.floor(new Date().getTime() / 1000),
+          },
+          doctor: doctor.id,
+          doctorName: doctor.data.name,
+          message: msg,
+          read: false,
+        },
+      ]);
+      
     }
     setMsg('');
     alert('Message sent successfully');
+    
   };
+  
   const updateHistory = async () => {
     try {
       // Create a copy of the patient's history list
@@ -384,6 +239,10 @@ const PatientPro = () => {
     updatePatientHistory();
   }, []);
 
+  const goGraphic = () => {
+    navigate('/doctorspace/patient/graphic' , { state: { doctor, patient }})
+  }
+  
   return (
     <div className='DoctorList'>
       <div className='left'>
@@ -398,9 +257,22 @@ const PatientPro = () => {
                 <img src={myLogo} alt='' />
                 <h4>{patient.data.name}</h4>
                 <div>
-                  <button onClick={() => setHistory(true)}>History</button>
-                  <button onClick={() => setHistory(false)}>Message</button>
+                  <button
+                    onClick={() => setHistory(true)}
+                    style={{ backgroundColor: history ? '#057be9' : 'transparent' ,
+                             color: history ? 'white' : '#057be9' }}
+                  >
+                    History
+                  </button>
+                  <button
+                    onClick={() => setHistory(false)}
+                    style={{ backgroundColor: history ? 'transparent' : '#057be9' ,
+                              color: history ? '#057be9' : 'white'}}
+                  >
+                    Message
+                  </button>
                 </div>
+
               </div>
             </div>
             {history ? (
@@ -439,19 +311,19 @@ const PatientPro = () => {
                     reversedHistory.map((entry, index) => {
                       if (entry.value !== '') {
                         let bgColor = '';
-                        if (parseFloat(entry.value) < 0.7) {
+                        if (parseFloat(entry.value) < normalMin) {
                           bgColor = 'yellow-bg';
                         } else if (
-                          parseFloat(entry.value) >= 0.7 &&
-                          parseFloat(entry.value) <= 1.10
+                          parseFloat(entry.value) >= normalMin &&
+                          parseFloat(entry.value) <= normalMax
                         ) {
                           bgColor = 'green-bg';
                         } else if (
-                          parseFloat(entry.value) > 1.10 &&
-                          parseFloat(entry.value) <= 1.25
+                          parseFloat(entry.value) > normalMax &&
+                          parseFloat(entry.value) <= preDiabeteMax
                         ) {
                           bgColor = 'orange-bg';
-                        } else if (parseFloat(entry.value) > 1.25) {
+                        } else if (parseFloat(entry.value) > preDiabeteMax) {
                           bgColor = 'red-bg';
                         }
                         return (
@@ -474,38 +346,41 @@ const PatientPro = () => {
               <React.Fragment>
                 <div className='Messages'>
                   {patient.data &&
-                  patient.data.messages &&
-                  patient.data.messages.length > 0 ? (
-                    patient.data.messages.map((entry, key) => {
-                      return (
-                        <div key={key} className='msg'>
-                          <div className='msg-date'>
-                            {format_total_Date(entry.date)}
-                            {entry.read ? 
-                              (
-                                <>
-                                  <div>
-                                    <FontAwesomeIcon icon={faEye} color='green'/>
-                                    <br/>
-                                    
+                  messages &&
+                  messages.length > 0 ? (
+                    messages.map((entry, key) => {
+                      if(entry.doctor == doctor.id)
+                      {
+                        return (
+                          <div key={key} className='msg'>
+                            <div className='msg-date'>
+                              {format_total_Date(entry.date)}
+                              {entry.read ? 
+                                (
+                                  <>
+                                    <div>
+                                      <FontAwesomeIcon icon={faEye} color='green'/>
+                                      <br/>
+                                      
+                                      </div>
+                                  </>
+                                ) :
+                                (
+                                  <>
+                                    <div>
+                                      <FontAwesomeIcon icon={faEyeSlash} color='orangered'/>
                                     </div>
-                                </>
-                              ) :
-                              (
-                                <>
-                                  <div>
-                                    <FontAwesomeIcon icon={faEyeSlash} color='orangered'/>
-                                  </div>
-                                    
-                                </>
-                              )}
-                          </div>
-                          <div className='msg-content'>
-                              {entry.message}
-                              
-                          </div>
-                        </div> 
-                      );
+                                      
+                                  </>
+                                )}
+                            </div>
+                            <div className='msg-content'>
+                                {entry.message}
+                                
+                            </div>
+                          </div> 
+                        );
+                      }
                     })
                   ) : (
                     <p>No messages sent before</p>
@@ -525,6 +400,16 @@ const PatientPro = () => {
           <div className='right-profile'>
             <div className='info-profile'>
               <div>
+                <label>Medical ID</label>
+                {patient.data.matricule ? 
+                (
+                  <p>{patient.data.matricule}</p>
+                ) :
+                (
+                  <p></p>
+                )}
+              </div>
+              <div>
                 <label>Email</label>
                 <p>{patient.data.email}</p>
               </div>
@@ -535,6 +420,10 @@ const PatientPro = () => {
               <div>
                 <label>Phone</label>
                 <p>{patient.data.phone}</p>
+              </div>
+              <div>
+                <label>Service</label> 
+                <p>{patient.data.service}</p>
               </div>
               <div>
                 <label>Birth</label>
@@ -574,38 +463,11 @@ const PatientPro = () => {
                 )}
               </div>
             </div>
-            <div style={{width:'100%', marginBottom:'0.5rem'}}>
-              <select style={{width:'100%'}} value={selectedOption} onChange={handleOptionChange}>
-                <option value="specificDay">Specific Day</option>
-                <option value="lastWeek">Last Week</option>
-                <option value="lastMonth">Last Month</option>
-                <option value="lastThreeMonths">Last Three Months</option>
-              </select>
-            </div>
-
-            <div className='diagramme'>
-              {selectedOption === "specificDay" ? 
-              (
-                <div style={{ textAlign: 'right', padding: '1rem' }}>
-                <input
-                  type='date'
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  style={{
-                    padding: '0.5rem',
-                    width: '30%',
-                    border: '1px solid white',
-                    borderRadius: '1rem',
-                  }}
-                />
-              </div>
-              ) :
-              (
-                null
-              )}
-              <div className='scatter' style={{ backgroundColor: 'white', padding: '1rem' }}>
-                <Scatter data={data} options={options} />
-              </div>
+            <div>
+              <button className='btn-graphic' onClick={goGraphic}>
+                view graphic
+                <FontAwesomeIcon icon={faShare} style={{marginLeft:'0.5rem'}} />
+                </button>
             </div>
           </div>
         </div>

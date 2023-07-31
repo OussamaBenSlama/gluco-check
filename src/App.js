@@ -21,6 +21,7 @@ import SearchCurrentPatient from './components/DoctorInterface/SearchCurrentPati
 import AddPatient from './components/DoctorInterface/AddPatient'
 import GlycemieRange from './components/DoctorInterface/GlycemieRange'
 import Diagrammes from './components/DoctorInterface/Diagrammes'
+import PatientGraphic from './components/DoctorInterface/PatientGraphic'
 import PatientPro from './components/DoctorInterface/PatientProfile'
 import WelcomeScreen from "./components/WelcomeScreen";
 import Login from './components/Login'
@@ -122,6 +123,7 @@ function App() {
           <Route path="/doctorspace/glycemie-range" element={<GlycemieRange />} />
           <Route path="/doctorspace/statistics" element={<Diagrammes />} />
           <Route path="/doctorspace/patient" element={<PatientPro/>} />
+          <Route path="/doctorspace/patient/graphic" element={<PatientGraphic/>} />
         </React.Fragment>
       ) : null}
     </React.Fragment>

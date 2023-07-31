@@ -34,6 +34,7 @@ const EditPatient = () => {
   }, [patients, text]);
 
   const [name, setName] = useState('');
+  const [matricule, setMatricule] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -62,6 +63,7 @@ const EditPatient = () => {
   useEffect(() => {
     if (patient && patient.data) {
       setName(patient.data.name || '');
+      setMatricule(patient.data.matricule || '');
       setAddress(patient.data.address || '');
       setEmail(patient.data.email || '');
       setPhone(patient.data.phone || '');
@@ -117,6 +119,7 @@ const EditPatient = () => {
 
     await updateDoc(patientRef, {
       name: name,
+      matricule : matricule ,
       email: email,
       gender: gender,
       weight: weight,
@@ -205,7 +208,10 @@ const EditPatient = () => {
             <label>Name:</label> <br />
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
-
+          <div>
+            <label>Medical ID:</label> <br />
+            <input type="text" value={matricule} onChange={(e) => setMatricule(e.target.value)} />
+          </div>
           <div>
             <label>Email:</label> <br />
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -216,7 +222,7 @@ const EditPatient = () => {
           </div>
           <div>
             <label>Address:</label> <br />
-            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <textarea type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
           </div>
           <div>
             <label>Gender:</label> <br />
@@ -243,24 +249,6 @@ const EditPatient = () => {
             <label>Height:</label> <br />
             <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
           </div>
-          <div>
-            <label>Service:</label> <br />
-            <select
-              id='service'
-              name='service'
-              value={selectedService}
-              onChange={(e) => setSelectedService(e.target.value)}
-              style={{ marginBottom: '2rem' }}
-            >
-              <option value=''>Select a Service</option>
-              {services.map((service) => (
-                <option key={service.id} value={service.data.name}>
-                  {service.data.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div className="doctorName-container">
             <label>Doctor Name:</label> <br />
             <input
@@ -293,8 +281,27 @@ const EditPatient = () => {
               </ul>
             )}
           </div>
+          <div>
+            <label>Service:</label> <br />
+            <select
+              id='service'
+              name='service'
+              value={selectedService}
+              onChange={(e) => setSelectedService(e.target.value)}
+              style={{ marginBottom: '2rem' }}
+            >
+              <option value=''>Select a Service</option>
+              {services.map((service) => (
+                <option key={service.id} value={service.data.name}>
+                  {service.data.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <br />
+          
         </div>
+        
         <div className='btn-action'>
           <button id="updatePat" onClick={handleUpdate}>
             Update

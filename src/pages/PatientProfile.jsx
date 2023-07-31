@@ -116,7 +116,7 @@ const PatientProfile = () => {
                 <img src={myLogo} alt="" />
                 <h4>{patient.data.name}</h4>
                 <div>
-                  <button onClick={editPatient}>
+                  <button onClick={editPatient} style={{ backgroundColor:'#057be9', color:'white' }}>
                     <FontAwesomeIcon
                       icon={faEdit}
                       color="white"
@@ -138,8 +138,8 @@ const PatientProfile = () => {
           <div className="right-profile">
             <div className="info-profile">
               <div>
-                <label>ID</label>
-                <p>{patient.id}</p>
+                <label>Medical ID</label>
+                <p>{patient.data.matricule}</p>
               </div>
               <div>
                 <label>Doctor Matricule: </label>

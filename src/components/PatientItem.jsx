@@ -68,7 +68,19 @@ const PatientItem = ({ patient }) => {
   return (
     <div className="Patient-card" >
       <div className="card-header">
-        <h3>Medical ID</h3>
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+          <h3 style={{marginRight:'1rem'}}>Medical ID : </h3>
+            <div>
+                      
+            {patient.data.matricule ? 
+            (
+                <h3>{patient.data.matricule}</h3>
+            ) :
+            (
+                <p></p>
+            )}
+            </div>
+          </div>
         <div className="del-mod">
               <FontAwesomeIcon
                 icon={faTrashAlt}

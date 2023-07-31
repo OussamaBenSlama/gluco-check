@@ -71,6 +71,32 @@ const Diagrammes = () => {
   }, []);
 
   const totalPatients = nbpersonWithDevice + nbpersonWithoutDevice;
+  const [diabetesRanges, setDiabetesRanges] = useState(null);
+  const [normalMin, setNormalMin] = useState(0);
+  const [normalMax, setNormalMax] = useState(0);
+  const [preDiabeteMax, setPreDiabeteMax] = useState(0)
+
+  useEffect(() => {
+    const fetchDiabetesRanges = async () => {
+      try {
+        const diabetesRangesRef = collection(db, 'diabeteRange');
+        const diabetesRangesSnapshot = await getDocs(diabetesRangesRef);
+        const diabetesRangesData = diabetesRangesSnapshot.docs[0].data();
+        setDiabetesRanges(diabetesRangesData);
+        
+        if (diabetesRangesData && diabetesRangesData.normal && diabetesRangesData.prediabete) {
+          setNormalMin(diabetesRangesData.normal.min);
+          setNormalMax(diabetesRangesData.normal.max);
+          setPreDiabeteMax(diabetesRangesData.prediabete.max);
+        }
+      } catch (error) {
+        console.error('Error fetching diabetes ranges:', error);
+      }
+    };
+  
+    fetchDiabetesRanges();
+  }, []);
+  
 
   useEffect(() => {
     let hypoCount = 0;
@@ -111,20 +137,15 @@ const Diagrammes = () => {
         if (validHistory !== 0) {
           average = sum / validHistory;
         }
-        console.log(sum ,validHistory)
-        console.log(patient.id , average)
-
-        if (average < 0.7 && average > 0) {
+        
+        if (average < normalMin && average > 0) {
           hypoCount += 1;
-        } else if (average >= 0.7 && average <= 1.10) {
+        } else if (average >= normalMin && average <= normalMax) {
           normalCount += 1;
-        } else if (average > 1.10 && average <= 1.25) {
+        } else if (average > normalMax && average <= preDiabeteMax) {
           preDiabeteCount += 1;
-        } else if (average > 1.25) {
+        } else if (average > preDiabeteMax) {
           hyperCount += 1;
-        }
-        else {
-          emptyCount ++ ;
         }
       } else {
         emptyCount += 1;
@@ -136,8 +157,9 @@ const Diagrammes = () => {
     setPreDiabete(preDiabeteCount);
     setHyper(hyperCount);
     setEmptyHistoryCount(emptyCount);
+    
   }, [patients, selectedOption]);
-
+  
   const pieData = {
     labels: ['Hypo', 'Normal', 'Pre-diabete', 'Hyper'],
     datasets: [
