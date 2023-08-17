@@ -1,7 +1,7 @@
 // App.js
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route , Navigate} from "react-router-dom";
 import DoctorList from "./pages/DoctorList";
 import NewDoctor from "./pages/NewDoctor";
 import SpecificDoctor from "./pages/SpecificDoctor";
@@ -63,7 +63,7 @@ function App() {
         const doctorUser = doctorUsers.find(
           (doctor) => doctor.data.id === user.uid
         );
-        console.log(doctorUser)
+        
         if (doctorUser) {
           setAuthenticated(true);
           setUserType("doctor");
@@ -92,38 +92,41 @@ function App() {
   <Routes>
   {!authenticated ? (
     <React.Fragment>
-      <Route path="/" element={<WelcomeScreen />} />
-      <Route path="/login/:userType" element={<Login />} />
+      <Route exact path="/"  element={<WelcomeScreen />} />
+      <Route exact path="/*"  element={<Navigate to="/" />} />
+      <Route exact path="/login/:userType"  element={<Login />} />
     </React.Fragment>
   ) : (
     <React.Fragment>
       {userType === "admin" ? (
         <React.Fragment>
-          <Route path="/" element={<DoctorList />} />
-          <Route path="/dashboard" element={<DoctorList />} />
-          <Route path="/dashboard/addnewdoctor" element={<NewDoctor />} />
-          <Route path="/dashboard/searchdoctor" element={<SpecificDoctor />} />
-          <Route path="/dashboard/editdoctor/:text" element={<EditDoctor />} />
-          <Route path="/dashboard/:text" element={<Profile />} />
-          <Route path="/dashboard/patients" element={<PatientList />} />
-          <Route path="/dashboard/glycemie" element={<Glycemie />} /> 
-          <Route path="/dashboard/patient/searchpatient/:text" element={<SpecificPatient />} />
-          <Route path="/dashboard/patient/editpatient/:text" element={<EditPatient />} />
-          <Route path="/dashboard/patient/profile/:text" element={<PatientProfile />} />
-          <Route path="/specialities" element={<Specialities />} />
-          <Route path="/services" element={<Service/>} />
+          
+          <Route exact path="/*"  element={<Navigate to="/dashboard" />} />
+          <Route exact path="/dashboard"  element={<DoctorList />} />
+          <Route exact path="/dashboard/addnewdoctor"  element={<NewDoctor />} />
+          <Route exact path="/dashboard/searchdoctor"  element={<SpecificDoctor />} />
+          <Route exact path="/dashboard/editdoctor/:text"  element={<EditDoctor />} />
+          <Route exact path="/dashboard/:text"  element={<Profile />} />
+          <Route exact path="/dashboard/patients"  element={<PatientList />} />
+          <Route exact path="/dashboard/glycemie"  element={<Glycemie />} /> 
+          <Route exact path="/dashboard/patient/searchpatient/:text"  element={<SpecificPatient />} />
+          <Route exact path="/dashboard/patient/editpatient/:text"  element={<EditPatient />} />
+          <Route exact path="/dashboard/patient/profile/:text"  element={<PatientProfile />} />
+          <Route exact path="/specialities"  element={<Specialities />} />
+          <Route exact path="/services"  element={<Service/>} />
         </React.Fragment>
       ) : userType === "doctor" ? (
         <React.Fragment>
-          <Route path="/doctorspace" element={<MainPage />} />
-          <Route path="/doctorspace/listpatients" element={<ListPatient />} />
-          <Route path="/doctorspace/editprofile" element={<EditProfile />} />
-          <Route path="/doctorspace/searchpatient/:text" element={<SearchCurrentPatient />} />
-          <Route path="/doctorspace/addpatient" element={<AddPatient />} />
-          <Route path="/doctorspace/glycemie-range" element={<GlycemieRange />} />
-          <Route path="/doctorspace/statistics" element={<Diagrammes />} />
-          <Route path="/doctorspace/patient" element={<PatientPro/>} />
-          <Route path="/doctorspace/patient/graphic" element={<PatientGraphic/>} />
+          <Route exact path="/doctorspace"  element={<MainPage />} />
+          <Route exact path="/*"  element={<Navigate to="/doctorspace" />} />
+          <Route exact path="/doctorspace/listpatients"  element={<ListPatient />} />
+          <Route exact path="/doctorspace/editprofile"  element={<EditProfile />} />
+          <Route exact path="/doctorspace/searchpatient/:text"  element={<SearchCurrentPatient />} />
+          <Route exact path="/doctorspace/addpatient"  element={<AddPatient />} />
+          <Route exact path="/doctorspace/glycemie-range"  element={<GlycemieRange />} />
+          <Route exact path="/doctorspace/statistics"  element={<Diagrammes />} />
+          <Route exact path="/doctorspace/patient"  element={<PatientPro/>} />
+          <Route exact path="/doctorspace/patient/graphic"  element={<PatientGraphic/>} />
         </React.Fragment>
       ) : null}
     </React.Fragment>

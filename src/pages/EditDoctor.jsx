@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import {useParams } from 'react-router-dom';
+import {useParams ,useNavigate} from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import '../style/DoctorList.css';
@@ -11,6 +11,7 @@ const EditDoctor = () => {
   const { text } = useParams();
   const [doctors, setDoctors] = useState([]);
   const [doctor, setDoctor] = useState(null);
+  const navigate = useNavigate()
   // fetch all data
   useEffect(() => {
     const doctorsRef = collection(db, "doctors");
@@ -117,7 +118,7 @@ const EditDoctor = () => {
       service:service,
     });
     alert("update successfully");
-    
+    navigate('/dashboard')
   };
   const nations = [
     'Afghane',

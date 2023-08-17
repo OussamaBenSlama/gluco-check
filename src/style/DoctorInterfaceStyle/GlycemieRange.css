@@ -58,6 +58,10 @@
 .list-range div {
     height: 3rem;
     width: 9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(36, 35, 35);
     /* border: 1px solid rgb(196, 194, 194); */
 }
 .label-range {

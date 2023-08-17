@@ -439,11 +439,11 @@ const PatientPro = () => {
               </div>
               <div>
                 <label>Height</label>
-                <p>{patient.data.height}</p>
+                <p>{patient.data.height} cm</p>
               </div>
               <div>
                 <label>Weight</label>
-                <p>{patient.data.weight}</p>
+                <p>{patient.data.weight} kg</p>
               </div>
               <div>
                 {patient.data.device &&

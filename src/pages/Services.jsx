@@ -218,15 +218,15 @@ const Service = () => {
             </div>
             <div className='Speciality-items'>
               <div className='speciality-item'>
-                <p style={{ textAlign: 'center', color: '#004054', fontWeight: 'bold', width: '25%' }}>Chief service</p>
                 <p style={{ textAlign: 'center', color: '#004054', fontWeight: 'bold', width: '25%' }}>Reference</p>
                 <p style={{ textAlign: 'center', textTransform: 'capitalize', color: '#004054', fontWeight: 'bold', width: '25%' }}>Service</p>
+                <p style={{ textAlign: 'center', color: '#004054', fontWeight: 'bold', width: '25%' }}>Chief service</p>
                 <p style={{ textAlign: 'center', color: '#004054', fontWeight: 'bold', width: '25%' }}></p>
               </div>
               {services.length > 0 ? (
                 services.map((service) => (
                   <div className='speciality-item' key={service.id}>
-                    <p style={{ width: '25%', textAlign: 'center' }}>{service.data.chiefName}</p>
+                    
                     <p style={{ color: '#009197', fontWeight: 'bold', width: '25%', textAlign: 'center' }}>{service.data.reference}</p>
                     {isEditing === service.id ? (
                       <input
@@ -243,6 +243,7 @@ const Service = () => {
                     ) : (
                       <p style={{ textTransform: 'capitalize', width: '25%', textAlign: 'center' }}>{service.data.name}</p>
                     )}
+                    <p style={{ width: '25%', textAlign: 'center' }}>{service.data.chiefName}</p>
                     <div style={{ width: '25%', textAlign: 'center' }}>
                       <FontAwesomeIcon
                         icon={faTrashAlt}

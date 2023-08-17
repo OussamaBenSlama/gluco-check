@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {doc, updateDoc ,collection , getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import {useLocation } from 'react-router-dom';
+import {useLocation ,useNavigate} from 'react-router-dom';
 import Navbar from './Navbar';
 import Header from './Header';
 import '../../style/DoctorList.css';
@@ -10,7 +10,7 @@ import '../../style/DoctorList.css';
 const EditProfile = () => {
     const location = useLocation();
     const { doctor } = location.state;
-    
+    const naviagte = useNavigate()
 
   const [name, setName] = useState("");
   const [speciality, setSpeciality] = useState("");
@@ -95,6 +95,7 @@ const EditProfile = () => {
       service : service,
     });
     alert("update successfully");
+    naviagte('/doctorspace')
   };
   const nations = [
     'Afghane',

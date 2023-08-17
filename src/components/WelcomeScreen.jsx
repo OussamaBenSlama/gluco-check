@@ -17,7 +17,7 @@ const WelcomeScreen = () => {
         <img src={logo} alt="logo" />
 
         <div className="login-form">
-          <h2>GlucoChek</h2>
+          <h2>GlucoCheck</h2>
           <div className="welcome-btn">
             <button onClick={() => handleLoginPage("admin")}>Admin</button>
             <button onClick={() => handleLoginPage("doctor")}>Doctor</button>

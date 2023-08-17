@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { collection, getDocs, doc, updateDoc, arrayUnion, getDoc, arrayRemove } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import HeaderPatient from '../components/HeaderPatient';
 import '../style/DoctorList.css';
@@ -10,6 +10,7 @@ const EditPatient = () => {
   const { text } = useParams();
   const [patients, setPatients] = useState([]);
   const [patient, setPatient] = useState(null);
+  const naviagte = useNavigate()
 
   useEffect(() => {
     const patientRef = collection(db, "users");
@@ -145,6 +146,7 @@ const EditPatient = () => {
     }
 
     alert("Update successful");
+    naviagte('/dashboard/patients')
   };
 
   // Fetch services for autocomplete in service input:
@@ -242,11 +244,11 @@ const EditPatient = () => {
             <input type="date" value={birth} onChange={(e) => setBirth(e.target.value)} />
           </div>
           <div>
-            <label>Weight:</label> <br />
+            <label>Weight (kg):</label> <br />
             <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
           </div>
           <div>
-            <label>Height:</label> <br />
+            <label>Height (cm):</label> <br />
             <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
           </div>
           <div className="doctorName-container">

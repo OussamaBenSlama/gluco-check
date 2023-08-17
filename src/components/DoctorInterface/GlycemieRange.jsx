@@ -16,9 +16,9 @@ const GlycemieRange = () => {
     const [maxNormal, setMaxNormal]  = useState(0)
     const [minHyper, setMinHyper]  = useState(0)
     
-    const [yellow, setyellow]  = useState(false)
-    const [green, setgreen]  = useState(false)
-    const [orange, setorange]  = useState(false)
+    const [yellow, setyellow]  = useState(true)
+    const [green, setgreen]  = useState(true)
+    const [orange, setorange]  = useState(true)
     const [range, setRange]  = useState({})
 
     // Function to fetch the diabeteRange document
@@ -81,7 +81,7 @@ const GlycemieRange = () => {
                             <input type="number" value={minNormal}
                             onChange={(e)=> {
                                 setMinNormal(e.target.value) ;
-                                setyellow(true)
+                                
                             }}
                             />
                         </div>
@@ -90,7 +90,7 @@ const GlycemieRange = () => {
                             <input type="number" value={maxNormal}
                             onChange={(e)=> {
                                 setMaxNormal(e.target.value) ;
-                                setgreen(true) ;
+                                
                             }}
                             />
                         </div>
@@ -99,46 +99,21 @@ const GlycemieRange = () => {
                             <input type="number" value={minHyper}
                             onChange={(e)=> {
                                 setMinHyper(e.target.value) ;
-                                setorange(true)
+                                
                             }}
                             />
                         </div>
-                    <button onClick={handleUpdate}>modify</button>
+                    <button onClick={handleUpdate}>validate</button>
                 </div>
             
                 {/* divs to show the range */}
                 <div className='show-range'>
                     <div className='list-range'>
                                 <div className='flesh-left'></div>
-                            {yellow ? (
-                                <React.Fragment>
-                                    <div className='hypoglycemie'></div>
-                                </React.Fragment>
-                                ) : (
-                                <React.Fragment>
-                                    <div className=''></div>
-                                </React.Fragment>
-                            )}
-                            {green ? (
-                                <React.Fragment>
-                                    <div className='normal'></div>
-                                </React.Fragment>
-                                ) : (
-                                <React.Fragment>
-                                    <div className=''></div>
-                                </React.Fragment>
-                            )}
-                            {orange ? (
-                                <React.Fragment>
-                                    <div className='pre-diabete'></div>
-                                    <div className='hyperglycemie'></div>
-                                </React.Fragment>
-                                ) : (
-                                <React.Fragment>
-                                    <div className=''></div>
-                                    <div className=''></div>
-                                </React.Fragment>
-                            )}
+                                <div className='hypoglycemie'>hypoglycemie</div>
+                                <div className='normal'>normal</div>
+                                <div className='pre-diabete'>pre diabete</div>
+                                <div className='hyperglycemie'>hyperglycemie</div>
                                 
                                 <div className='flesh-right'></div>
                                 
